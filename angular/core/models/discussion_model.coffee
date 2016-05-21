@@ -8,8 +8,7 @@ angular.module('loomioApp').factory 'DiscussionModel', (DraftableModel, AppConfi
     @serializableAttributes: AppConfig.permittedParams.discussion
 
     afterConstruction: ->
-      if @isNew()
-        @private = @privateDefaultValue()
+      @private = @privateDefaultValue() if @isNew()
 
     defaultValues: =>
       private: null
@@ -64,38 +63,17 @@ angular.module('loomioApp').factory 'DiscussionModel', (DraftableModel, AppConfi
     hasActiveProposal: ->
       @activeProposal()?
 
-    activeProposalClosingAt: ->
-      proposal = @activeProposal()
-      proposal.closingAt if proposal?
-
-    activeProposalClosedAt: ->
-      proposal = @activeProposal()
-      proposal.closedAt if proposal?
-
-    activeProposalLastVoteAt: ->
-      proposal = @activeProposal()
-      proposal.lastVoteAt if proposal?
-
     isUnread: ->
       @discussionReaderId? and (!@lastReadAt? or @unreadActivityCount() > 0)
+
+    hasUnreadActivity: ->
+      @isUnread() && @unreadActivityCount() > 0
 
     isImportant: ->
       @starred or @hasActiveProposal()
 
-    unreadItemsCount: ->
-      @itemsCount - @readItemsCount
-
     unreadActivityCount: ->
       @salientItemsCount - @readSalientItemsCount
-
-    unreadCommentsCount: ->
-      @commentsCount - @readCommentsCount
-
-    lastInboxActivity: ->
-      @activeProposalClosingAt() or @lastActivityAt
-
-    unreadPosition: ->
-      @lastReadSequenceId + 1
 
     eventIsLoaded: (event) ->
       event.sequenceId or
@@ -132,18 +110,17 @@ angular.module('loomioApp').factory 'DiscussionModel', (DraftableModel, AppConfi
     saveStar: ->
       @remote.patchMember @keyOrId(), if @starred then 'star' else 'unstar'
 
-    markAsRead: (sequenceId) ->
-      return unless @discussionReaderId?
-      if isNaN(sequenceId)
-        sequenceId = @lastSequenceId
-        @update(readItemsCount: @itemsCount,
-                readSalientItemsCount: @salientItemsCount,
-                readCommentsCount: @commentsCount,
-                lastReadAt: moment())
+    update: (attrs) ->
+      delete attrs.lastReadSequenceId    if attrs.lastReadSequenceId < @lastReadSequenceId
+      delete attrs.readSalientItemsCount if attrs.readSalientItemsCount < @readSalientItemsCount
+      @baseUpdate(attrs)
 
-      if _.isNull(@lastReadAt) or @lastReadSequenceId < sequenceId
-        @remote.patchMember(@keyOrId(), 'mark_as_read', {sequence_id: sequenceId})
-        @update(lastReadSequenceId: sequenceId)
+    markAsRead: (sequenceId) ->
+      sequenceId = @lastSequenceId if isNaN(sequenceId)
+
+      if @discussionReaderId? and (_.isNull(@lastReadAt) or @lastReadSequenceId < sequenceId)
+        @remote.patchMember @keyOrId(), 'mark_as_read', sequence_id: sequenceId
+        @update(lastReadAt: moment(), lastReadSequenceId: sequenceId)
 
     move: =>
       @remote.patchMember @keyOrId(), 'move', { group_id: @groupId }

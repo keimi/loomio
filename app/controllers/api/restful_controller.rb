@@ -1,6 +1,7 @@
 class API::RestfulController < ActionController::Base
   include ::LocalesHelper
   include ::ProtectedFromForgery
+  include ::LoadAndAuthorize
   before_filter :set_application_locale
   before_filter :set_paper_trail_whodunnit
   snorlax_used_rest!
@@ -20,7 +21,7 @@ class API::RestfulController < ActionController::Base
   end
 
   def current_user
-    super || token_user || LoggedOutUser.new
+    super || token_user || restricted_user || LoggedOutUser.new
   end
 
   def token_user
@@ -29,14 +30,12 @@ class API::RestfulController < ActionController::Base
     @token_user ||= User.find(doorkeeper_token.resource_owner_id)
   end
 
-  def permitted_params
-    @permitted_params ||= PermittedParams.new(params)
+  def restricted_user
+    @restricted_user ||= User.find_by(unsubscribe_token: params[:unsubscribe_token]) if params[:unsubscribe_token]
   end
 
-  def load_and_authorize(model, action = :show, optional: false)
-    return if optional && !(params[:"#{model}_id"] || params[:"#{model}_key"])
-    instance_variable_set :"@#{model}", ModelLocator.new(model, params).locate
-    authorize! action, instance_variable_get(:"@#{model}")
+  def permitted_params
+    @permitted_params ||= PermittedParams.new(params)
   end
 
   def service

@@ -1,4 +1,4 @@
-angular.module('loomioApp').controller 'GroupPageController', ($rootScope, $location, $routeParams, Records, CurrentUser, MessageChannelService, AbilityService, AppConfig, LmoUrlService, PaginationService, ModalService, SubscriptionSuccessModal, GroupWelcomeModal, LegacyTrialExpiredModal) ->
+angular.module('loomioApp').controller 'GroupPageController', ($rootScope, $location, $routeParams, Records, Session, MessageChannelService, AbilityService, AppConfig, LmoUrlService, PaginationService, ModalService, SubscriptionSuccessModal, GroupWelcomeModal, LegacyTrialExpiredModal) ->
   $rootScope.$broadcast 'currentComponent', {page: 'groupPage'}
 
   # allow for chargify reference, which comes back #{groupKey}|#{timestamp}
@@ -12,12 +12,16 @@ angular.module('loomioApp').controller 'GroupPageController', ($rootScope, $loca
       Records.drafts.fetchFor(@group)
       @handleSubscriptionSuccess()
       @handleWelcomeModal()
-      LegacyTrialExpiredModal.showIfAppropriate(@group, CurrentUser)
+      LegacyTrialExpiredModal.showIfAppropriate(@group, Session.user())
 
+    maxDiscussions = if AbilityService.canViewPrivateContent(@group)
+      @group.discussionsCount
+    else
+      @group.publicDiscussionsCount
     @pageWindow = PaginationService.windowFor
       current:  parseInt($location.search().from or 0)
       min:      0
-      max:      @group.publicDiscussionsCount
+      max:      maxDiscussions
       pageType: 'groupThreads'
 
     $rootScope.$broadcast 'viewingGroup', @group
@@ -62,11 +66,11 @@ angular.module('loomioApp').controller 'GroupPageController', ($rootScope, $loca
     @group.noInvitationsSent() and
     !@group.trialIsOverdue() and
     !@subscriptionSuccess and
-    !GroupWelcomeModal.shownToGroup[@group.id]
+    !Session.user().hasExperienced("welcomeModal", @group)
 
   @handleWelcomeModal = =>
     if @showWelcomeModel()
-      GroupWelcomeModal.shownToGroup[@group.id] = true
-      ModalService.open GroupWelcomeModal
+      ModalService.open(GroupWelcomeModal)
+      Records.memberships.saveExperience("welcomeModal", Session.user().membershipFor(@group))
 
   return

@@ -40,11 +40,10 @@ describe 'Dashboard Page', ->
     page.clickFirst('.thread-preview__mute')
     page.expectFlash('Thread muted.')
 
-  xit 'displays a view of muted threads by group', ->
-    page.click('.dashboard-page__filter-dropdown button')
-    page.click('.dashboard-page__filter-muted a')
-    # browser.driver.sleep(10000)
-    page.expectText('.dashboard-page__group-name', 'Dirty Dancing Shoes')
-    page.expectText('.dashboard-page__collections', 'Muted discussion')
-    page.expectText('.dashboard-page__collections', 'Muted group discussion')
-    page.expectNoText('.dashboard-page__collections','Recent discussion')
+describe 'Logged out', ->
+  it 'forces visitors to log in', ->
+    page.loadPath 'setup_dashboard_as_visitor'
+    page.fillIn '#user-email', 'patrick_swayze@example.com'
+    page.fillIn '#user-password', 'gh0stmovie'
+    page.click '.sign-in-form__submit-button'
+    page.expectText '.thread-previews-container', 'Recent discussion'

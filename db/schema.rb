@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160317031412) do
+ActiveRecord::Schema.define(version: 20160512033506) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -236,7 +236,6 @@ ActiveRecord::Schema.define(version: 20160317031412) do
     t.datetime "updated_at"
     t.integer  "discussion_id",                            null: false
     t.datetime "last_read_at"
-    t.integer  "read_comments_count",      default: 0,     null: false
     t.integer  "read_items_count",         default: 0,     null: false
     t.integer  "last_read_sequence_id",    default: 0,     null: false
     t.integer  "read_salient_items_count", default: 0,     null: false
@@ -271,7 +270,6 @@ ActiveRecord::Schema.define(version: 20160317031412) do
     t.text     "description"
     t.boolean  "uses_markdown",       default: false, null: false
     t.boolean  "is_deleted",          default: false, null: false
-    t.integer  "comments_count",      default: 0,     null: false
     t.integer  "items_count",         default: 0,     null: false
     t.boolean  "private"
     t.string   "key"
@@ -281,7 +279,6 @@ ActiveRecord::Schema.define(version: 20160317031412) do
     t.datetime "last_activity_at"
     t.integer  "last_sequence_id",    default: 0,     null: false
     t.integer  "first_sequence_id",   default: 0,     null: false
-    t.datetime "last_item_at"
     t.integer  "salient_items_count", default: 0,     null: false
     t.integer  "versions_count",      default: 0
   end
@@ -472,6 +469,9 @@ ActiveRecord::Schema.define(version: 20160317031412) do
     t.integer  "admin_memberships_count",            default: 0,              null: false
     t.integer  "invitations_count",                  default: 0,              null: false
     t.integer  "public_discussions_count",           default: 0,              null: false
+    t.string   "country"
+    t.string   "region"
+    t.string   "city"
   end
 
   add_index "groups", ["category_id"], name: "index_groups_on_category_id", using: :btree
@@ -501,8 +501,10 @@ ActiveRecord::Schema.define(version: 20160317031412) do
     t.datetime "updated_at"
     t.boolean  "single_use",      default: true,  null: false
     t.text     "message"
+    t.integer  "send_count",      default: 0,     null: false
   end
 
+  add_index "invitations", ["accepted_at"], name: "index_invitations_on_accepted_at", where: "(accepted_at IS NULL)", using: :btree
   add_index "invitations", ["created_at"], name: "index_invitations_on_created_at", using: :btree
   add_index "invitations", ["invitable_type", "invitable_id"], name: "index_invitations_on_invitable_type_and_invitable_id", using: :btree
   add_index "invitations", ["token"], name: "index_invitations_on_token", using: :btree
@@ -539,6 +541,7 @@ ActiveRecord::Schema.define(version: 20160317031412) do
     t.boolean  "admin",          default: false, null: false
     t.boolean  "is_suspended",   default: false, null: false
     t.integer  "volume",         default: 2,     null: false
+    t.jsonb    "experiences",    default: {},    null: false
   end
 
   add_index "memberships", ["created_at"], name: "index_memberships_on_created_at", using: :btree
@@ -571,17 +574,17 @@ ActiveRecord::Schema.define(version: 20160317031412) do
     t.integer  "discussion_id"
     t.text     "outcome"
     t.datetime "last_vote_at"
-    t.boolean  "uses_markdown",           default: true, null: false
-    t.integer  "yes_votes_count",         default: 0,    null: false
-    t.integer  "no_votes_count",          default: 0,    null: false
-    t.integer  "abstain_votes_count",     default: 0,    null: false
-    t.integer  "block_votes_count",       default: 0,    null: false
+    t.boolean  "uses_markdown",       default: true, null: false
+    t.integer  "yes_votes_count",     default: 0,    null: false
+    t.integer  "no_votes_count",      default: 0,    null: false
+    t.integer  "abstain_votes_count", default: 0,    null: false
+    t.integer  "block_votes_count",   default: 0,    null: false
     t.datetime "closing_at"
-    t.integer  "did_not_votes_count"
-    t.integer  "votes_count",             default: 0,    null: false
+    t.integer  "votes_count",         default: 0,    null: false
     t.integer  "outcome_author_id"
     t.string   "key"
-    t.integer  "members_not_voted_count", default: 0,    null: false
+    t.integer  "members_count"
+    t.integer  "voters_count",        default: 0,    null: false
   end
 
   add_index "motions", ["author_id"], name: "index_motions_on_author_id", using: :btree
@@ -809,6 +812,10 @@ ActiveRecord::Schema.define(version: 20160317031412) do
     t.boolean  "email_on_participation",           default: true,       null: false
     t.integer  "default_membership_volume",        default: 3,          null: false
     t.boolean  "has_muted",                        default: false,      null: false
+    t.jsonb    "experiences",                      default: {},         null: false
+    t.string   "country"
+    t.string   "region"
+    t.string   "city"
   end
 
   add_index "users", ["deactivated_at"], name: "index_users_on_deactivated_at", using: :btree

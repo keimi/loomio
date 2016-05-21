@@ -15,11 +15,6 @@ describe 'Discussion Page', ->
       page.click('.thread-preview__link')
       page.expectText('.thread-context', 'I carried a watermelon')
 
-    xit 'should display next/prev links', ->
-      groupsHelper.loadPath('setup_discussion_with_many_comments', 100000)
-      page.expectElement('link[rel=next]')
-      page.expectElement('link[rel=prev]')
-
   describe 'edit thread', ->
     beforeEach ->
       page.loadPath('setup_discussion')
@@ -104,6 +99,38 @@ describe 'Discussion Page', ->
                  '.change-volume-form__submit'
       page.expectFlash 'You will be emailed about new threads and proposals in this group.'
 
+  describe 'joining the group', ->
+    it 'allows logged in users to join a group and comment', ->
+      page.loadPath 'view_open_group_as_non_member'
+      page.click '.thread-preview__link'
+      page.click '.join-group-button__join-group'
+      page.expectFlash 'You are now a member of Open Dirty Dancing Shoes'
+
+      page.fillIn '.comment-form__comment-field', 'I am new!'
+      page.click '.comment-form__submit-button'
+      page.expectFlash 'Comment added'
+
+    it 'allows logged in users to request to join a closed group', ->
+      page.loadPath 'view_closed_group_as_non_member', ->
+      page.click '.thread-preview__link'
+      page.click '.join-group-button__ask-to-join-group'
+      page.click '.membership-request-form__submit-btn'
+      page.expectFlash 'You have requested membership to Closed Dirty Dancing Shoes'
+
+  describe 'signing in', ->
+    it 'allows logged out users to log in and comment', ->
+      page.loadPath 'view_open_group_as_visitor'
+      page.click '.thread-preview__link'
+      page.click '.comment-form__sign-in-btn'
+      page.fillIn '#user-email', 'jennifer_grey@example.com'
+      page.fillIn '#user-password', 'gh0stmovie'
+      page.click '.sign-in-form__submit-button'
+      page.expectFlash 'Signed in successfully'
+
+      page.fillIn '.comment-form__comment-field', 'I am new!'
+      page.click '.comment-form__submit-button'
+      page.expectFlash 'Comment added'
+
   describe 'commenting', ->
     beforeEach ->
       page.loadPath('setup_discussion')
@@ -156,8 +183,8 @@ describe 'Discussion Page', ->
                  '.thread-item__edit-link'
       page.fillIn '.edit-comment-form__comment-field', 'Revised comment!'
       page.click  '.comment-form__submit-btn'
-      page.click '.thread-item__action--view-edits',
-                 '.thread-item__action--view-edits'
+      browser.sleep(5000)
+      page.click '.thread-item__action--view-edits'
       page.expectText '.revision-history-modal__body', 'Revised comment!'
       page.expectText '.revision-history-modal__body', 'Comment!'
 

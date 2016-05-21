@@ -1,26 +1,60 @@
 describe 'Group Page', ->
 
   page = require './helpers/page_helper.coffee'
+  staticPage = require './helpers/static_page_helper.coffee'
+
+  describe 'start group from home page', ->
+    it 'allows starting a group via the start_group route', ->
+      staticPage.loadPath 'view_homepage_as_visitor'
+      staticPage.click '#try-it-main'
+      staticPage.fillIn '#group_name', 'My First Group'
+      staticPage.fillIn '#group_description', 'Building a Better Bolshevik'
+      staticPage.fillIn '#name', 'Test Example'
+      staticPage.fillIn '#email', 'test@example.com'
+      staticPage.click '#sign-up-submit'
+
+      staticPage.loadPath 'last_email'
+      staticPage.click 'a[href]'
+
+      staticPage.fillIn '#user_password', 'vivalarevolucion'
+      staticPage.fillIn '#user_password_confirmation', 'vivalarevolucion'
+      staticPage.click  '#create-account'
+
+      page.expectText '.modal-title', 'Welcome to your new group'
+      page.click '.group-welcome-modal__close-button'
+      page.expectText '.group-theme__name', 'My First Group'
+      page.expectFlash 'Welcome! You have signed up successfully'
+
+    it 'allows starting a group with an existing email', ->
+      staticPage.loadPath 'view_homepage_as_visitor'
+      staticPage.click '#try-it-main'
+      staticPage.fillIn '#group_name', 'My First Group'
+      staticPage.fillIn '#group_description', 'Building a Better Bolshevik'
+      staticPage.fillIn '#name', 'Test Example'
+      staticPage.fillIn '#email', 'patrick_swayze@example.com'
+      staticPage.click '#sign-up-submit'
+
+      staticPage.loadPath 'last_email'
+      staticPage.click 'a[href]'
+
+      staticPage.fillIn '#user_password', 'gh0stmovie'
+      staticPage.click '#sign-in-btn'
+
+      page.expectText '.modal-title', 'Welcome to your new group'
+      page.click '.group-welcome-modal__close-button'
+      page.expectText '.group-theme__name', 'My First Group'
+      page.expectFlash 'Signed in successfully'
 
   describe 'non-member views group', ->
     describe 'logged out user', ->
-      xit 'should display group content', ->
-        page.loadPath('setup_group_with_many_discussions')
-        page.expectElement('.group-theme__name')
-        page.expectElement('.lmo-navbar__sign-in')
-        page.expectElement('.thread-preview__title')
-        page.expectElement('link[rel=prev]')
-        page.expectElement('link[rel=next]')
-
       it 'should allow you to join an open group', ->
         page.loadPath 'view_open_group_as_visitor'
         page.click '.join-group-button__join-group'
-        browser.driver.findElement(By.id('user_name')).sendKeys('Name')
-        browser.driver.findElement(By.id('user_email')).sendKeys('test@example.com')
-        browser.driver.findElement(By.id('user_password')).sendKeys('complex_password')
-        browser.driver.findElement(By.id('user_password_confirmation')).sendKeys('complex_password')
-        browser.driver.findElement(By.id('create-account')).click()
-        page.click '.group-welcome-modal__close-button'
+        staticPage.fillIn '#user_name', 'Name'
+        staticPage.fillIn '#user_email', 'test@example.com'
+        staticPage.fillIn '#user_password', 'complex_password'
+        staticPage.fillIn '#user_password_confirmation', 'complex_password'
+        staticPage.click '#create-account'
         page.expectElement '.lmo-navbar__item--user'
         page.expectElement '.group-theme__name', 'Open Dirty Dancing Shoes'
 
@@ -32,12 +66,30 @@ describe 'Group Page', ->
         page.click '.membership-request-form__submit-btn'
         page.expectFlash 'You have requested membership to Closed Dirty Dancing Shoes'
 
+      it 'should reload a closed group after logging in', ->
+        page.loadPath 'view_closed_group_as_visitor'
+        page.click '.lmo-navbar__sign-in'
+        page.fillIn '#user-email', 'jennifer_grey@example.com'
+        page.fillIn '#user-password', 'gh0stmovie'
+        page.click '.sign-in-form__submit-button'
+        page.expectText '.group-theme__name', 'Closed Dirty Dancing Shoes'
+        page.expectText '.thread-previews-container', 'This thread is private'
+        page.expectElement '.navbar-user-options__user-profile-icon'
+
+      it 'should prompt for login for secret group', ->
+        page.loadPath 'view_secret_group_as_visitor'
+        page.fillIn '#user-email', 'patrick_swayze@example.com'
+        page.fillIn '#user-password', 'gh0stmovie'
+        page.click '.sign-in-form__submit-button'
+        page.expectText '.group-theme__name', 'Secret Dirty Dancing Shoes'
+        page.expectElement '.navbar-user-options__user-profile-icon'
+
       it 'does not allow mark as read or mute', ->
         page.loadPath('view_open_group_as_visitor')
         page.expectNoElement('.thread-preview__mark-as-read')
         page.expectNoElement('.thread-preview__mute')
 
-      it 'displays previous proposals to visitors of open groups', ->
+      it 'open group displays previous proposals', ->
         page.loadPath('view_open_group_as_visitor')
         page.expectText('.group-previous-proposals-card', 'Let\'s go to the moon!')
 
@@ -77,6 +129,12 @@ describe 'Group Page', ->
       page.click '.group-form__submit-button'
       page.click '.group-welcome-modal__close-button'
       page.expectText '.group-privacy-button', 'Open'
+
+    it 'does not reshow the welcome modal', ->
+      page.loadPath('setup_new_group')
+      page.expectElement '.group-welcome-modal'
+      browser.refresh()
+      page.expectNoElement '.group-welcome-modal'
 
     it 'starts a closed group', ->
       page.loadPath('setup_new_group')
@@ -352,3 +410,8 @@ describe 'Group Page', ->
                  '.change-volume-form__apply-to-all',
                  '.change-volume-form__submit'
       page.expectFlash 'You will be emailed about new threads and proposals in all your groups.'
+
+  describe 'subdomains', ->
+    it 'handles subdomain redirects', ->
+      page.loadPath 'setup_group_with_subdomain'
+      page.expectText '.group-theme__name', 'Ghostbusters'

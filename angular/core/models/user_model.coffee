@@ -6,7 +6,7 @@ angular.module('loomioApp').factory 'UserModel', (BaseModel, AppConfig) ->
     @serializableAttributes: AppConfig.permittedParams.user
 
     relationships: ->
-      # note we should move these to a CurrentUser extends User so that all our authors dont get views created
+      # note we should move these to a User extends UserModel so that all our authors dont get views created
       @hasMany 'memberships'
       @hasMany 'notifications'
       @hasMany 'contacts'
@@ -52,9 +52,18 @@ angular.module('loomioApp').factory 'UserModel', (BaseModel, AppConfig) ->
       @name.split(' ').slice(1).join(' ')
 
     saveVolume: (volume, applyToAll) ->
-      @remote.post('set_volume', { volume: volume, apply_to_all: applyToAll }).then =>
+      @remote.post('set_volume',
+        volume: volume
+        apply_to_all: applyToAll
+        unsubscribe_token: @unsubscribeToken).then =>
         return unless applyToAll
         _.each @allThreads(), (thread) ->
           thread.update(discussionReaderVolume: null)
         _.each @memberships(), (membership) ->
           membership.update(volume: volume)
+
+    hasExperienced: (key, group) ->
+      if group && @isMemberOf(group)
+        @membershipFor(group).experiences[key]
+      else
+        @experiences[key]

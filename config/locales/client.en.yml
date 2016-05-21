@@ -152,11 +152,21 @@ en:
     unread: 'Unread'
     closing_in: 'Closing '
 
-  session_form:
+  sign_in_form:
+    title: 'Sign In to Loomio'
     email_label: 'Email:'
+    email_placeholder: 'you@example.com'
     password_label: 'Password:'
-    remember_me: 'Remember Me'
+    remember_me: 'Remember me'
+    forgot_password: 'Forgot password?'
     sign_in: 'Login'
+    signed_in: 'Signed in successfully'
+    oauth:
+      title: 'Or log in with a third-party account:'
+      facebook: 'Log in with Facebook'
+      twitter: 'Log in with Twitter'
+      google: 'Log in with Google'
+      github: 'Log in with Github'
 
   comment_form:
     aria_label: 'Add a comment'
@@ -178,6 +188,7 @@ en:
       label: 'Post'
     private_privacy_notice: 'Your comment will only be visible to members of {{groupName}}.'
     public_privacy_notice: 'Your comment will be visible to anyone on the web.'
+    sign_in: "Log in to join the conversation"
 
   navbar:
     recent: 'Recent'
@@ -294,13 +305,15 @@ en:
     start_a_proposal: 'Start a proposal'
     edit_proposal: 'Edit proposal'
     what_does_a_proposal_do: 'Proposals let you see how everyone feels about a particular course of action.'
-    editing_title_and_description_forbidden: 'You cannot change the title or description of a proposal after people have voted. If details have changed, please close the proposal and start another'
-    title_placeholder: 'Eg: Go to the moon'
+    proposal_ideas: Need ideas for writing a good proposal?
+    proposal_ideas_title: 9 ways to use a Loomio proposal to turn talk into action
+    editing_title_and_description_forbidden: 'You cannot change the title or description of a proposal after people have voted. If details have changed, please close the proposal and start another.'
+    title_placeholder: 'Eg: Let’s go to the moon'
     title_label: 'Title'
     closes_at_label: 'Closes at'
     closes: 'Closes'
     details_label: 'Details'
-    details_placeholder: "Give enough detail so everyone knows exactly what it means to agree or disagree or whatever"
+    details_placeholder: "Give enough detail so everyone knows exactly what it means to agree or disagree with your proposal"
 
   discussion_record:
     created: 'The thread {{title}} was successfully created in {{groupName}}'
@@ -606,9 +619,7 @@ en:
   group_help_card:
     title: Help
     ten_tips_article_title: 10 tips for making great decisions with Loomio
-    ten_tips_article_link: https://blog.loomio.org/2015/09/10/10-tips-for-making-great-decisions-with-loomio/
     nine_ways_to_use_proposals: 9 ways to use a Loomio proposal to turn a conversation into action
-    nine_ways_to_use_proposals_link: https://blog.loomio.org/2015/09/18/9-ways-to-use-a-loomio-proposal-to-turn-a-conversation-into-action/
 
   membership_requests_page:
     heading: Membership Requests
@@ -782,6 +793,9 @@ en:
       unread: '{{count}} unread items.'
       current_proposal: 'Current proposal: {{name}}.'
       you_voted: 'You voted: {{position}}.'
+    thread_preview:
+      you_voted: 'You voted {{position}}'
+      undecided: 'You are undecided'
     threads_from:
       group: 'Threads from'
       proposals: 'Proposals'
@@ -1036,6 +1050,13 @@ en:
     invitation: 'Tips for writing a great invitation'
     proposal: 'Tips for writing a clear proposal'
     vote: 'You can change your position at any time'
+
+  explore_page:
+    header: Explore Loomio groups
+    search_placeholder: Search for public Loomio groups
+    single_search_result: "1 public group matching <strong>{{searchTerm}}:</strong"
+    multiple_search_results: "{{resultCount}} public groups matching <strong>{{searchTerm}}:</strong>"
+    no_results_found: "<strong>Can't find the group you're looking for?</strong> If a group's privacy is set to 'secret', it won't appear here. If you know who coordinates the group, you could ask them for an invite."
 
   angular:
     switch_back: 'Switch back to old Loomio'

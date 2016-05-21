@@ -1,8 +1,9 @@
-angular.module('loomioApp').controller 'ThreadPageController', ($scope, $routeParams, $location, $rootScope, $window, Records, MessageChannelService, ModalService, DiscussionForm, MoveThreadForm, DeleteThreadForm, ScrollService, AbilityService, CurrentUser, ChangeVolumeForm, PaginationService, LmoUrlService, TranslationService, RevisionHistoryModal, ProposalOutcomeForm) ->
+angular.module('loomioApp').controller 'ThreadPageController', ($scope, $routeParams, $location, $rootScope, $window, Records, MessageChannelService, ModalService, DiscussionForm, MoveThreadForm, DeleteThreadForm, ScrollService, AbilityService, Session, ChangeVolumeForm, PaginationService, LmoUrlService, TranslationService, RevisionHistoryModal, ProposalOutcomeForm) ->
   $rootScope.$broadcast('currentComponent', { page: 'threadPage'})
 
   @requestedProposalKey = $routeParams.proposal or $location.search().proposal
   @requestedCommentId   = parseInt($routeParams.comment or $location.search().comment)
+  $location.url($location.path())
 
   handleCommentHash = do ->
     if match = $location.hash().match /comment-(\d+)/
@@ -21,8 +22,9 @@ angular.module('loomioApp').controller 'ThreadPageController', ($scope, $routePa
     AbilityService.canVoteOn(@discussion.activeProposal())
 
   @openOutcomeModal = ->
+    AbilityService.canCreateOutcomeFor(@proposal) and
     $routeParams.outcome? and
-    AbilityService.canSetOutcomeFor(@proposal)
+    (delete $routeParams.outcome)
 
   @elementToFocus = ->
     if @proposal
@@ -101,7 +103,7 @@ angular.module('loomioApp').controller 'ThreadPageController', ($scope, $routePa
     ModalService.open ChangeVolumeForm, model: => @discussion
 
   @canChangeVolume = ->
-    CurrentUser.isMemberOf(@discussion.group())
+    Session.user().isMemberOf(@discussion.group())
 
   @canEditThread = =>
     AbilityService.canEditThread(@discussion)

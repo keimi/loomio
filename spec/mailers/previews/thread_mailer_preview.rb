@@ -14,7 +14,7 @@ class ThreadMailerPreview < ActionMailer::Preview
     discussion = FactoryGirl.create :discussion, group: group, uses_markdown: true
     DiscussionReader.for(user: user, discussion: discussion).set_volume! :loud
     group.add_member! user
-    rich_text_body = "I am a comment with a **bold bit**"
+    rich_text_body = "I am a comment with a **bold bit** and an image ![image](https://i.imgur.com/XUuwaPv.jpg)"
     comment = FactoryGirl.create :comment, discussion: discussion, body: rich_text_body, uses_markdown: true
     event = Events::NewComment.create(kind: 'new_comment', eventable: comment, discussion_id: discussion.id)
     ThreadMailer.new_comment user, event
@@ -129,12 +129,7 @@ class ThreadMailerPreview < ActionMailer::Preview
     vote = FactoryGirl.create :vote, motion: motion
     vote = FactoryGirl.create :vote, motion: motion
     vote = FactoryGirl.create :vote, motion: motion
-    motion.store_users_that_didnt_vote
-    motion.closed_at = Time.now
-    motion.save!
-    event = Events::MotionClosed.create(kind: 'motion_closed',
-                                        eventable: motion,
-                                        discussion_id: motion.discussion.id)
+    event = MotionService.close(motion)
     ThreadMailer.motion_closed user, event
   end
 

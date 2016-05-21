@@ -22,13 +22,14 @@ angular.module('loomioApp').factory 'KeyEventService', ($rootScope) ->
       scope.$on eventCode, (angularEvent, originalEvent, active) ->
         if shouldExecute(active, originalEvent)
           angularEvent.preventDefault() and originalEvent.preventDefault()
-          execute(active)
+          execute(active, originalEvent)
 
     defaultShouldExecute: (active = {}, event = {}) ->
       !event.ctrlKey and !event.altKey and !_.contains(['INPUT', 'TEXTAREA', 'SELECT'], active.nodeName)
 
     submitOnEnter: (scope) ->
+      @previousScope.$$listeners['pressedEnter'] = null if @previousScope?
+      @previousScope = scope
       @registerKeyEvent scope, 'pressedEnter', scope.submit, (active, event) =>
         (event.ctrlKey or event.metaKey) and
-        angular.element(active).scope().$$isolateBindings == scope.$$isolateBindings and
         _.contains(active.classList, 'lmo-primary-form-input')

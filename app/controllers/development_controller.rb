@@ -1,9 +1,10 @@
 class DevelopmentController < ApplicationController
   include Development::DashboardHelper
   include Development::NintiesMoviesHelper
+  include PrettyUrlHelper
 
+  before_filter :ensure_testing_environment
   before_filter :cleanup_database, except: [:last_email, :index, :accept_last_invitation]
-  around_filter :ensure_testing_environment
 
   def index
     @routes = DevelopmentController.action_methods.select do |action|
@@ -22,10 +23,32 @@ class DevelopmentController < ApplicationController
     redirect_to(test_group)
   end
 
+  def setup_login
+    patrick
+    redirect_to new_user_session_url
+  end
+
+  def setup_non_angular_login
+    patrick.update(angular_ui_enabled: false)
+    redirect_to new_user_session_url
+  end
+
+  def setup_non_angular_logged_in_user
+    patrick.update(angular_ui_enabled: false)
+    sign_in patrick
+    redirect_to dashboard_url
+  end
+
   def setup_dashboard
     sign_in patrick
     starred_proposal_discussion; proposal_discussion; starred_discussion
     recent_discussion; old_discussion; participating_discussion; muted_discussion; muted_group_discussion
+    redirect_to dashboard_url
+  end
+
+  def setup_dashboard_as_visitor
+    patrick
+    recent_discussion
     redirect_to dashboard_url
   end
 
@@ -48,6 +71,13 @@ class DevelopmentController < ApplicationController
     sign_in patrick
     test_group.add_member! emilio
     redirect_to group_url(test_group)
+  end
+
+  # to test subdomains in development
+  def setup_group_with_subdomain
+    sign_in patrick
+    test_group.update_attributes(name: 'Ghostbusters', subdomain: 'ghostbusters')
+    redirect_to "http://ghostbusters.lvh.me:3000/"
   end
 
   def setup_group_as_member
@@ -170,10 +200,58 @@ class DevelopmentController < ApplicationController
     redirect_to discussion_url(test_discussion)
   end
 
+  def setup_explore_groups
+    sign_in patrick
+    30.times do |i|
+      explore_group = Group.new(name: Faker::Name.name, group_privacy: 'open', is_visible_to_public: true)
+      GroupService.create(group: explore_group, actor: patrick)
+      explore_group.update_attribute(:memberships_count, i)
+    end
+    Group.limit(15).update_all(name: 'Footloose')
+    redirect_to group_url(Group.last)
+  end
+
   def setup_group_with_multiple_coordinators
     test_group.add_admin! emilio
     sign_in patrick
     redirect_to group_url(test_group)
+  end
+
+  def setup_existing_user_invitation
+    test_group
+    judd
+    pending_invitation
+    redirect_to last_email_development_index_path
+  end
+
+  def setup_new_user_invitation
+    test_group
+    pending_invitation
+    redirect_to last_email_development_index_path
+  end
+
+  def setup_used_invitation
+    test_group
+    emilio
+    InvitationService.redeem(pending_invitation, judd)
+    redirect_to last_email_development_index_path
+  end
+
+  def setup_accepted_membership_request
+    membership_request = MembershipRequest.new(name: "Judd Nelson", email: "judd@example.com", group: test_group)
+    MembershipRequestService.approve(membership_request: membership_request, actor: patrick)
+    redirect_to last_email_development_index_path
+  end
+
+  def setup_cancelled_invitation
+    test_group
+    judd
+    InvitationService.cancel(invitation: pending_invitation, actor: patrick)
+    redirect_to last_email_development_index_path
+  end
+
+  def setup_team_invitation_link
+    redirect_to InvitationService.shareable_invitation_for(test_group)
   end
 
   def setup_group_for_invitations
@@ -188,6 +266,31 @@ class DevelopmentController < ApplicationController
     redirect_to group_url(test_group)
   end
 
+  def view_homepage_as_visitor
+    patrick
+    redirect_to root_url
+  end
+
+  def view_open_group_as_non_member
+    sign_in patrick
+    @test_group = Group.create!(name: 'Open Dirty Dancing Shoes',
+    membership_granted_upon: 'request',
+    group_privacy: 'open')
+    @test_group.add_admin! jennifer
+    @test_discussion = Discussion.create!(title: "I carried a watermelon", private: false, author: patrick, group: @test_group)
+    redirect_to group_url(test_group)
+  end
+
+  def view_closed_group_as_non_member
+    sign_in patrick
+    @test_group = Group.create!(name: 'Closed Dirty Dancing Shoes',
+                                group_privacy: 'closed',
+                                discussion_privacy_options: 'public_or_private')
+    @test_group.add_admin! jennifer
+    @test_discussion = Discussion.create!(title: "I carried a watermelon", private: false, author: patrick, group: @test_group)
+    redirect_to group_url(test_group)
+  end
+
   def view_secret_group_as_non_member
     sign_in patrick
     @test_group = Group.create!(name: 'Secret Dirty Dancing Shoes',
@@ -195,35 +298,32 @@ class DevelopmentController < ApplicationController
     redirect_to group_url(test_group)
   end
 
-  def view_closed_group_as_non_member
-    sign_in patrick
-    @test_group = Group.create!(name: 'Closed Dirty Dancing Shoes',
-                                group_privacy: 'closed')
-    redirect_to group_url(test_group)
-  end
-
-  def view_open_group_as_non_member
-    sign_in patrick
-    @test_group = Group.create!(name: 'Open Dirty Dancing Shoes',
-                                membership_granted_upon: 'request',
-                                group_privacy: 'open')
-    redirect_to group_url(test_group)
-  end
-
   def view_open_group_as_visitor
     @test_group = Group.create!(name: 'Open Dirty Dancing Shoes',
                                 membership_granted_upon: 'request',
                                 group_privacy: 'open')
+    @test_group.add_admin! jennifer
     @test_discussion = @test_group.discussions.create!(title: 'I carried a watermelon', private: false, author: jennifer)
     @test_proposal = @test_discussion.motions.create!(name: 'Let\'s go to the moon!', closed_at: 3.days.ago, closing_at: 3.days.ago, author: jennifer)
+    @test_proposal.close!
     redirect_to group_url(@test_group)
   end
 
   def view_closed_group_as_visitor
     @test_group = Group.create!(name: 'Closed Dirty Dancing Shoes',
                                 membership_granted_upon: 'approval',
-                                group_privacy: 'closed')
-    @test_discussion = @test_group.discussions.create!(title: 'I carried a watermelon', private: true, author: jennifer)
+                                group_privacy: 'closed',
+                                discussion_privacy_options: 'public_or_private')
+    @test_group.add_admin! jennifer
+    @test_discussion = @test_group.discussions.create!(title: 'This thread is private', private: true, author: jennifer)
+    @public_discussion = @test_group.discussions.create!(title: 'This thread is public', private: false, author: jennifer)
+    redirect_to group_url(@test_group)
+  end
+
+  def view_secret_group_as_visitor
+    @test_group = Group.create!(name: 'Secret Dirty Dancing Shoes',
+                                group_privacy: 'secret')
+    @test_group.add_admin! patrick
     redirect_to group_url(@test_group)
   end
 
@@ -325,7 +425,7 @@ class DevelopmentController < ApplicationController
     sign_in patrick
     test_proposal
     MotionService.close(test_proposal)
-    redirect_to previous_proposals_group_url(test_group)
+    redirect_to group_previous_proposals_url(test_group)
   end
 
   def setup_proposal_closing_soon
@@ -363,6 +463,11 @@ class DevelopmentController < ApplicationController
     redirect_to dashboard_url
   end
 
+  def email_settings_as_restricted_user
+    test_group
+    redirect_to email_preferences_url(unsubscribe_token: patrick.unsubscribe_token)
+  end
+
   def setup_all_notifications
     sign_in patrick
     setup_all_notifications_work
@@ -373,10 +478,6 @@ class DevelopmentController < ApplicationController
 
   def ensure_testing_environment
     raise "Do not call me." if Rails.env.production?
-    tmp, Rails.env = Rails.env, 'test'
-    yield
-  ensure
-    Rails.env = tmp
   end
 
   def cleanup_database

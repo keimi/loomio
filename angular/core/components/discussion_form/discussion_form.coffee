@@ -1,6 +1,6 @@
 angular.module('loomioApp').factory 'DiscussionForm', ->
   templateUrl: 'generated/components/discussion_form/discussion_form.html'
-  controller: ($scope, $controller, $location, discussion, CurrentUser, Records, AbilityService, FormService, KeyEventService, PrivacyString, EmojiService) ->
+  controller: ($scope, $controller, $location, discussion, Session, Records, AbilityService, FormService, KeyEventService, PrivacyString, EmojiService) ->
     $scope.discussion = discussion.clone()
 
     if $scope.discussion.isNew()
@@ -10,12 +10,12 @@ angular.module('loomioApp').factory 'DiscussionForm', ->
 
     $scope.submit = FormService.submit $scope, $scope.discussion,
       flashSuccess: "discussion_form.messages.#{actionName}"
-      allowDrafts: true
+      draftFields: ['title', 'description']
       successCallback: (response) =>
         $location.path "/d/#{response.discussions[0].key}" if actionName == 'created'
 
     $scope.availableGroups = ->
-      _.filter CurrentUser.groups(), (group) ->
+      _.filter Session.user().groups(), (group) ->
         AbilityService.canStartThread(group)
 
     # NB; this overrides the restoreDraft() function applied in draft_service

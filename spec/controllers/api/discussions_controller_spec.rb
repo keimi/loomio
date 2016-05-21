@@ -236,7 +236,7 @@ describe API::DiscussionsController do
         get :show, id: discussion.key
         json = JSON.parse(response.body)
         expect(json.keys).to include *(%w[users groups proposals discussions])
-        expect(json['discussions'][0].keys).to include *(%w[id key title description last_item_at last_comment_at created_at updated_at items_count comments_count private author_id group_id active_proposal_id])
+        expect(json['discussions'][0].keys).to include *(%w[id key title description last_activity_at created_at updated_at items_count private author_id group_id active_proposal_id])
       end
 
       it 'returns the reader fields' do
@@ -282,6 +282,7 @@ describe API::DiscussionsController do
       patch :mark_as_read, id: discussion.key, sequence_id: 0
       expect(reader.reload.last_read_at).to eq discussion.reload.last_activity_at
       expect(reader.last_read_sequence_id).to eq 0
+      expect(response.status).to eq 200
     end
 
     it "Marks thread item as read" do
@@ -289,6 +290,7 @@ describe API::DiscussionsController do
       patch :mark_as_read, id: discussion.key, sequence_id: event.reload.sequence_id
       expect(reader.reload.last_read_at).to eq event.created_at
       expect(reader.last_read_sequence_id).to eq 1
+      expect(response.status).to eq 200
     end
 
     it 'does not mark an inaccessible discussion as read' do
@@ -526,12 +528,10 @@ describe API::DiscussionsController do
           key
           title
           description
-          last_item_at
-          last_comment_at
+          last_activity_at
           created_at
           updated_at
           items_count
-          comments_count
           private
           active_proposal_id
           author_id

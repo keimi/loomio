@@ -14,8 +14,8 @@ EventBus.configure do |config|
   # send bulk emails after events
   Event::BULK_MAIL_KINDS.each do |kind|
     config.listen("#{kind}_event") do |event|
-      BaseMailer.send_bulk_mail(to: UsersToEmailQuery.send(kind, event.eventable)) do |user|
-        ThreadMailer.delay.send(kind, user, event)
+      BaseMailer.send_bulk_mail(to: Queries::UsersToEmailQuery.send(kind, event.eventable)) do |user|
+        ThreadMailer.delay(priority: 2).send(kind, user, event)
       end
     end
   end
@@ -24,28 +24,27 @@ EventBus.configure do |config|
   # Single mail kinds is only Comment replied to and User mentioned.
   Event::SINGLE_MAIL_KINDS.each do |kind|
     config.listen("#{kind}_event") do |event, user|
-      ThreadMailer.delay.send(kind, user, event) if user.email_when_mentioned
+      ThreadMailer.delay(priority: 2).send(kind, user, event) if user.email_when_mentioned
     end
   end
 
 
   # send individual emails after user events
-  config.listen('membership_request_approved_event') { |event, user| UserMailer.delay.group_membership_approved(user, event.group) }
+  config.listen('membership_request_approved_event') { |event, user| UserMailer.delay(priority: 2).group_membership_approved(user, event.group) }
 
   # send memos to client side after comment change
   config.listen('comment_destroy') { |comment|      Memos::CommentDestroyed.publish!(comment) }
   config.listen('comment_update')  { |comment|      Memos::CommentUpdated.publish!(comment) }
   config.listen('comment_unlike')  { |comment_vote| Memos::CommentUnliked.publish!(comment: comment_vote.comment, user: comment_vote.user) }
 
-  # refresh likers after comment like/unlike
-  config.listen('comment_like', 'comment_unlike') { |cv| cv.comment.refresh_liker_ids_and_names! }
-
   # update discussion reader after thread item creation
   config.listen('new_comment_event',
                 'new_motion_event',
                 'new_vote_event',
                 'motion_closed_event',
-                'motion_closed_by_user_event') do |event|
+                'motion_closed_by_user_event',
+                'motion_outcome_created_event',
+                'motion_outcome_updated_event') do |event|
     DiscussionReader.for_model(event.eventable).author_thread_item!(event.created_at)
   end
 
@@ -110,17 +109,16 @@ EventBus.configure do |config|
 
   # notify users of motion closing soon
   config.listen('motion_closing_soon_event') do |event|
-    UsersByVolumeQuery.normal_or_loud(event.discussion).find_each { |user| event.notify!(user) }
+    Queries::UsersByVolumeQuery.normal_or_loud(event.discussion).find_each { |user| event.notify!(user) }
   end
 
   # notify users of motion outcome created
   config.listen('motion_outcome_created_event') do |event|
-    UsersByVolumeQuery.normal_or_loud(event.discussion).without(event.motion.outcome_author).find_each { |user| event.notify!(user) }
+    Queries::UsersByVolumeQuery.normal_or_loud(event.discussion).without(event.motion.outcome_author).find_each { |user| event.notify!(user) }
   end
 
   # perform group creation
   config.listen('group_create') do |group, actor|
-    group.add_admin! actor
     group.add_default_content! if group.is_parent?
   end
 

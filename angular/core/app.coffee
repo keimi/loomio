@@ -40,24 +40,42 @@ angular.module('loomioApp', ['ngNewRouter',
     $compileProvider.debugInfoEnabled(false);
 
 # Finally the Application controller lives here.
-angular.module('loomioApp').controller 'ApplicationController', ($scope, $location, $filter, $rootScope, $router, KeyEventService, ScrollService, CurrentUser, BootService, AppConfig, ModalService, ChoosePlanModal, AbilityService) ->
-  $scope.isLoggedIn = ->
-    AbilityService.isLoggedIn()
-
-  BootService.boot() if $scope.isLoggedIn()
-
+angular.module('loomioApp').controller 'ApplicationController', ($scope, $timeout, $location, $router, KeyEventService, MessageChannelService, IntercomService, ScrollService, Session, AppConfig, Records, ModalService, SignInForm, GroupForm, AngularWelcomeModal, ChoosePlanModal, AbilityService) ->
+  $scope.isLoggedIn = AbilityService.isLoggedIn
   $scope.currentComponent = 'nothing yet'
+
+  # NB: $scope.refresh triggers the ng-if for the ng-outlet in the layout.
+  # This means that we re-initialize the controller for the page, which is what we want
+  # for actions like logging in or out, without refreshing the whole app.
+  $scope.refresh = ->
+    $scope.pageError = null
+    $scope.refreshing = true
+    $timeout -> $scope.refreshing = false
+
+  if document.location.protocol.match(/https/) && navigator.serviceWorker?
+    navigator.serviceWorker.register(document.location.origin + '/service-worker.js', scope: './')
+
+  $scope.$on 'loggedIn', (event, user) ->
+    $scope.refresh()
+    ModalService.open(GroupForm, group: -> Records.groups.build()) if $location.search().start_group?
+    ModalService.open(AngularWelcomeModal)                         if AppConfig.showWelcomeModal
+    IntercomService.boot()
+    MessageChannelService.subscribe()
 
   $scope.$on 'currentComponent', (event, options = {}) ->
     $scope.pageError = null
     ScrollService.scrollTo(options.scrollTo or 'h1')
     $scope.links = options.links or {}
+    if !AbilityService.isLoggedIn() and _.contains($router.authRequiredComponents, options.page)
+      ModalService.open(SignInForm, preventClose: -> true)
 
   $scope.$on 'setTitle', (event, title) ->
     document.querySelector('title').text = _.trunc(title, 300) + ' | Loomio'
 
   $scope.$on 'pageError', (event, error) ->
     $scope.pageError = error
+    if !AbilityService.isLoggedIn() and error.status == 403
+      ModalService.open(SignInForm, preventClose: -> true)
 
   $scope.$on 'trialIsOverdue', (event, group) ->
     if AbilityService.canAdministerGroup(group) and AppConfig.chargify and !AppConfig.chargify.nagCache[group.key]
@@ -70,6 +88,7 @@ angular.module('loomioApp').controller 'ApplicationController', ($scope, $locati
     {path: '/dashboard', component: 'dashboardPage' },
     {path: '/inbox', component: 'inboxPage' },
     {path: '/groups', component: 'groupsPage' },
+    {path: '/explore', component: 'explorePage'},
     {path: '/profile', component: 'profilePage'},
     {path: '/email_preferences', component: 'emailSettingsPage' },
     {path: '/d/:key', component: 'threadPage' },
@@ -88,10 +107,23 @@ angular.module('loomioApp').controller 'ApplicationController', ($scope, $locati
     {path: '/g/:key/:stub', component: 'groupPage' },
     {path: '/u/:key', component: 'userPage' },
     {path: '/u/:key/:stub', component: 'userPage' },
-    {path: '/apps/authorized', component: 'authorizedAppsPage'}
-    {path: '/apps/registered', component: 'registeredAppsPage'}
-    {path: '/apps/registered/:id', component: 'registeredAppPage'}
-    {path: '/apps/registered/:id/:stub', component: 'registeredAppPage'}
+    {path: '/apps/authorized', component: 'authorizedAppsPage'},
+    {path: '/apps/registered', component: 'registeredAppsPage'},
+    {path: '/apps/registered/:id', component: 'registeredAppPage'},
+    {path: '/apps/registered/:id/:stub', component: 'registeredAppPage'},
+    {path: '/explore', component: 'explorePage'}
   ])
+  $router.authRequiredComponents = [
+    'groupsPage',
+    'dashboardPage',
+    'inboxPage',
+    'profilePage',
+    'emailSettingsPage',
+    'authorizedAppsPage',
+    'registeredAppsPage',
+    'registeredAppPage'
+  ]
+
+  Session.login(AppConfig.currentUserData)
 
   return
