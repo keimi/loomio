@@ -1,11 +1,11 @@
-es:
+conversacioneses:
   email:
     reset_password:
       greeting: >
         Hola %{name}
 
         Aquí esta el enlace que puedes usar para restablecer tu contraseña en tu
-        cuenta de Loomio:
+        cuenta de RD Digital:
       link_text: Restablece tu contraseña
       signoff: >
         Recibes este email porque tu dirección de correo electrónico fue
@@ -22,53 +22,53 @@ es:
     by_who: 'por %{person}'
     reply_to_this_discussion: Contestar a esta discusión
     to_join_discussion:
-      subject: '%{who} desea que te unas a una discusión en Loomio'
+      subject: '%{who} desea que te unas a una discusión en RD Digital'
       content: 'Has sido invitado/a a participar en la discusión: %{discussion}'
       message_intro: '%{who} dice:'
       link: Únete a la discusión
     to_join_group:
-      subject: '%{member} te ha invitado a unirte a %{group_name} en Loomio'
+      subject: '%{member} te ha invitado a unirte a %{group_name} en RD Digital'
     to_start_group:
-      subject: 'Configura tu nuevo grupo en Loomio: %{group_name}'
+      subject: 'Configura tu nuevo grupo en RD Digital: %{group_name}'
     user_added_to_a_group:
       subject: '%{who} te ha adherido a %{which_group}'
-      content: '%{who} te ha añadido a %{which_group} en Loomio. Pulsa aquí para ir al grupo:'
+      content: '%{who} te ha añadido a %{which_group} en RD Digital. Pulsa aquí para ir al grupo:'
     unsubscribe: 'Da de baja o cambia las preferencias de tu correo electrónico:   '
     unsubscribe_html: "<a href='%{link_path}'>%{link_text}</a> para dar de baja o cambiar las preferencias de correo electrónico."
-    view_comment: Haz clic aquí para ver el comentario en Loomio
+    view_comment: Haz clic aquí para ver el comentario en RD Digital
     view_discussion: 'Haz clic aquí para ver esta discusión '
-    view_group: Haz clic aquí para ver el grupo en Loomio
-    view_proposal: Ver esta propuesta en Loomio
+    view_group: Haz clic aquí para ver el grupo en RD Digital
+    view_proposal: Ver esta propuesta en RD Digital
     create_discussion:
       intro: '%{who} empezó una discusión en %{which_group}:'
     create_proposal:
-      intro: Una nueva propuesta fue creada en un grupo de Loomio al que tu perteneces.
+      intro: Una nueva propuesta fue creada en un grupo de RD Digital al que tu perteneces.
       closes_in: Cierra en
       subject: 'Nueva propuesta: %{which}'
     daily_activity:
-      heading: Tu actividad en Loomio
-      intro: Esto es lo que ha pasado en las últimas 24 horas en tus grupos de Loomio
-      subject: Loomio - Resumen de las últimas 24 horas
+      heading: Tu actividad en RD Digital
+      intro: Esto es lo que ha pasado en las últimas 24 horas en tus grupos de RD Digital
+      subject: RD Digital - Resumen de las últimas 24 horas
     missed_yesterday:
-      subject: Ayer en Loomio
+      subject: Ayer en RD Digital
       headlines: 'Titulo '
       mark_as_read: Marcar como leído
       thanks_for_reading: 'Gracias por leer, ¡que tengas un buen día!'
-      heres_what_happened: 'Esto es lo que paso en Loomio ayer. '
+      heres_what_happened: 'Esto es lo que paso en RD Digital ayer. '
       marked_as_read_success: Todo el contenido del correo ha sido marcado como leído
     comment_replied_to:
       context: '%{author_name} respondió a tu comentario en la discusión "%{discussion_title}"'
-      subject: '%{who} respondió a tu comentario en el grupo %{which} en Loomio.'
+      subject: '%{who} respondió a tu comentario en el grupo %{which} en RD Digital.'
     group_membership_approved:
-      intro: "Tu solicitud para acceder al grupo '%{group_name}' en Loomio ha sido aprobada."
+      intro: "Tu solicitud para acceder al grupo '%{group_name}' en RD Digital ha sido aprobada."
       subject: '%{prefix} Membresía aprobada'
     invitation:
       hi: 'Hola %{name},'
       intro: 'Haz clic en el enlace de abajo para configurar tu grupo %{group_name}:'
       closing_message: 'Si tienes alguna pregunta o hay cualquier cosa con la que te podamos ayudar a mantenerte en marcha, nos encantará saber de ti; tan solo responde a este correo electrónico.'
-      thanks: "Gracias!⏎\nEl Equipo de Loomio⏎ \n"
+      thanks: "Gracias!⏎\nEl Equipo de RD Digital⏎ \n"
     membership_request:
-      intro: '%{name} (%{email}) ha solicitado el acceso a uno de tus grupos de Loomio.'
+      intro: '%{name} (%{email}) ha solicitado el acceso a uno de tus grupos de RD Digital.'
       subject: '%{who} solicitó el acceso a %{which_group}'
       view_group: Puedes aceptar o denegar la solicitud aquí
     mentioned:
@@ -108,7 +108,7 @@ es:
       outcome_created: '%{who} anunció el resultado de la propuesta '
       you_agreed: 'Tú %{past_tense_position}'
   footer:
-    about: Sobre Loomio
+    about: Sobre RD Digital
     blog: Blog
     contact: Contacto
     help: Ayuda
@@ -116,13 +116,13 @@ es:
     pricing: Precio
     public_groups: Grupos Públicos
     terms: Términos
-    independent_install_html: '%{hostname} esta utilizando una copia independiente de Loomio: <a href="http://github.com/loomio/loomio">enterate de más</a>.'
+    independent_install_html: '%{hostname} esta utilizando una copia independiente de RD Digital: <a href="http://github.com/loomio/loomio">enterate de más</a>.'
   start_group_form:
     enable_angular:
-      header: Nuevos grupos comienzan en Loomio 1.0
-      subtitle: 'Para comenzar un nuevo grupo, necesitas cambiar a la nueva versión de Loomio:'
-      switch_to_angular: Empezar un grupo en en nuevo Loomio
-      helptext: 'Reconstruimos Loomio desde cero. Puedes enterarte sobre lo que es nuevo  <a href="/angular">aquí</a>.<br/> Puedes cambiar al viejo Loomio en cualquier momento.'
+      header: Nuevos grupos comienzan en RD Digital
+      subtitle: 'Para comenzar un nuevo grupo, necesitas cambiar a la nueva versión de RD Digital:'
+      switch_to_angular: Empezar un grupo en en nuevo RD Digital
+      helptext: 'Reconstruimos RD Digital desde cero. Puedes enterarte sobre lo que es nuevo  <a href="/angular">aquí</a>.<br/> Puedes cambiar al viejo RD Digital en cualquier momento.'
     header: Empieza un nuevo grupo
     form_error: 'Falta alguna información o es incorrecta. '
     name: Tu nombre
@@ -134,13 +134,13 @@ es:
     group_description_placeholder: 'Describe el propósito de tu grupo para que los miembros sepan porque están aquí. '
     group_name_error: 'Se requiere el nombre del grupo. '
     pricing_html: "En 30 días te pediremos que elijas un <a href='%{link}' target='_blank'>plan de pago</a>."
-    terms_html: "Al empezar un grupo, aceptas los <a href='%{link}' target='_blank'>términos de servicio</a> de Loomio."
+    terms_html: "Al empezar un grupo, aceptas los <a href='%{link}' target='_blank'>términos de servicio</a> de RD Digital."
     success:
       header: '¡Ya casi has terminado! Revisa tu correo electrónico. '
       email_delivered: 'Hemos enviado un correo electrónico a %{email}. Por favor sigue el link que hay dentro para configurar tu grupo'
       email_not_arrived: No te ha llegado el correo electrónico?
       please_hold: Por favor espera hasta 5 minutos para que te llegue el correo electrónico y asegurate de mirar en la la carpeta de correo no solicitado.
-    start_making_decisions: 'Para empezar a tomar decisiones juntos con Loomio, crea un grupo. Es gratis.'
+    start_making_decisions: 'Para empezar a tomar decisiones juntos con RD Digital, crea un grupo.'
   invitation_form:
     error:
       all_email_addresses_belong_to_members: 'No hemos enviado un invitación a las direcciones de email añadidas, porque esos emails le pertenecen a personas que ya están en el grupo.'
@@ -164,13 +164,12 @@ es:
     premium_support: 'soporte especial '
     custom_subdomain_html: |
       subdominio personalizado<br />
-      ej. <strong>tugrupo</strong>.loomio.org
+      ej. <strong>tugrupo</strong>.revoluciondemocratica.cl
     usage_statistics: Estadísticas de uso
     plus_price_html: |
-      US<strong>$179</strong>/al mes<br><span>o</span> $1790/al año
   password_reset:
     email_guidelines_html: >
-      <p>Introduce la dirección de correo electrónico de tu cuenta de Loomio en
+      <p>Introduce la dirección de correo electrónico de tu cuenta de RD Digital en
       el espacio de abajo y se te enviará un enlace para restablecer tu
       contraseña.</p>
 
@@ -181,13 +180,13 @@ es:
     forbidden_passwords: "Contraseñas comunes como \"contraseña' están prohibidas para mantener tu cuenta segura."
   introduction_thread:
     title: 'Bienvenida/o a %{group_name}'
-    description: "Por favor tomate un momento para presentarte: **agrega un comentario** en la casilla de comentarios debajo.\n\nSi tienes las intenciones claras para este grupo de Loomio, puedes compartirlas aquí para que todas/os tengan una idea de lo quieren realizar juntos. \n"
+    description: "Por favor tomate un momento para presentarte: **agrega un comentario** en la casilla de comentarios debajo.\n\nSi tienes las intenciones claras para este grupo de RD Digital, puedes compartirlas aquí para que todas/os tengan una idea de lo quieren realizar juntos. \n"
   how_it_works_thread:
-    title: Cómo usar Loomio
-    description: "Bienvenida/o a Loomio, un lugar online donde tomar decisiones juntos.\n\nEste es un **Hilo** de discusión de ejemplo. Usa este espacio para dar la información relevante que el grupo necesite para tener una discusión productiva. \n\nEl panel de la **Propuesta** es donde tomas las decisiones. Ahí puedes comenzar propuestas o participar en las mismas.\n\nEl panel de **Actividad** muestra todo lo que ha pasado en este hilo.\n"
+    title: Cómo usar RD Digital
+    description: "Bienvenida/o a RD Digital, un lugar online donde tomar decisiones juntos.\n\nEsta es una **Converzación** de discusión de ejemplo. Usa este espacio para dar la información relevante que el grupo necesite para tener una discusión productiva. \n\nEl panel de la **Propuesta** es donde tomas las decisiones. Ahí puedes comenzar propuestas o participar en las mismas.\n\nEl panel de **Actividad** muestra todo lo que ha pasado en este hilo.\n"
   first_comment:
     body: >
-      Hola, soy el ayudante de Loomio.
+      Hola, soy el bot de Camilo.
 
 
 
@@ -211,13 +210,13 @@ es:
 
 
       Si tienes alguna duda el primer lugar a recurrir es el [Manual de ayuda de
-      Loomio](http://help.loomio.org).
+      RD Digital](http://help.loomio.org).
   first_proposal:
     name: 'Propuesta de demostración: Aquí vamos!  '
     description: "Esta es la **descripción** de la propuesta. Aquí puedes explicar el curso de acción que propones y dar los detalles necesarios para que todas/os puedan tomar estén bien informados al tomar una decisión.\n\nPara participar en la propuesta elige una de estas opciones:\n\n- **De acuerdo**: \"Estoy de acuerdo con la propuesta y quiero que se realice\".\n- **Me abstengo**: \"Estoy feliz de que el grupo decida sin mi.\"\n- **En desacuerdo**: \"Creo que podemos hacer algo mejor.\"\n- **Bloqueo**: \"Tengo fuertes objeciones sobre esta propuesta y no quiero que siga adelante.\"\n\nAl seleccionar una posición, podrás dar una breve explicación sobre tu elección. Puedes cambiar tu posición en cualquier momento mientras la propuesta aún esté activa.   \n"
   contact_page:
     contact_us: Contáctanos
-    faq_prompt_html: 'Tienes una pregunta para el equipo de Loomio? antes de contactarnos, quizás puedas encontrar la respuesta en nuestra sección de preguntas frecuentes.'
+    faq_prompt_html: 'Tienes una pregunta para el equipo de RD Digital? antes de contactarnos, quizás puedas encontrar la respuesta en nuestra sección de preguntas frecuentes.'
     contact_information: 'Si no encuentras lo que buscas, puedes encontrar nuestra información de contacto al final de la pagina.'
     contact_form: Formulario de contacto.
     labels:
@@ -227,7 +226,7 @@ es:
       submit: Enviar mensaje
     messages:
       email_html: "Rellena este formulario o envía un correo electrónico a <a href='mailto:%{email}'>%{email}</a>"
-      social_html: "También puedes unirte a Loomio en<br/><a href='%{facebook}' target='_blank'>facebook</a>, <a href='%{google}' target='_blank'>google+</a>, y <a href='%{twitter}' target='_blank'>twitter</a>"
+      social_html: "También puedes unirte a RD Digital en<br/><a href='%{facebook}' target='_blank'>facebook</a>, <a href='%{google}' target='_blank'>google+</a>, y <a href='%{twitter}' target='_blank'>twitter</a>"
   markdown:
     intro:
       title: |
@@ -283,7 +282,7 @@ es:
 
         Corchetes para nombres y paréntesis para URL.
 
-        [Loomio Homepage](https://www.loomio.org/)
+        [RD Digital Homepage](https://www.loomio.org/)
 
         Para imágenes es igual pero precedido por un signo se exclamación.
 
