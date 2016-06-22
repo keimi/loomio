@@ -1,6 +1,6 @@
 es:
   frontpage:
-    view_this_in_your_language: 'Haz clic aquí para usar RD Digital en %{language}'
+    view_this_in_your_language: 'Haz clic aquí para usar Loomio en %{language}'
     title:
       collaborative_decision_making: Toma colectiva de decisiones
     link:
@@ -9,9 +9,9 @@ es:
       press: Prensa
       try_it: Pruébalo
       log_in: INICIAR SESIÓN
-      video: Más sobre cómo funciona RD Digital
-      try_loomio: Prueba RD Digital
-      try_loomio_beta: Prueba RD Digital
+      video: Más sobre cómo funciona Loomio
+      try_loomio: Prueba Loomio
+      try_loomio_beta: Prueba Loomio beta
       more: Más
       top: Arriba
       public_groups: Grupos Públicos
@@ -19,8 +19,8 @@ es:
       privacy: Privacidad
       services: Servicios
     hero:
-      header_html: 'RD Digital es la forma mas fácil para<br /> <strong>tomar decisiones juntos</strong>. '
-      lead_html: 'RD Digital empodera a Revolución Deomcratica para transformar <strong>discusiones en acción</strong>, dondequiera que sus miembros se encuentren.'
+      header_html: 'Loomio es la forma mas fácil para<br /> <strong>tomar decisiones juntos</strong>. '
+      lead_html: 'Loomio empodera a organizaciones y comunidades para transformar <strong>discusiones en acción</strong>, dondequiera que sus miembros se encuentren.'
     product:
       header_html: 'Cuando escuchamos <strong>todas las voces</strong>, tomamos <strong>mejores decisiones. </strong>'
       step1:
@@ -33,27 +33,27 @@ es:
         header: 3. Decidir juntos
         desc: 'Desarrolla la propuesta colectivamente para que funcione para todos. Cada decisión posee una fecha límite, siempre obteniendo un resultado claro.'
     mobile:
-      lead_html: '<strong>RD Digital funciona en cualquier dispositivo, </strong><br />toma decisiones en cualquier lugar y en cualquier momento.'
+      lead_html: '<strong>Loomio funciona en cualquier dispositivo, </strong><br />toma decisiones en cualquier lugar y en cualquier momento.'
     quote:
       header:
-        rushkoff_html: '«RD Digital <strong>libera el potencial de Internet</strong> para acercar a las personas al consenso en vez de al debate polarizado».<div class="attributation"> (<a href="http://rushkoff.com">Douglas Rushkoff</a>, autor del libro <em>Present Shock</em>).</div>'
-        sifry_html: '«RD Digital alcanza un punto óptimo entre <strong>voz individual</strong> y <strong>decisión colectiva</strong>». <div class="attributation">(Micah Sifry, editor de <em><a href="http://techpresident.com">TechPresident</a></em>)</div>'
+        rushkoff_html: '«Loomio <strong>libera el potencial de Internet</strong> para acercar a las personas al consenso en vez de al debate polarizado».<div class="attributation"> (<a href="http://rushkoff.com">Douglas Rushkoff</a>, autor del libro <em>Present Shock</em>).</div>'
+        sifry_html: '«Loomio alcanza un punto óptimo entre <strong>voz individual</strong> y <strong>decisión colectiva</strong>». <div class="attributation">(Micah Sifry, editor de <em><a href="http://techpresident.com">TechPresident</a></em>)</div>'
     team:
-      header: Acerca de RD Digital
+      header: Acerca de Loomio
       desc: 'Somos un pequeño equipo de desarrolladores de código abierto y activistas de justicia social que trabajamos en Enspiral, en Nueva Zelanda, con una amplia red de amigos, simpatizantes y asesores alrededor del mundo.'
     ideals:
       community:
         header: Cooperativa comunitaria
-        desc: 'RD Digital está diseñado por una cooperativa propiedad de sus trabajadores. Somos una empresa social que trabaja para maximizar el impacto social positivo, no las ganancias.'
+        desc: 'Loomio está diseñado por una cooperativa propiedad de sus trabajadores. Somos una empresa social que trabaja para maximizar el impacto social positivo, no las ganancias.'
       independent:
         header: Independiente y neutral
         desc: Mantenemos un espacio independiente de intereses políticos o empresariales para que cualquier grupo se una. Nunca venderemos tu información.
       open:
         header: Software libre y gratuito
-        desc: 'El código de RD Digital es público y cualquiera puede ejecutarlo, leerlo y aprender de él, modificarlo y redistribuirlo.'
+        desc: 'El código de Loomio es público y cualquiera puede ejecutarlo, leerlo y aprender de él, modificarlo y redistribuirlo.'
       gift:
         header: Economía del dar
-        desc: RD Digital se financia por medio de aquellos que contribuyen de acuerdo a sus recursos. Esto mantiene la plataforma abierta y accesible sin recursos financieros directos.
+        desc: Loomio se financia por medio de aquellos que contribuyen de acuerdo a sus recursos. Esto mantiene la plataforma libre de publicidad y accesible a grupos sin recursos financieros.
   about_page:
     our_story_1_html: '<h2>Nuestra historia</h2> <p>Loomio es una herramienta online para la toma de decisiones colaborativa, construida por un equipo de tecnólogos, activistas y emprendedores sociales en Nueva Zelanda.</p> '
     our_story_2_html: '<p>Loomio surgió de la necesidad de un método expansible para tomar decisiones de grupo inclusivas durante el movimiento Occupy en 2011.</p> <p>Experimentamos el potencial transformador de la toma de decisiones colaborativa, a la vez que sus severas limitaciones: si la gente tiene que estar en el mismo lugar y al mismo tiempo para participar, nunca puede expandirse.</p> <p>Nos pusimos en marcha para generar una solución a este problema: usar internet para proporcionar a la gente una manera sencilla para tomar buenas decisiones juntos, dondequiera que estén.</p> <p>Se llama Loomio, como un telar, "loom" en inglés, para tejer diferentes perspectivas juntos :)</p> <p>Ahora, más de 75.000 personas han tomado más de 25.000 decisiones en Loomio.</p>'

@@ -5,7 +5,7 @@ $primary-text-color: #262626;
 $border-color: #dcdcdc;
 $list-hover-color: #E0E0E0;
 $list-hover-transparent-color: rgba(224,224,224,0.8);
-$background-color: #ebebeb;
+$background-color: #f6f6f6;
 $card-background-color: #fff;
 $modal-background-color: #f6f6f6;
 $highlight-red: #D0021B;
@@ -60,17 +60,17 @@ $block-color: #CE261B;
 }
 
 @mixin fontHelvetica {
-  font-family: "HelveticaNeue", "Helvetica Neue", "HelveticaNeueRoman", "HelveticaNeue-Roman", "Helvetica Neue Roman", 'TeXGyreHerosRegular', "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
-  font-weight:400;
-  font-stretch:normal;
-}
-@mixin fontHelveticaLight {
-  font-family: "HelveticaNeueLight", "HelveticaNeue-Light", "Helvetica Neue Light", "HelveticaNeue", "Helvetica Neue", 'TeXGyreHerosRegular', "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+  font-family: "Cairo", "HelveticaNeue", "HelveticaNeue", "Helvetica Neue", "HelveticaNeue-Roman", "Helvetica Neue Roman", 'TeXGyreHerosRegular', "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
   font-weight:300;
   font-stretch:normal;
 }
+@mixin fontHelveticaLight {
+  font-family: "Cairo", "HelveticaNeueLight", "HelveticaNeue-Light", "Helvetica Neue Light", "HelveticaNeue", "Helvetica Neue", 'TeXGyreHerosRegular', "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+  font-weight:200;
+  font-stretch:normal;
+}
 @mixin fontHelveticaBold {
-  font-family: "HelveticaNeueBold", "HelveticaNeue-Bold", "Helvetica Neue Bold",
+  font-family: "Cairo", "HelveticaNeueBold", "HelveticaNeue-Bold", "Helvetica Neue Bold",
     "HelveticaNeue", "Helvetica Neue", 'TeXGyreHerosBold', "Helvetica", "Tahoma",
     "Geneva", "Arial", sans-serif;
   font-weight:600;
@@ -78,8 +78,8 @@ $block-color: #CE261B;
 }
 
 @mixin fontHelveticaMedium{
-  font-family: "HelveticaNeueMedium", "HelveticaNeue-Medium", "Helvetica Neue Medium", "HelveticaNeue", "Helvetica Neue", 'TeXGyreHerosRegular', "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
-  font-weight:500;
+  font-family: "Cairo", "HelveticaNeueMedium", "HelveticaNeue-Medium", "Helvetica Neue Medium", "HelveticaNeue", "Helvetica Neue", 'TeXGyreHerosRegular', "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+  font-weight:400;
   font-stretch:normal;
 }
 
@@ -211,3 +211,8 @@ $cardPaddingSize: 15px;
   color: #666;
   font-size: 11px;
 }
+
+
+.trial-card {display:none!important;}
+.group-help-card {display:none!important;}
+.borrar {display:none!important;}
