@@ -212,7 +212,13 @@ $cardPaddingSize: 15px;
   font-size: 11px;
 }
 
-
-.trial-card {display:none!important;}
-.group-help-card {display:none!important;}
-.borrar {display:none!important;}
+.subgroups-card__list-item-description, .subgroups-card__list-item-name {margin-left: 0px!important;}
+h2.groups-page__parent-group-name {font-size: 1.15em!important;}
+.group-privacy-button,
+.group-form__privacy, 
+.trial-card, 
+.group-help-card,
+.groups-page__new-group,
+.start-menu__startGroup,
+.borrar 
+{display:none!important;}

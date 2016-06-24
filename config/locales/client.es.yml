@@ -46,7 +46,7 @@ es:
       show_more: Mostrar más
       view_all: Ver todo
       new_thread: Nueva conversación
-      add_subgroup: Añadir reunión
+      add_subgroup: Añadir nueva acta
       loading: Cargando
       translate: Traducir
       translated: Traducido mediante Bing Translator
@@ -375,15 +375,15 @@ es:
       archive_group_success: 'Este espacio ha sido desactivado '
     group_logo: Logo del espacio
     new_photo: 'Nueva foto '
-    description: 'Descripción del espacio '
-    description_placeholder: 'Los coordinadores pueden usar esta área para describir el propósito de la comisión, frente o territorio, para que todos sepan para que están aquí. '
+    description: 'Descripción '
+    description_placeholder: 'Los coordinadores pueden usar esta área para describir el propósito de este espacio, para que todos sepan para que están aquí. '
     discussions: Conversaciones
     discussions_placeholder: Una conversación es donde todo el mundo puede discutir un tema y tomar decisiones juntos.
     members: 'Miembros '
     members_placeholder: 'Estás solo aquí: ¡invita a algunas personas para unirse a ti! '
     member_options: Opciones de membresía
     all_members: 'Todos los miembros ({{count}})'
-    subgroups: Reuniones
+    subgroups: Actas de reuniones
     subgroups_placeholder: Las reuniones te permiten llevar el acta y la asistencia.
     invite_people: Invitar personas
     visibility_label: Visibilidad
