@@ -436,7 +436,7 @@ es:
     approved: Aprobado por %{name}
     decline: 'Rechazar '
     declined: Rechazado por %{name}
-    threads: Conversaciones
+    threads: Conversaciones Recientes
     groups: Grupos
     join: Unirse
     manage: 'Gestionar (%{count} solicitudes pendientes) '

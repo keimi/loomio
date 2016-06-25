@@ -170,7 +170,7 @@ es:
     private_privacy_notice: 'Tu comentario solo será visible para miembros de {{groupName}}.'
     public_privacy_notice: 'Tu comentario será público en internet. '
   navbar:
-    recent: Reciente
+    recent: Conversaciones
     unread: No leído
     groups: Espacios
     recent_title: Ir al Escritorio
@@ -686,7 +686,7 @@ es:
       filter_threads: Filtrar conversaciones
       filter_threads_aria_label: 'Filtrar conversaciones '
       dropdown_heading: Filtrar Escritorio
-      all: Conversaciones Recientes
+      all: Conversaciones
       all_aria_label: Mostrando conversaciones recientes
       all_description: Ver conversaciones recientes
       starred: Conversaciones destacadas
