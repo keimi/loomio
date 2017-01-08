@@ -1,6 +1,7 @@
 class UserMailer < BaseMailer
   helper :email
   helper :application
+  layout 'invite_people_mailer', only: [:group_membership_approved, :added_to_group]
 
   def missed_yesterday(user, time_since = nil)
     @recipient = @user = user
@@ -20,7 +21,7 @@ class UserMailer < BaseMailer
       @discussions_by_group = @discussions.group_by(&:group)
       send_single_mail to: @user.email,
                        subject_key: "email.missed_yesterday.subject",
-                       locale: locale_fallback(user.locale)
+                       locale: locale_for(@user)
     end
   end
 
@@ -31,8 +32,8 @@ class UserMailer < BaseMailer
     send_single_mail to: @user.email,
                      reply_to: @group.admin_email,
                      subject_key: "email.group_membership_approved.subject",
-                     subject_params: {prefix: email_subject_prefix(@group.full_name)},
-                     locale: locale_fallback(@user.locale)
+                     subject_params: {group_name: @group.full_name},
+                     locale: locale_for(@user)
   end
 
   def added_to_group(user: nil, inviter: nil, group: nil, message: nil)
@@ -44,8 +45,17 @@ class UserMailer < BaseMailer
     send_single_mail to: @user.email,
                      from: from_user_via_loomio(@inviter),
                      reply_to: inviter.try(:name_and_email),
-                     subject_key: "email.user_added_to_a_group.subject",
+                     subject_key: "email.user_added_to_group.subject",
                      subject_params: { which_group: group.full_name, who: @inviter.name },
-                     locale: locale_fallback(user.try(:locale), inviter.try(:locale))
+                     locale: locale_for(@user, @inviter)
+  end
+
+  def analytics(user:, group:)
+    @user, @group = user, group
+    @stats = Queries::GroupAnalytics.new(group: group).stats
+    send_single_mail to: @user.email,
+                     subject_key: "email.analytics.subject",
+                     subject_params: { which_group: @group.name },
+                     locale: locale_for(@user)
   end
 end

@@ -1,5 +1,5 @@
 !!!
-%html{locale: current_locale}
+%html{locale: I18n.locale}
   %head
     - title = @title ? @title : "RDD | Revolución Democrática Digital"
     %meta{content: "width=device-width, initial-scale=1", name: "viewport"}/
@@ -10,7 +10,7 @@
     = theme_stylesheet_link_tag
     = csrf_meta_tags
     = render 'application/social_metadata', description: @meta_description, title: @meta_title
-    = render 'application/google_analytics'
+    = render 'application/google_analytics', code: ENV['GOOGLE_TAG_MANAGER_ID']
 
   %body{class: "pages #{controller_name} #{action_name}"}
     .navbar.navbar-top{role: 'navigation'}

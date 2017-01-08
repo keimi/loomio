@@ -62,12 +62,6 @@ module.exports = new class GroupsHelper
   clearGroupNameInput: ->
     @groupNameInput().clear()
 
-  editGroupDescription: (description) ->
-    element(By.css('.group-form__description textarea')).sendKeys(description)
-
-  groupPageDescriptionText: ->
-    element(By.css('.group-page__description-text'))
-
   submitGroupForm: ->
     element(By.css('.group-form__submit-button')).click()
 
@@ -93,7 +87,7 @@ module.exports = new class GroupsHelper
     element(By.css('.members-card'))
 
   groupDescriptionPanel: ->
-    element(By.css('.group-page__description'))
+    element(By.css('.description-card'))
 
   groupThreadsList: ->
     element(By.css('.discussions-card'))
@@ -137,26 +131,8 @@ module.exports = new class GroupsHelper
   clickAddSubgroupLink: ->
     element(By.css('.group-page-actions__add-subgroup-link')).click()
 
-  groupVolumeCard: ->
-    element(By.css('.group-volume-card')).getText()
-
-  clickChangeInGroupVolumeCard: ->
-    element(By.css('.group-volume-card__change-volume-link')).click()
-
   clickFirstThread: ->
     element(By.css('.thread-preview__link')).click()
-
-  changeGroupVolumeToLoud: ->
-    element(By.id('volume-loud')).click()
-
-  submitChangeVolumeForm: ->
-    element(By.css('.change-volume-form__submit')).click()
-
-  welcomeModal: ->
-    element(By.css('.group-welcome-modal'))
-
-  dismissWelcomeModal: ->
-    element(By.css('.lmo-btn--primary')).click()
 
   visitMembersPage: ->
     element(By.css('.members-card__manage-members')).click()

@@ -3,7 +3,6 @@
   display: block;
   color: $primary-text-color;
   padding: 15px 17px;
-  border-bottom: 1px solid $border-color;
 }
 
 .proposal-collapsed__flex {
@@ -13,6 +12,7 @@
 .proposal-collapsed__body {
   margin-left: 10px;
   width: 100%;
+  overflow: hidden;
 }
 
 .proposal-collapsed-title {
@@ -26,6 +26,7 @@
 
 .proposal-collapsed__outcome {
   color: $grey-on-white;
+  img { max-width: 100%; }
 }
 
 .proposal-collapsed__closed-at {

@@ -4,8 +4,6 @@
 
 .proposal-expanded {
   background-color: #fff;
-  border-bottom: 1px solid $border-color;
-  padding: 0 15px 15px 15px;
 }
 
 .proposal-expanded__proposal-name{
@@ -30,4 +28,8 @@
   list-style: none;
   margin-left: 0;
   padding-left: 0;
+}
+
+.proposal-expanded__attachments {
+  margin-top: 16px;
 }

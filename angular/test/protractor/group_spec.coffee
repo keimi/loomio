@@ -3,10 +3,18 @@ describe 'Group Page', ->
   page = require './helpers/page_helper.coffee'
   staticPage = require './helpers/static_page_helper.coffee'
 
+  describe 'visiting a parent group as a subgroup member', ->
+    it 'displays parent group in sidebar if member of a subgroup', ->
+      page.loadPath 'visit_group_as_subgroup_member'
+      page.expectText '.group-theme__name', 'Point Break'
+      page.expectElement '.join-group-button__ask-to-join-group'
+      page.click '.navbar__sidenav-toggle'
+      page.expectElement '.sidebar__list-item--selected'
+
   describe 'start group from home page', ->
     it 'allows starting a group via the start_group route', ->
       staticPage.loadPath 'view_homepage_as_visitor'
-      staticPage.click '#try-it-main'
+      staticPage.click '.header__item--start-button'
       staticPage.fillIn '#group_name', 'My First Group'
       staticPage.fillIn '#group_description', 'Building a Better Bolshevik'
       staticPage.fillIn '#name', 'Test Example'
@@ -20,14 +28,12 @@ describe 'Group Page', ->
       staticPage.fillIn '#user_password_confirmation', 'vivalarevolucion'
       staticPage.click  '#create-account'
 
-      page.expectText '.modal-title', 'Welcome to your new group'
-      page.click '.group-welcome-modal__close-button'
-      page.expectText '.group-theme__name', 'My First Group'
       page.expectFlash 'Welcome! You have signed up successfully'
+      page.expectText '.group-theme__name', 'My First Group'
 
     it 'allows starting a group with an existing email', ->
       staticPage.loadPath 'view_homepage_as_visitor'
-      staticPage.click '#try-it-main'
+      staticPage.click '.header__item--start-button'
       staticPage.fillIn '#group_name', 'My First Group'
       staticPage.fillIn '#group_description', 'Building a Better Bolshevik'
       staticPage.fillIn '#name', 'Test Example'
@@ -40,10 +46,8 @@ describe 'Group Page', ->
       staticPage.fillIn '#user_password', 'gh0stmovie'
       staticPage.click '#sign-in-btn'
 
-      page.expectText '.modal-title', 'Welcome to your new group'
-      page.click '.group-welcome-modal__close-button'
-      page.expectText '.group-theme__name', 'My First Group'
       page.expectFlash 'Signed in successfully'
+      page.expectText '.group-theme__name', 'My First Group'
 
   describe 'non-member views group', ->
     describe 'logged out user', ->
@@ -55,7 +59,7 @@ describe 'Group Page', ->
         staticPage.fillIn '#user_password', 'complex_password'
         staticPage.fillIn '#user_password_confirmation', 'complex_password'
         staticPage.click '#create-account'
-        page.expectElement '.lmo-navbar__item--user'
+        page.expectElement '.sidebar__content'
         page.expectElement '.group-theme__name', 'Open Dirty Dancing Shoes'
 
       it 'should allow you to request to join a closed group', ->
@@ -68,25 +72,27 @@ describe 'Group Page', ->
 
       it 'should reload a closed group after logging in', ->
         page.loadPath 'view_closed_group_as_visitor'
-        page.click '.lmo-navbar__sign-in'
+        page.click '.navbar__sign-in'
         page.fillIn '#user-email', 'jennifer_grey@example.com'
         page.fillIn '#user-password', 'gh0stmovie'
         page.click '.sign-in-form__submit-button'
+        page.waitForReload()
         page.expectText '.group-theme__name', 'Closed Dirty Dancing Shoes'
         page.expectText '.thread-previews-container', 'This thread is private'
-        page.expectElement '.navbar-user-options__user-profile-icon'
+        page.expectElement '.sidebar__content'
 
       it 'should prompt for login for secret group', ->
         page.loadPath 'view_secret_group_as_visitor'
         page.fillIn '#user-email', 'patrick_swayze@example.com'
         page.fillIn '#user-password', 'gh0stmovie'
         page.click '.sign-in-form__submit-button'
+        page.waitForReload()
         page.expectText '.group-theme__name', 'Secret Dirty Dancing Shoes'
-        page.expectElement '.navbar-user-options__user-profile-icon'
+        page.expectElement '.sidebar__content'
 
       it 'does not allow mark as read or mute', ->
         page.loadPath('view_open_group_as_visitor')
-        page.expectNoElement('.thread-preview__mark-as-read')
+        page.expectNoElement('.thread-preview__dismiss')
         page.expectNoElement('.thread-preview__mute')
 
       it 'open group displays previous proposals', ->
@@ -106,6 +112,11 @@ describe 'Group Page', ->
         page.loadPath('view_open_group_as_non_member')
         page.expectElement('.join-group-button__join-group')
 
+    describe 'on page load', ->
+      it 'displays threads from subgroups in the discussions card', ->
+        page.loadPath('setup_group_with_subgroups')
+        page.expectText('.discussions-card__list', 'Vaya con dios')
+
   describe 'starting a group', ->
 
     it 'redirects to dashboard and opens modal for logged in user with angular enabled', ->
@@ -115,8 +126,7 @@ describe 'Group Page', ->
 
     it 'starts an open group', ->
       page.loadPath('setup_new_group')
-      page.click '.group-welcome-modal__close-button',
-                 '.start-menu__start-button',
+      page.click '.start-menu__start-button',
                  '.start-menu__startGroup',
                  '.group-form__privacy-open',
                  '.group-form__advanced-link'
@@ -127,19 +137,11 @@ describe 'Group Page', ->
 
       page.fillIn '#group-name', 'Open please'
       page.click '.group-form__submit-button'
-      page.click '.group-welcome-modal__close-button'
       page.expectText '.group-privacy-button', 'Open'
-
-    it 'does not reshow the welcome modal', ->
-      page.loadPath('setup_new_group')
-      page.expectElement '.group-welcome-modal'
-      browser.refresh()
-      page.expectNoElement '.group-welcome-modal'
 
     it 'starts a closed group', ->
       page.loadPath('setup_new_group')
-      page.click '.group-welcome-modal__close-button',
-                 '.start-menu__start-button',
+      page.click '.start-menu__start-button',
                  '.start-menu__startGroup',
                  '.group-form__privacy-closed',
                  '.group-form__advanced-link'
@@ -149,13 +151,11 @@ describe 'Group Page', ->
 
       page.fillIn '#group-name', 'Closed please'
       page.click '.group-form__submit-button'
-      page.click '.group-welcome-modal__close-button'
       page.expectText '.group-privacy-button', 'Closed'
 
     it 'starts a secret group', ->
       page.loadPath('setup_new_group')
-      page.click '.group-welcome-modal__close-button',
-                 '.start-menu__start-button',
+      page.click '.start-menu__start-button',
                  '.start-menu__startGroup',
                  '.group-form__privacy-secret',
                  '.group-form__advanced-link'
@@ -165,17 +165,7 @@ describe 'Group Page', ->
 
       page.fillIn '#group-name', 'Secret please'
       page.click '.group-form__submit-button'
-      page.click '.group-welcome-modal__close-button'
       page.expectText '.group-privacy-button', 'Secret'
-
-
-    it 'shows the welcome modal once per session', ->
-      page.loadPath('setup_new_group')
-      page.expectElement('.group-welcome-modal')
-      page.click('.group-welcome-modal__close-button',
-                 '.members-card__manage-members',
-                 '.group-theme__name')
-      page.expectNoElement('.group-welcome-modal')
 
   describe 'starting a subgroup', ->
     describe 'with a public parent', ->
@@ -240,7 +230,7 @@ describe 'Group Page', ->
 
       it 'closed subgroup', ->
         page.click '.group-form__privacy-closed'
-        page.expectText '.group-form__privacy', 'members of Secret Dirty Dancing Shoes can find this subgroup and ask to join. All threads are private. Only members can see who is in the group.'
+        page.expectText '.group-form__privacy', 'Members of Secret Dirty Dancing Shoes can find this subgroup and ask to join. All threads are private. Only members can see who is in the group.'
         page.expectNoElement '.group-form__joining'
         page.expectElement '.group-form__parent-members-can-see-discussions'
         page.expectNoElement '.group-form__allow-public-threads'
@@ -259,7 +249,21 @@ describe 'Group Page', ->
     #   page.expectText('.group-theme__name', 'Dirty Dancing Shoes')
     #   page.expectText('.group-theme__name', 'The Breakfast Club')
 
-  describe 'editing group settings', ->
+  describe 'editing group description from description card', ->
+    it 'allows coordinators to edit description inline', ->
+      page.loadPath 'setup_group'
+      page.expectElement '.description-card__placeholder'
+      page.click '.description-card__edit'
+      page.fillIn '.description-card__textarea', "Brand spankin' new group description"
+      page.click '.description-card__save'
+      page.expectNoElement '.description-card__placeholder'
+      page.expectText '.description-card__text', "Brand spankin' new group description"
+
+    it 'prevents non-coordinators from editing description inline', ->
+      page.loadPath 'setup_group_as_member'
+      page.expectNoElement '.description-card__edit'
+
+  describe 'editing group settings via group form', ->
     beforeEach ->
       page.loadPath('setup_group')
       page.click('.group-page-actions__button',
@@ -269,9 +273,9 @@ describe 'Group Page', ->
       page.fillIn('#group-name', 'Clean Dancing Shoes')
       page.fillIn('#group-description', 'Dusty sandles')
       page.click('.group-form__submit-button')
-      page.expectFlash('Group updated')
+      # page.expectFlash('Group updated')
       page.expectText('.group-theme__name', 'Clean Dancing Shoes')
-      page.expectText('.group-page__description-text', 'Dusty sandles')
+      page.expectText('.description-card__text', 'Dusty sandles')
 
     it 'displays a validation error when name is blank', ->
       page.fillIn('#group-name', '')
@@ -337,9 +341,7 @@ describe 'Group Page', ->
                  '.group-page-actions__leave-group',
                  '.leave-group-form__submit')
       page.expectFlash('You have left this group')
-      # click 'groups' from nav
-      page.click('.groups-item')
-      page.expectNoText('.groups-page__groups', 'Dirty Dancing Shoes')
+      page.expectText('.dashboard-page__no-groups', "You don't have any recent threads because you are not a member of any groups.")
 
     it 'prevents last coordinator from leaving the group', ->
       # click leave group from the group actions downdown
@@ -360,14 +362,12 @@ describe 'Group Page', ->
                  '.group-page-actions__archive-group',
                  '.archive-group-form__submit')
       page.expectFlash('This group has been deactivated')
-      page.click('.groups-item')
-      page.expectNoText('.groups-page__groups', 'Dirty Dancing Shoes')
+      page.expectText('.dashboard-page__no-groups', "You don't have any recent threads because you are not a member of any groups.")
 
   describe 'handling drafts', ->
     it 'handles empty draft privacy gracefully', ->
       page.loadPath 'setup_group_with_empty_draft'
-      page.click '.group-welcome-modal__close-button',
-                 '.discussions-card__new-thread-button'
+      page.click '.discussions-card__new-thread-button'
       page.expectText('.privacy-notice', 'The thread will only be visible')
 
   describe 'starting a discussion', ->
@@ -380,8 +380,8 @@ describe 'Group Page', ->
       page.fillIn('#discussion-context', "I've had the time of my life")
       page.click('.discussion-form__submit')
       page.expectFlash('Thread started')
-      page.expectText('.thread-context', 'Nobody puts baby in a corner' )
-      page.expectText('.thread-context', "I've had the time of my life" )
+      page.expectText('.context-panel', 'Nobody puts baby in a corner' )
+      page.expectText('.context-panel', "I've had the time of my life" )
 
     it 'automatically saves drafts', ->
       page.click('.discussions-card__new-thread-button')
@@ -399,17 +399,17 @@ describe 'Group Page', ->
     it 'lets you change membership volume', ->
       page.click '.group-page-actions__button',
                  '.group-page-actions__change-volume-link',
-                 '#volume-normal',
+                 '#volume-loud',
                  '.change-volume-form__submit'
-      page.expectFlash 'You will be emailed about new threads and proposals in this group.'
+      page.expectFlash 'You will be emailed all activity in this group.'
 
     it 'lets you change the membership volume for all memberships', ->
       page.click '.group-page-actions__button',
                  '.group-page-actions__change-volume-link',
-                 '#volume-normal',
+                 '#volume-loud',
                  '.change-volume-form__apply-to-all',
                  '.change-volume-form__submit'
-      page.expectFlash 'You will be emailed about new threads and proposals in all your groups.'
+      page.expectFlash 'You will be emailed all activity in all your groups.'
 
   describe 'subdomains', ->
     it 'handles subdomain redirects', ->

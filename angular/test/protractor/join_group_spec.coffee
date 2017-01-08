@@ -2,6 +2,7 @@ describe 'Joining group', ->
 
   groupsHelper = require './helpers/groups_helper.coffee'
   flashHelper = require './helpers/flash_helper.coffee'
+  page = require './helpers/page_helper.coffee'
 
   describe 'display', ->
 
@@ -35,4 +36,3 @@ describe 'Joining group', ->
       groupsHelper.clickAskToJoinGroupButton()
       groupsHelper.submitMembershipRequestForm()
       expect(flashHelper.flashMessage()).toContain('You have requested membership')
-      expect(groupsHelper.askToJoinGroupButton().isPresent()).toBeFalsy()

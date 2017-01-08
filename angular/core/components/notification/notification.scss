@@ -1,0 +1,21 @@
+.notification {
+  @include displayFlex;
+  padding: 13px;
+}
+
+.notification:hover {
+  text-decoration: none;
+  background-color: $list-hover-color;
+}
+
+
+.notification__avatar {
+  flex-grow: 2;
+  -webkit-flex-grow: 2;
+  margin-right: 13px;
+}
+
+.notification__content {
+  flex-shrink: 2;
+  -webkit-flex-shrink: 2;
+}

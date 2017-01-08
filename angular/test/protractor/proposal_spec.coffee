@@ -32,7 +32,7 @@ describe 'Proposals', ->
 
   describe 'updating a vote on a proposal', ->
     beforeEach ->
-      threadHelper.loadWithActiveProposalWithVotes()
+      page.loadPath 'setup_proposal_with_votes'
 
     it 'successfully updates a previous vote on a proposal', ->
       proposalsHelper.clickChangeBtn()
@@ -95,6 +95,15 @@ describe 'Proposals', ->
       page.expectFlash 'Outcome updated'
       page.expectText '.proposal-outcome-panel__outcome', 'Gonna make things happen!'
 
+  describe 'redirecting to a proposal', ->
+    it 'succeeds when a visitor logs in', ->
+      page.loadPath 'view_proposal_as_visitor'
+      page.fillIn '#user-email', 'patrick_swayze@example.com'
+      page.fillIn '#user-password', 'gh0stmovie'
+      page.click '.sign-in-form__submit-button'
+      page.waitForReload()
+      page.expectText '.proposal-expanded', 'lets go hiking'
+
   describe 'voting by email', ->
 
     beforeEach ->
@@ -102,27 +111,31 @@ describe 'Proposals', ->
 
   describe 'undecided members', ->
 
-      describe 'when proposal is open', ->
+    describe 'when proposal is open', ->
+      beforeEach ->
+        page.loadPath 'setup_proposal_with_votes'
 
-        beforeEach ->
-          threadHelper.loadWithActiveProposalWithVotes()
-          proposalsHelper.clickShowUndecidedLink()
+      it 'shows all undecided members when the show link is clicked', ->
+        page.click '.undecided-panel__show'
+        page.expectText '.undecided-panel', 'Emilio'
+        page.expectText '.undecided-panel', 'Hide undecided members'
 
-        it 'shows all undecided members when the show link is clicked', ->
-          expect(proposalsHelper.undecidedPanel()).toContain('Emilio')
-          expect(proposalsHelper.undecidedPanel()).toContain('Hide undecided members')
+      it 'hides all undecided members when hide link is clicked', ->
+        page.click '.undecided-panel__show'
+        page.click '.undecided-panel__hide-undecided'
+        page.expectText '.undecided-panel', 'Show'
 
-        it 'hides all undecided members when undecided panel is open and hide link is clicked', ->
-          proposalsHelper.clickHideUndecidedLink()
-          expect(proposalsHelper.undecidedPanel()).toContain('Show undecided members')
+      it 'allows you to remind undecided members', ->
+        page.click '.undecided-panel__remind'
+        # workaround for weird webdriver quirk which results in getText() always being empty for <input> elements
+        expect(threadHelper.commentForm().getAttribute('value')).toEqual('@emilioestevez')
 
-      describe 'when proposal is closed', ->
+    describe 'when proposal is closed', ->
+      beforeEach ->
+        page.loadPath 'setup_closed_proposal'
 
-        beforeEach ->
-          threadHelper.loadWithClosedProposal()
-
-        it 'expands the most recent closed proposal', ->
-          page.expectText '.proposal-expanded__proposal-name', 'lets go hiking to the moon'
+      it 'expands the most recent closed proposal', ->
+        page.expectText '.proposal-expanded__proposal-name', 'lets go hiking to the moon'
 
   describe 'visibility', ->
 

@@ -1,7 +1,22 @@
 loomio_webhooks:
-  repo:    loomio/loomio_webhooks
-  version: master
+  repo:         loomio/loomio_webhooks
 
 loomio_org_plugin:
-  repo:    loomio/loomio_org_plugin
-  version: master
+  repo:         loomio/loomio_org_plugin
+
+loomio_tags:
+  repo:         loomio/loomio_tags
+  experimental: true
+
+loomio_truncate_comment:
+  repo:         loomio/loomio_truncate_comment
+  experimental: true
+
+loomio_onboarding:
+  repo:         loomio/loomio_onboarding
+
+loomio_content_preview:
+  repo:         loomio/loomio_content_preview
+
+loomio_buyer_experience:
+  repo:         loomio/loomio_buyer_experience

@@ -1,29 +1,19 @@
-@media (max-width: 480px){
-  .thread-lintel__wrapper {
-  }
-}
-@media (min-width: 480px) and (max-width: 768px){
-  .thread-lintel__wrapper{
-    max-width: 768px;
-  }
-}
-@media (min-width: 768px) and (max-width: 992px){
-  .thread-lintel__wrapper{
-    max-width: 992px;
-  }
-}
-@media (min-width: 992px){
-  .thread-lintel__wrapper{
-    max-width: 1120px;
-  }
-}
 
 .thread-lintel__wrapper {
   @include lmoRow;
   @include fontMedium;
   position: fixed;
   top: $navbar-height;
-  width: 100%;
+  left: 0;
+  right: 0;
+  margin: auto;
+  max-width: 1120px;
+}
+
+// Account for lintel with sidebar locked open
+.md-locked-open + .lmo-main-content .thread-lintel__wrapper {
+  transform: translateX(125px);
+  -webkit-transform: translateX(125px);
 }
 
 .thread-lintel__content {

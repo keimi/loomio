@@ -8,11 +8,19 @@ angular.module('loomioApp').factory 'ProposalModel', (BaseModel, AppConfig, Draf
     @serializableAttributes: AppConfig.permittedParams.motion
     @draftParent: 'discussion'
 
+    afterConstruction: ->
+      @newAttachmentIds = _.clone(@attachmentIds) or []
+
     defaultValues: ->
       description: ''
       outcome: ''
       voteCounts: {yes: 0, no: 0, abstain: 0, block: 0}
       closingAt: moment().add(3, 'days').startOf('hour')
+
+    serialize: ->
+      data = @baseSerialize()
+      data.motion.attachment_ids = @newAttachmentIds
+      data
 
     relationships: ->
       @hasMany 'votes', sortBy: 'createdAt', sortDesc: true
@@ -63,13 +71,8 @@ angular.module('loomioApp').factory 'ProposalModel', (BaseModel, AppConfig, Draf
       @uniqueVotes().length
 
     percentVoted: ->
-      numVoted = @numberVoted()
-      groupSize = @groupSizeWhenVoting()
-      return 0 if numVoted == 0 or groupSize == 0
-      (100 * numVoted / groupSize).toFixed(0)
-
-    groupSizeWhenVoting: ->
-      @membersCount
+      return 0 if @votersCount == 0 or @membersCount == 0
+      (100 * @votersCount / @membersCount).toFixed(0)
 
     lastVoteByUser: (user) ->
       @uniqueVotesByUserId()[user.id]
@@ -83,11 +86,17 @@ angular.module('loomioApp').factory 'ProposalModel', (BaseModel, AppConfig, Draf
     hasOutcome: ->
       _.some(@outcome)
 
+    hasContext: ->
+      !!@description
+
     undecidedMembers: ->
       if @isActive()
         _.difference(@group().members(), @voters())
       else
         @recordStore.users.find(_.pluck(@didNotVotes(), 'userId'))
+
+    undecidedUsernames: ->
+      _.pluck(@undecidedMembers(), 'username')
 
     hasUndecidedMembers: ->
       @membersCount > @votersCount
@@ -107,3 +116,15 @@ angular.module('loomioApp').factory 'ProposalModel', (BaseModel, AppConfig, Draf
         @recordStore.memberships.fetchByGroup(@group().key, {per: 500})
       else
         @recordStore.didNotVotes.fetchByProposal(@key, {per: 500})
+
+    cookedDescription: ->
+      cooked = @description
+      _.each @mentionedUsernames, (username) ->
+        cooked = cooked.replace(///@#{username}///g, "[[@#{username}]]")
+      cooked
+
+    newAttachments: ->
+      @recordStore.attachments.find(@newAttachmentIds)
+
+    attachments: ->
+      @recordStore.attachments.find(attachableId: @id, attachableType: 'Motion')

@@ -10,6 +10,8 @@ module Development::NintiesMoviesHelper
                               password: 'gh0stmovie',
                               detected_locale: 'en',
                               angular_ui_enabled: true)
+    @patrick.experienced!("introductionCarousel")
+    @patrick
   end
 
   def patricks_contact
@@ -27,6 +29,8 @@ module Development::NintiesMoviesHelper
                                username: 'jennifergrey',
                                password: 'gh0stmovie',
                                angular_ui_enabled: true)
+    @jennifer.experienced!("introductionCarousel")
+    @jennifer
   end
 
   def max
@@ -36,6 +40,8 @@ module Development::NintiesMoviesHelper
                           password: 'gh0stmovie',
                           username: 'mingthemerciless',
                           angular_ui_enabled: true)
+    @max.experienced!("introductionCarousel")
+    @max
   end
 
   def emilio
@@ -64,6 +70,18 @@ module Development::NintiesMoviesHelper
       @test_group.add_member! emilio
     end
     @test_group
+  end
+
+  def multiple_groups
+    @groups = []
+    10.times do
+      group = Group.new(name: Faker::Name.name,
+                        group_privacy: 'closed',
+                        discussion_privacy_options: 'public_or_private')
+      group.add_admin! patrick
+      @groups << group
+    end
+    @groups
   end
 
   def muted_test_group
@@ -136,7 +154,9 @@ module Development::NintiesMoviesHelper
       @another_test_subgroup = Group.create!(name: 'Bodhi',
                                              parent: another_test_group,
                                              group_privacy: 'closed',
-                                             discussion_privacy_options: 'public_or_private')
+                                             discussion_privacy_options: 'public_or_private',
+                                             is_visible_to_parent_members: true)
+      @another_test_subgroup.discussions.create(title: "Vaya con dios", private: false, author: patrick)
       @another_test_subgroup.add_admin! patrick
     end
     @another_test_subgroup
@@ -264,8 +284,13 @@ module Development::NintiesMoviesHelper
     MembershipService.add_users_to_group(users: [patrick], group: another_group, inviter: jennifer, message: 'join in')
 
     #'new_coordinator',
-    #notify jennifer that patrick has made her a coordinator
+    #notify patrick that jennifer has made him a coordinator
     membership = Membership.find_by(user_id: patrick.id, group_id: another_group.id)
     new_coordinator_event = MembershipService.make_admin(membership: membership, actor: jennifer)
+
+    #'invitation_accepted',
+    #notify patrick that his invitation to emilio has been accepted
+    invitation = InvitationService.invite_to_group(recipient_emails: [emilio.email], group: another_group, inviter: patrick)
+    InvitationService.redeem(invitation.first, emilio)
   end
 end

@@ -13,7 +13,21 @@ angular.module('loomioApp', ['ngNewRouter',
                              'checklist-model',
                              'monospaced.elastic',
                              'angularMoment',
-                             'offClick']).config ($locationProvider, $translateProvider, markedProvider, $compileProvider, $animateProvider, renderProvider) ->
+                             'offClick',
+                             'ngMaterial',
+                             'angulartics',
+                             'angulartics.google.tagmanager']).config ($provide, $locationProvider, $translateProvider, markedProvider, $compileProvider, $animateProvider, renderProvider, $analyticsProvider) ->
+
+  # a decorator to allow mentio to work within modals
+  # https://github.com/jeff-collins/ment.io/issues/68#issuecomment-200746901
+  $provide.decorator 'mentioMenuDirective', ($delegate) ->
+    directive = _.first($delegate)
+    directive.compile = ->
+      (scope, elem) ->
+        directive.link.apply(this, arguments)
+        if modal = scope.parentMentio.targetElement[0].closest('.modal')
+          modal.appendChild(elem[0])
+    $delegate
 
   # this should make stuff faster but you need to add "animated" class to animated things.
   # http://www.bennadel.com/blog/2935-enable-animations-explicitly-for-a-performance-boost-in-angularjs.htm
@@ -39,8 +53,11 @@ angular.module('loomioApp', ['ngNewRouter',
   if window.Loomio? and window.Loomio.environment == 'production'
     $compileProvider.debugInfoEnabled(false);
 
+  $analyticsProvider.firstPageview(true);
+  $analyticsProvider.withAutoBase(true);
+
 # Finally the Application controller lives here.
-angular.module('loomioApp').controller 'ApplicationController', ($scope, $timeout, $location, $router, KeyEventService, MessageChannelService, IntercomService, ScrollService, Session, AppConfig, Records, ModalService, SignInForm, GroupForm, AngularWelcomeModal, ChoosePlanModal, AbilityService) ->
+angular.module('loomioApp').controller 'ApplicationController', ($scope, $timeout, $location, $router, $mdMedia, KeyEventService, MessageChannelService, IntercomService, ScrollService, Session, AppConfig, Records, ModalService, SignInForm, GroupForm, AbilityService, AhoyService, ViewportService) ->
   $scope.isLoggedIn = AbilityService.isLoggedIn
   $scope.currentComponent = 'nothing yet'
 
@@ -55,18 +72,26 @@ angular.module('loomioApp').controller 'ApplicationController', ($scope, $timeou
   if document.location.protocol.match(/https/) && navigator.serviceWorker?
     navigator.serviceWorker.register(document.location.origin + '/service-worker.js', scope: './')
 
+  $scope.renderSidebar = $mdMedia('gt-md')
+  $scope.$on 'toggleSidebar', (event, show) ->
+    return if show == false
+    $scope.renderSidebar = true
+
   $scope.$on 'loggedIn', (event, user) ->
     $scope.refresh()
     ModalService.open(GroupForm, group: -> Records.groups.build()) if $location.search().start_group?
-    ModalService.open(AngularWelcomeModal)                         if AppConfig.showWelcomeModal
     IntercomService.boot()
     MessageChannelService.subscribe()
 
   $scope.$on 'currentComponent', (event, options = {}) ->
+    Session.currentGroup = options.group
+    IntercomService.updateWithGroup(Session.currentGroup)
+
     $scope.pageError = null
-    ScrollService.scrollTo(options.scrollTo or 'h1')
+    $scope.$broadcast('clearBackgroundImageUrl')
+    ScrollService.scrollTo(options.scrollTo or 'h1') unless options.skipScroll
     $scope.links = options.links or {}
-    if !AbilityService.isLoggedIn() and _.contains($router.authRequiredComponents, options.page)
+    if AbilityService.requireLoginFor(options.page)
       ModalService.open(SignInForm, preventClose: -> true)
 
   $scope.$on 'setTitle', (event, title) ->
@@ -77,15 +102,18 @@ angular.module('loomioApp').controller 'ApplicationController', ($scope, $timeou
     if !AbilityService.isLoggedIn() and error.status == 403
       ModalService.open(SignInForm, preventClose: -> true)
 
-  $scope.$on 'trialIsOverdue', (event, group) ->
-    if AbilityService.canAdministerGroup(group) and AppConfig.chargify and !AppConfig.chargify.nagCache[group.key]
-      ModalService.open ChoosePlanModal, group: -> group
-      AppConfig.chargify.nagCache[group.key] = true
+  $scope.$on 'setBackgroundImageUrl', (event, group) ->
+    url = group.coverUrl(ViewportService.viewportSize())
+    angular.element(document.querySelector('.lmo-main-background')).attr('style', "background-image: url(#{url})")
+
+  $scope.$on 'clearBackgroundImageUrl', (event) ->
+    angular.element(document.querySelector('.lmo-main-background')).removeAttr('style')
 
   $scope.keyDown = (event) -> KeyEventService.broadcast event
 
-  $router.config([
+  coreRoutes = [
     {path: '/dashboard', component: 'dashboardPage' },
+    {path: '/dashboard/:filter', component: 'dashboardPage'},
     {path: '/inbox', component: 'inboxPage' },
     {path: '/groups', component: 'groupsPage' },
     {path: '/explore', component: 'explorePage'},
@@ -110,20 +138,12 @@ angular.module('loomioApp').controller 'ApplicationController', ($scope, $timeou
     {path: '/apps/authorized', component: 'authorizedAppsPage'},
     {path: '/apps/registered', component: 'registeredAppsPage'},
     {path: '/apps/registered/:id', component: 'registeredAppPage'},
-    {path: '/apps/registered/:id/:stub', component: 'registeredAppPage'},
-    {path: '/explore', component: 'explorePage'}
-  ])
-  $router.authRequiredComponents = [
-    'groupsPage',
-    'dashboardPage',
-    'inboxPage',
-    'profilePage',
-    'emailSettingsPage',
-    'authorizedAppsPage',
-    'registeredAppsPage',
-    'registeredAppPage'
+    {path: '/apps/registered/:id/:stub', component: 'registeredAppPage'}
   ]
 
+  $router.config coreRoutes.concat window.Loomio.plugins.routes
+
+  AhoyService.init()
   Session.login(AppConfig.currentUserData)
 
   return

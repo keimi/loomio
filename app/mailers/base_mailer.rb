@@ -1,13 +1,13 @@
 class BaseMailer < ActionMailer::Base
   include ApplicationHelper
-  include LocalesHelper
   include ERB::Util
   include ActionView::Helpers::TextHelper
   include EmailHelper
 
   add_template_helper(PrettyUrlHelper)
 
-  default :from => "Loomio <notifications@#{ENV['SMTP_DOMAIN']}>"
+  NOTIFICATIONS_EMAIL_ADDRESS = "notifications@#{ENV['SMTP_DOMAIN']}"
+  default :from => "Loomio <#{NOTIFICATIONS_EMAIL_ADDRESS}>"
   before_action :utm_hash
 
   protected
@@ -20,12 +20,16 @@ class BaseMailer < ActionMailer::Base
   end
 
   def from_user_via_loomio(user)
-    "\"#{user.name} (Loomio)\" <notifications@#{ENV['SMTP_DOMAIN']}>"
+    "\"#{user.name} (Loomio)\" <#{NOTIFICATIONS_EMAIL_ADDRESS}>"
   end
 
   def send_single_mail(locale: , to:, subject_key:, subject_params: {}, **options)
     I18n.with_locale(locale) { mail options.merge(to: to,
                                                   subject: I18n.t(subject_key, subject_params)) }
+  end
+
+  def locale_for(*user)
+    [*user, I18n].compact.first.locale
   end
 
   def self.send_bulk_mail(to:)
