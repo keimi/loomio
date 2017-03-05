@@ -18,9 +18,11 @@ class GroupSerializer < ActiveModel::Serializer
              :members_can_vote,
              :motions_count,
              :closed_motions_count,
+             :closed_polls_count,
              :proposal_outcomes_count,
              :discussions_count,
              :public_discussions_count,
+             :announcement_recipients_count,
              :group_privacy,
              :is_visible_to_parent_members,
              :parent_members_can_see_discussions,
@@ -38,6 +40,7 @@ class GroupSerializer < ActiveModel::Serializer
              :is_subgroup_of_hidden_parent,
              :enable_experiments,
              :experiences,
+             :features,
              :recent_activity_count
 
   has_one :current_user_membership, serializer: MembershipSerializer, root: :memberships
