@@ -51,7 +51,7 @@ es:
       cancel: Cancelar
       show_more: Mostrar más
       view_all: Ver todo
-      new_thread: Nuevo hilo
+      new_thread: Nueva conversación
       add_subgroup: Añadir subgrupo
       loading: Cargando
       translate: Traducir
@@ -63,7 +63,7 @@ es:
       ok: '¡Ok!'
     formatting_help:
       label: 'Ayuda de formato '
-      title: Aprende a usar Markdown para dar formato a tu texto en Loomio
+      title: Aprende a usar Markdown para dar formato a tu texto
   devise:
     failure:
       inactive: Hay una cuenta Desactivada asociada a este email. Contáctanos si quieres Reactivar tu cuenta.
@@ -114,14 +114,14 @@ es:
     mute_label: 'Silenciar '
     discussion:
       title: 'Configuración de correo electrónico para {{title}}'
-      loud_description: Recibirás correo electrónico siempre que haya actividad en este hilo.
+      loud_description: Recibirás correo electrónico siempre que haya actividad en esta conversación.
       normal_description: 'Recibirás correo electrónico siempre que se inicie una propuesta, cuando esté a punto de cerrarse o cuando se publique un resultado. '
-      quiet_description: 'No recibirás correo electrónico sobre este hilo. '
-      apply_to_all: Aplicar esta configuración para todos los hilos de este grupo.
+      quiet_description: 'No recibirás correo electrónico sobre esta conversación. '
+      apply_to_all: Aplicar esta configuración para todos las conversaciones de este grupo.
       messages:
-        loud: 'Recibirás la actividad de este hilo por correo electrónico. '
-        normal: 'Recibirás correo electrónico sobre propuestas en este hilo. '
-        quiet: No recibirás correo electrónico sobre este hilo.
+        loud: 'Recibirás la actividad de esta conversación por correo electrónico. '
+        normal: 'Recibirás correo electrónico sobre propuestas en esta conversación. '
+        quiet: No recibirás correo electrónico sobre esta conversación.
     membership:
       title: 'Configuración de correo electrónico para {{title}} '
       loud_description: Recibirás correo electrónico siempre que haya actividad en este grupo.
@@ -148,25 +148,25 @@ es:
         normal: Recibirás por correo electrónico los anuncios de grupos nuevos.
         quiet: No recibirás correo electrónico de los nuevos grupos.
   mute_explanation_modal:
-    aria_label: 'Silenciar hilo '
-    mute_thread: Silenciar hilo
+    aria_label: 'Silenciar la conversación '
+    mute_thread: Silenciar la conversación
     body_html: >
       <p>Silenciar significa<strong>que no recibirás notificaciones sobre
-      propuestas</strong>, o ninguna otra actividad en este hilo, a no ser que
+      propuestas</strong>, o ninguna otra actividad en esta conversación, a no ser que
       alguien te <strong>@mencione.</strong></p>
 
-      <p>Los hilos silenciados tampoco serán visibles en tus páginas
+      <p>las conversaciones silenciadas tampoco serán visibles en tus páginas
       <strong>Recientes</strong> y <strong>No leído</strong>. Para encontrar tus
-      hilos silenciados, selecciona <strong>Silenciado</strong> en la barra
+      conversaciones silenciadas, selecciona <strong>Silenciado</strong> en la barra
       lateral de navegación:</p>
-    image_alt: 'Opción de hilos silenciados en la barra lateral '
+    image_alt: 'Opción de conversaciones silenciadas en la barra lateral '
   dismiss_explanation_modal:
-    aria_label: Ignorar hilo
-    dismiss_thread: Ignorar hilo
+    aria_label: Ignorar conversación
+    dismiss_thread: Ignorar conversación
     body_html: >
-      <p>Ignorar un hilo lo remueve de tu lista de no leídos. Si alguna nueva
+      <p>Ignorar una conversación la remueve de tu lista de no leídos. Si alguna nueva
 
-      actividad ocurre en el hilo, volverá a aparecer como no leído
+      actividad ocurre en la conversación, volverá a aparecer como no leído
       nuevamente.</p>
   inbox:
     clear: Limpiar
@@ -175,7 +175,7 @@ es:
     closing_in: Cerrando
   sign_in_form:
     aria_label: Formulario de entrada
-    title: Ingresa a Loomio
+    title: Ingresa a asamblea.social
     email_label: 'Email:'
     email_placeholder: tu@ejemplo.com
     password_label: 'Contraseña:'
@@ -191,7 +191,7 @@ es:
       github: Iniciar sesión con Github
   sign_up_form:
     aria_label: Formulario de entrada
-    title: '¡Bienvenido/a a Loomio! Te haremos comenzar enseguida'
+    title: '¡Bienvenido/a a asamblea.social! Te haremos comenzar enseguida'
     name_label: Tu nombre
     name_placeholder: Fulano de tal
     email_label: 'Correo electrónico:'
@@ -204,7 +204,7 @@ es:
   signed_out_modal:
     aria_label: 'Sesión cerrada '
     title: 'Tu sesión ha terminado '
-    message: 'Tu sesión ha sido terminada en Loomio desde otra pestaña del navegador. Por favor vuelve a entrar para continuar. '
+    message: 'Tu sesión ha sido terminada desde otra pestaña del navegador. Por favor vuelve a entrar para continuar. '
     ok: listo
   comment_form:
     aria_label: Añade un comentario
@@ -228,7 +228,7 @@ es:
     public_privacy_notice: 'Tu comentario será público en internet. '
     sign_in: 'Inicia sesión para unirte a la conversación '
   sidebar:
-    my_threads: Mis hilos
+    my_threads: Mis conversaciones
     my_groups: Mis grupos
     my_settings: 'Mi configuración '
     recent: 'Reciente '
@@ -239,26 +239,26 @@ es:
     edit_profile: 'Editar perfil '
     email_settings: 'Ajustes de correo  '
     help: 'Ayuda  '
-    contact: 'Contactar a Loomio '
+    contact: 'Contactar a Revolución Democrática '
     sign_out: 'Salir '
     aria_labels:
       heading: 'Barra Lateral '
-      threads_list: Acciones del hilo
+      threads_list: Acciones de la conversación
       groups_list: Grupos
       user_list: Acciones de usuario
   navbar:
     recent_title: Ir al Escritorio
     unread_title: Ver los mensajes no leídos
-    start_thread: Inicia un nuevo hilo
+    start_thread: Inicia una nueva conversación
     notifications: Panel de notificaciones
     search:
-      label: 'Búsqueda, por grupos o hilos  '
+      label: 'Búsqueda, por grupos o conversaciones  '
       results_aria_label: 'Resultados de la búsqueda '
-      no_results: Ningún hilo encontrado
+      no_results: Ningúna conversación encontrada
       close: Cerrar panel de búsqueda
       placeholder: Buscar
       loading: Cargando resultados...
-      discussions: Hilos
+      discussions: Conversaciones
       proposals: Propuestas
       comments: 'Comentarios '
     sign_in: Iniciar sesión
@@ -269,7 +269,7 @@ es:
     title: 'Acción '
     start_group: Crear un grupo nuevo
     start_subgroup: Crear subgrupo nuevo
-    start_thread: Iniciar hilo nuevo
+    start_thread: Iniciar una nueva conversación
     start_poll: Crear una encuesta
     invite_people: Invita a gente
   notifications:
@@ -356,7 +356,7 @@ es:
     edit_proposal: Editar propuesta
     what_does_a_proposal_do: Las propuestas te permiten ver qué le parece a todo el mundo un determinado plan de acción.
     proposal_ideas: Necesitas ideas para redactar una buena propuesta?
-    proposal_ideas_title: 9 formas de utilizar propuestas en Loomio para convertir una charla en acción
+    proposal_ideas_title: 9 formas de utilizar propuestas para convertir una conversación en acción
     editing_title_and_description_forbidden: 'No puedes cambiar el título o la descripción de la propuesta una vez que alguien ha votado. Si los detalles cambian, por favor cierra la propuesta y comienza una nueva. '
     title_placeholder: 'Ej: Vamos a la luna '
     title_label: Título
@@ -365,16 +365,16 @@ es:
     details_label: Detalles
     details_placeholder: Da suficiente información para que la gente sepa exactamente que quieres decir el estar de acuerdo o en desacuerdo con la propuesta.
   discussion_record:
-    created: 'El hilo {{title}} ha sido creado con éxito en {{groupName}}'
+    created: 'La conversación {{title}} ha sido creada con éxito en {{groupName}}'
     updated: 'Guardar cambios en {{title}}'
   discussion_form:
-    aria_label: Formulario del hilo
+    aria_label: Formulario de la conversación
     messages:
-      created: Hilo iniciado
-      updated: Hilo actualizado
-    new_discussion_title: Inicia un nuevo hilo
-    edit_discussion_title: Editar hilo
-    discussion_helptext: Un hilo es donde todo el mundo puede discutir un tema y tomar decisiones juntos.
+      created: Conversación iniciada
+      updated: Conversación actualizada
+    new_discussion_title: Inicia una nueva conversación
+    edit_discussion_title: Editar conversación
+    discussion_helptext: Una conversación es donde todo el mundo puede discutir un tema y tomar decisiones juntos.
     group_label: Grupo
     group_placeholder: Seleccionar un grupo
     title_label: Título
@@ -382,11 +382,11 @@ es:
     context_label: Contexto
     context_placeholder: Da suficiente información de contexto para que el grupo pueda llevar a cabo una discusión productiva. Esta información puede actualizarse según progresa la discusión.
     privacy_label: Privacidad
-    privacy_public: 'Cualquier persona puede ver los hilos. Solo miembros pueden participar. '
-    privacy_private: 'Los hilos solo serán visibles para miembros de {{group}}.'
-    privacy_organisation: 'Los hilos serán visibles para miembros de {{parent}} y miembros de {{group}}.'
-    new_discussion_submit: Empezar un hilo
-    edit_discussion_submit: Actualizar hilo
+    privacy_public: 'Cualquier persona puede ver las conversaciones. Solo miembros pueden participar. '
+    privacy_private: 'las conversaciones solo serán visibles para miembros de {{group}}.'
+    privacy_organisation: 'las conversaciones serán visibles para miembros de {{parent}} y miembros de {{group}}.'
+    new_discussion_submit: Empezar una nueva conversación
+    edit_discussion_submit: Actualizar conversación
     make_announcement: Anuncio
     notified_count: '{{count}} personas recibirán un correo electrónico'
   proposal_expanded:
@@ -403,21 +403,17 @@ es:
   proposal_position_no: En desacuerdo
   proposal_position_block: Bloquear
   legacy_trial_expired_modal:
-    heading: 'Gracias por usar Loomio este año!'
+    heading: 'Gracias por usar Revolución Democrática!'
     body: >
-      <p>Realmente apreciamos tu apoyo en este año, y estamos entusiasmados de
-      mejorar Loomio aún más en 2016.</p>
-
-      <p>¿Encuentras que Loomio es útil para tu grupo? Acabamos de lanzar
-      nuestros planes de pago y le estamos pidiendo a los grupos que han
-      utilizado Loomio por un tiempo que elijan un plan que les convenga.</p>
-    submit: Muéstrame los planes
+      <p>Realmente apreciamos tu apoyo, y estamos entusiasmados de
+      mejorar la plataforma aún más en 2017.</p>
+  submit: Muéstrame los planes
   group_welcome_modal:
-    aria_label: Bienvenid@
+    aria_label: Bienvenido
     creator_heading: Bienvenido/a a tu nuevo grupo
-    member_heading: Bienvenido/a a Loomio
-    creator_info: 'Eres el <strong>coordinador</strong> del grupo, que es como ser el anfitrión. Mira el vídeo y los hilos de ejemplo.'
-    member_info: 'Mira éste vídeo para tener una idea de como funciona Loomio. Luego, pruébalo haciendo un comentario en un hilo de discusión, o inicia un hilo nuevo.'
+    member_heading: Bienvenido/a a Revolución Democrática
+    creator_info: 'Eres el <strong>coordinador</strong> del grupo, que es como ser el anfitrión. Mira el vídeo y las conversaciones de ejemplo.'
+    member_info: 'Mira éste vídeo para tener una idea de como funciona la plataforma. Luego, pruébalo haciendo un comentario en un conversación de discusión, o inicia un conversación nuevo.'
     creator_footer: 'Cuando estés listo, <strong>invita gente</strong> a sumarse. '
     ok_got_it: 'Bien, ¡lo tengo!'
   cover_photo_form:
@@ -450,7 +446,7 @@ es:
       membership_requested: 'Ya has solicitado unirte a {{group}}'
   revision_history_modal:
     aria_label: Historial de revisión
-    thread_header: Historial de revisión del contexto del hilo
+    thread_header: Historial de revisión del contexto de la conversación
     comment_header: Historial de revisión del comentario
     started_by: 'Iniciado por <strong>{{name}}</strong>'
     edited_by: 'Editado por <strong>{{name}}</strong>'
@@ -458,12 +454,12 @@ es:
   group_page:
     thread_list:
       empty:
-        no_discussions_in_group: Este grupo todavía no tiene ningún hilo.
-        no_discussions_matching_filters_html: "No se han encontrado hilos que coincidan con estos filtros. <a href='%{link}'>Limpiar filtros</a>."
-        no_public_discussions: No hay hilos públicos en este grupo.
-        discussions_are_private: Todos los hilos en este grupo son privados.
-        join_group: Para ver los hilos privados tendrás que unirte al grupo.
-        request_membership: Para ver los hilos privados solicita unirte al grupo
+        no_discussions_in_group: Este grupo todavía no ha creado ningúna conversación.
+        no_discussions_matching_filters_html: "No se han encontrado conversaciones que coincidan con estos filtros. <a href='%{link}'>Limpiar filtros</a>."
+        no_public_discussions: No hay conversaciones públicas en este grupo.
+        discussions_are_private: Todas las conversaciones en este grupo son privadas.
+        join_group: Para ver las conversaciones privadas tendrás que unirte al grupo.
+        request_membership: Para ver las conversaciones privadas solicita unirte al grupo
         membership_is_invitation_only: Para unirte a este grupo necesitas que te invite un miembro.
         membership_is_invitation_by_admin_only: Para unirte a este grupo necesitas que te invite un coordinador.
     messages:
@@ -477,8 +473,8 @@ es:
     new_photo: 'Nueva foto '
     new_cover_photo: 'Carga una nueva foto de portada '
     new_group_logo: Cargar nuevo logo del grupo
-    discussions: Hilos
-    discussions_placeholder: Un hilo es donde todo el mundo puede discutir un tema y tomar decisiones juntos.
+    discussions: Conversaciones
+    discussions_placeholder: Una conversación es donde todo el mundo puede discutir un tema y tomar decisiones juntos.
     members: 'Miembros '
     members_placeholder: 'Estás solo aquí: ¡invita a algunas personas para unirse a ti! '
     member_options: Opciones de membresía
@@ -502,8 +498,8 @@ es:
       loud: Enviar correo electrónico siempre que haya actividad.
       loud_aria_description: El volumen de notificaciones para este grupo está establecido como Alto. Se te enviará un correo electrónico siempre que haya actividad.
       loud_message: 'Correo electrónico te será enviado sobre toda la actividad en "{{name}}."'
-      normal: 'Sólo enviar actividad importante: Hilos y propuestas nuevos, resultados... etc.'
-      normal_aria_description: 'El volumen de notificaciones para este grupo está establecido como Normal. Sólo se te enviarán correos electrónicos con actividad importante como cuando alguien inicia un hilo nuevo, surge una propuesta o se establece un resultado.'
+      normal: 'Sólo enviar actividad importante: Conversaciones y propuestas nuevos, resultados... etc.'
+      normal_aria_description: 'El volumen de notificaciones para este grupo está establecido como Normal. Sólo se te enviarán correos electrónicos con actividad importante como cuando alguien inicia un conversación nuevo, surge una propuesta o se establece un resultado.'
       normal_message: 'Solo te será enviado correo electrónico sobre eventos importantes en "{{name}}".'
       quiet: No enviar correo electrónico sobre el grupo. La actividad del grupo se mostrará en el Escritorio.
       quiet_aria_description: El volumen de notificaciones para este grupo está establecido como Bajo. No se te enviarán correos electrónicos con la actividad de este grupo. Dicha actividad se mostrará en tu Escritorio.
@@ -535,23 +531,23 @@ es:
     submit: 'Sí, desactivar este grupo'
   confirm_gift_plan_modal:
     heading: 'Grupos Gratis son soportados a donación  '
-    body: Las donaciones hacen posible que grupos sin presupuesto usen Loomio de forma gratuita. Ocasionalmente invitaremos a los miembros de grupo en plan Gratis a realizar una donación voluntaria.
+    body: Las donaciones hacen posible que grupos sin presupuesto usen la plataforma. Ocasionalmente invitaremos a los miembros de grupo en plan Gratis a realizar una donación voluntaria.
     got_it: Quédate en plan Gratis
     go_back: Cambia el plan
   donation_modal:
-    heading: ¿Quieres hacer una donación a Loomio?
-    body: 'Loomio es una empresa social. Nuestra misión es crear un mundo donde sea fácil para todos el participar en decisiones que los afectan. '
+    heading: ¿Quieres hacer una donación a Revolución Democrática?
+    body: 'Nuestra misión es crear un mundo donde sea fácil para todos el participar en decisiones que los afectan. '
     contribute: Has una contribución
     got_to_group: 'No ahora, gracias.'
   gift_card:
     heading: 'Plan Donación '
-    body: '<strong>{{name}}</strong> es un grupo apoyado por donaciones. Para que Loomio pueda seguir ayudando a grupos como el tuyo, haz clic aquí:'
+    body: '<strong>{{name}}</strong> es un grupo apoyado por donaciones.'
     make_a_contribution: 'Haz una contribución '
   upgrade_plan_card:
     heading: Diferencias de los planes pagos
-    slack_html: '<strong>Integración con Slack</strong>: Loomio y Slack funcionan genial juntos! Enlazalos '
-    domain_html: '<strong>Dominio personalizado</strong>: Haz tu grupo fácil de encontrar con tugrupo.loomio.org'
-    help_html: '<strong>Ayuda de expertos</strong>: Los consultores de colaboración de Loomio harán que tu grupo sea más eficaz '
+    slack_html: '<strong>Integración con Slack</strong>: Revolución Democrática y Slack funcionan genial juntos! Enlazalos '
+    domain_html: '<strong>Dominio personalizado</strong>: Haz tu grupo fácil de encontrar con tugrupo.Revolución Democrática.org'
+    help_html: '<strong>Ayuda de expertos</strong>: Los consultores de colaboración de Revolución Democrática harán que tu grupo sea más eficaz '
     analytics_html: '<strong>Reporte analítico</strong>: Recibe detalles sobre la participación en tu grupo'
     donations: 'A los miembros de tu grupo yo no se les pedirá donación. '
     more: ... y mucho más.
@@ -560,8 +556,8 @@ es:
   trial_card:
     title: Prueba de 30 días
     choose_plan: Elige tu plan de pago
-    in_progress_body: 'Gracias por probar Loomio con <strong>{{name}}</strong>. En cualquier momento puedes elegir un plan de pago que funcione para tu grupo.'
-    expired_body_html: '<strong>{{name}}</strong> ha llegado al final de su prueba de Loomio. Si quieres seguir usándolo tienes que elegir un plan de pago a la medida de tu grupo.'
+    in_progress_body: 'Gracias por probar Revolución Democrática con <strong>{{name}}</strong>.'
+    expired_body_html: '<strong>{{name}}</strong> ha llegado al final de su prueba de Revolución Democrática. Si quieres seguir usándolo tienes que elegir un plan de pago a la medida de tu grupo.'
   choose_plan_modal:
     aria_label: Elige el plan de pago
     heading: Por favor elige un plan de pago para tu grupo.
@@ -593,7 +589,7 @@ es:
     receipt: 'Recibirás un correo electrónico con el recibo y un enlace de acceso al portal de clientes, desde donde podrás cambiar o cancelar tu suscripción y acceder al historial de pago.  '
     change_subscription: 'Si deseas configurar tu integración con Slack.com o tu dominio personalizado,'
     contact_link: por favor contáctanos.
-    sign_off: ❤ de parte del equipo de Loomio
+    sign_off: ❤ de parte del equipo de Revolución Democrática
     ok_got_it: 'Bien, ¡lo tengo!'
   group_form:
     aria_label: Formulario de grupo
@@ -611,37 +607,37 @@ es:
       private_to_group: 'El nombre y la descripción solo serán visibles para miembros. '
       private_to_parent_members: 'El nombre y la descripción serán visibles para los miembros de {{parent}}'
     privacy: Privacidad
-    group_privacy_is_open_description: Cualquier persona puede encontrar el grupo y pedir membresía. Solo los miembros pueden ver quien pertenece al grupo. Todos los hilos son públicos.
-    group_privacy_is_closed_description: Cualquier persona puede encontrar este grupo y pedir membresía. Sólo los miembros pueden ver quien pertenece al mismo. Todos los hilos son privados.
-    group_privacy_is_closed_public_threads_description: Cualquier persona puede encontrar este grupo y pedir membresía. Sólo los miembros pueden ver quien pertenece al mismo. Los hilos pueden ser públicos o privados.
-    group_privacy_is_secret_description: 'Sólo miembros que han sido invitados pueden encontrar este grupo, ver quien pertenece al mismo y los hilos.  '
-    confirm_change_to_secret: 'Si procedes, todos los hilo en este grupo y sus subgrupos se harán privados.'
-    confirm_change_to_secret_subgroup: Si continuas todos los hilos se harán privados.
-    confirm_change_to_public: 'Si continúas, todos los hilos de este grupo se harán públicos en internet.  '
-    confirm_change_to_private_discussions_only: 'Si continuas cualquier hilo público en este grupo se hará privado. '
-    subgroup_privacy_is_open_description: Cualquier persona puede encontrar este subgrupo y pedir membresía. Solo los miembros pueden ver quien pertenece al mismo. Todos los hilos son públicos.
-    subgroup_privacy_is_closed_description: Cualquier persona puede encontrar este subgrupo y pedir membresía. Sólo los miembros pueden ver quien pertenece al mismo. Todos los hilos son privados.
-    subgroup_privacy_is_closed_public_threads_description: Cualquier persona puede encontrar este subgrupo y pedir membresía. Sólo los miembros pueden ver quien pertenece al mismo. Los hilos pueden ser públicos o privados.
-    subgroup_privacy_is_closed_secret_parent_description: 'Miembros de {{parent}} puede encontrar este subgrupo y pedir membresía. Solo los miembros pueden ver quien pertenece al mismo. Todos los hilos son privados.'
-    subgroup_privacy_is_secret_description: 'Sólo miembros que han sido invitados pueden encontrar este subgrupo, ver quien pertenece al mismo y los hilos.  '
+    group_privacy_is_open_description: Cualquier persona puede encontrar el grupo y pedir membresía. Solo los miembros pueden ver quien pertenece al grupo. Todos las conversaciones son públicos.
+    group_privacy_is_closed_description: Cualquier persona puede encontrar este grupo y pedir membresía. Sólo los miembros pueden ver quien pertenece al mismo. Todos las conversaciones son privados.
+    group_privacy_is_closed_public_threads_description: Cualquier persona puede encontrar este grupo y pedir membresía. Sólo los miembros pueden ver quien pertenece al mismo. las conversaciones pueden ser públicos o privados.
+    group_privacy_is_secret_description: 'Sólo miembros que han sido invitados pueden encontrar este grupo, ver quien pertenece al mismo y las conversaciones.  '
+    confirm_change_to_secret: 'Si procedes, todas las conversación en este grupo y sus subgrupos se harán privadas.'
+    confirm_change_to_secret_subgroup: Si continuas todos las conversaciones se harán privadas.
+    confirm_change_to_public: 'Si continúas, todos las conversaciones de este grupo se harán públicas.  '
+    confirm_change_to_private_discussions_only: 'Si continuas cualquier conversación pública en este grupo se hará privada. '
+    subgroup_privacy_is_open_description: Cualquier persona puede encontrar este subgrupo y pedir membresía. Solo los miembros pueden ver quien pertenece al mismo. Todos las conversaciones son públicos.
+    subgroup_privacy_is_closed_description: Cualquier persona puede encontrar este subgrupo y pedir membresía. Sólo los miembros pueden ver quien pertenece al mismo. Todos las conversaciones son privados.
+    subgroup_privacy_is_closed_public_threads_description: Cualquier persona puede encontrar este subgrupo y pedir membresía. Sólo los miembros pueden ver quien pertenece al mismo. las conversaciones pueden ser públicos o privados.
+    subgroup_privacy_is_closed_secret_parent_description: 'Miembros de {{parent}} puede encontrar este subgrupo y pedir membresía. Solo los miembros pueden ver quien pertenece al mismo. Todos las conversaciones son privados.'
+    subgroup_privacy_is_secret_description: 'Sólo miembros que han sido invitados pueden encontrar este subgrupo, ver quien pertenece al mismo y las conversaciones.  '
     advanced_settings: 'Configuración avanzada '
     how_do_people_join: ¿Cómo se unen las personas a este grupo?
     membership_granted_upon_request: Cualquiera puede unirse al grupo.
     membership_granted_upon_approval: 'Cualquiera puede pedir la membresía, pero debe ser aprobada.'
     membership_granted_upon_approval_secret_parent: 'Cualquiera en {{parent}} puede pedir apuntarse al grupo <strong>por petición</strong>.'
-    thread_privacy: Privacidad del hilo
-    public_threads: Sólo hilos públicos
+    thread_privacy: Privacidad de la conversación
+    public_threads: Sólo conversaciones públicas
     public_discussions_subgroup: 'Cualquiera que pertenezca a {{parentGroupName}} puede ver las discusiones'
-    public_or_private_threads: Permitir hilos públicos y privados
+    public_or_private_threads: Permitir conversaciones públicos y privados
     private_threads: Solamente los miembros pueden ver las discusiones
     permissions: Permisos
-    allow_public_threads: Permitir hilos públicos en este grupo.
-    parent_members_can_see_discussions: 'Los miembros de {{parent}} pueden ver los hilos privados.'
+    allow_public_threads: Permitir conversaciones públicos en este grupo.
+    parent_members_can_see_discussions: 'Los miembros de {{parent}} pueden ver las conversaciones privadas.'
     members_can_add_members: Miembros pueden invitar gente y aprobar membresías.
     members_can_create_subgroups: Los miembros pueden crear subgrupos.
-    members_can_edit_discussions: Los miembros pueden editar el título y contexto de cualquier hilo.
+    members_can_edit_discussions: Los miembros pueden editar el título y contexto de cualquier conversación.
     members_can_edit_comments: Los miembros pueden editar sus propios comentarios en cualquier momento.
-    members_can_start_discussions: Los miembros pueden iniciar hilos nuevos.
+    members_can_start_discussions: Los miembros pueden iniciar conversaciones nuevos.
     members_can_vote: Los miembros pueden votar en las propuestas.
     members_can_raise_motions: Los miembros pueden iniciar propuestas.
     submit_start_group: Crear grupo
@@ -656,8 +652,8 @@ es:
     manage_requests_with_count: 'Gestionar peticiones ({{count}})'
   group_help_card:
     title: Ayuda
-    ten_tips_article_title: 10 consejos para tomar decisiones con Loomio
-    nine_ways_to_use_proposals: 9 formas de utilizar propuestas en Loomio para convertir una charla en acción
+    ten_tips_article_title: 10 consejos para tomar decisiones
+    nine_ways_to_use_proposals: 9 formas de utilizar propuestas para convertir una conversaciones en acción
   membership_requests_page:
     heading: Solicitudes de ingreso
     approve: 'Aprobar '
@@ -682,9 +678,9 @@ es:
     shareable_link: Enlace para compartir
     copy_link: Copiar enlace
     email_addresses: Correo electrónico
-    email_addresses_placeholder: 'ej. helperbot@loomio.org, friendlybot@loomio.org'
-    shareable_link_explanation: 'Copia el enlace y envíalo a cualquier persona que quieras que se una a tu grupo. Esto les dará acceso a todos los hilos de tu grupo. '
-    email_explanation: 'Alternativamente, ingresa las direcciones de email debajo y Loomio les enviará una invitación.'
+    email_addresses_placeholder: 'ej. rodrigo@revoluciondemocratica.cl, contacto@revoluciondemocratica.cl '
+    shareable_link_explanation: 'Copia el enlace y envíalo a cualquier persona que quieras que se una a tu grupo. Esto les dará acceso a todas las conversaciones de tu grupo. '
+    email_explanation: 'Alternativamente, ingresa las direcciones de email debajo y les enviaremos una invitación.'
     add_custom_message: 'Personaliza tu invitación,'
     add_custom_message_link: 'agrega un mensaje personalizado '
     custom_message: 'Mensaje personalizado '
@@ -771,14 +767,14 @@ es:
     aria_label: 'Desactiva cuenta '
     introduction: 'Cuando desactivas tu cuenta:'
     no_longer_group_member: Ya no serás listado como miembro en ningún grupo
-    name_removed: 'Comentarios, propuestas e hilos que has realizado permanecerán, pero tu nombre será removido de los mismos'
+    name_removed: 'Comentarios, propuestas y conversaciones que has realizado permanecerán, pero tu nombre será removido de los mismos'
     contact_for_reactivation: Deberás contactarnos para reactivar su cuenta
     submit: 'Si, quiero desactivar mi cuenta'
   deactivate_user_form:
     aria_label: 'Confirmar la desactivación de la cuenta '
     title: 'Desactiva cuenta '
     question: ¿Nos contarías por qué estás desactivando tu cuenta?
-    placeholder: 'Contestar a esta pregunta es opcional. Cualquier información que compartas nos ayudará a mejorar Loomio :)'
+    placeholder: 'Contestar a esta pregunta es opcional. Cualquier información que compartas nos ayudará a mejorar :)'
     submit: 'Desactiva cuenta '
   only_coordinator_modal:
     aria_label: No hemos podido desactivar la cuenta
@@ -788,15 +784,15 @@ es:
     header: Ajustes de correo
     all_groups: 'Configuración para todos los grupos. '
     daily_summary_label: Correo electrónico de resumen diario
-    daily_summary_description: 'Cada mañana recibirás un email con la toda la actividad del día anterior que no hayas visto. Éste email te provee con una rutina fácil de seguir para estar al día con la actividad en tus grupos de Loomio. '
+    daily_summary_description: 'Cada mañana recibirás un email con la toda la actividad del día anterior que no hayas visto. Éste email te provee con una rutina fácil de seguir para estar al día con la actividad en tus grupos. '
     on_participation_label: 'Suscribirte a la participación '
-    on_participation_description: 'Cuando participes en un hilo, inmediatamente se te enviará toda la actividad subsiguiente por correo electrónico. '
+    on_participation_description: 'Cuando participes en una conversación, inmediatamente se te enviará toda la actividad subsiguiente por correo electrónico. '
     mentioned_label: 'Menciones '
     mentioned_description: 'Cuando alguien quiere llamar tu atención, te @mencionará. Recomendamos dejar activada esta opción, para que recibas un correo electrónico cuando esto pase.'
     specific_groups: 'Configuración para grupos específicos  '
     default_settings:
       loud_description: 'Cuando te unas a un nuevo grupo, te enviaremos correo electrónico <strong>siempre que haya actividad</strong>.  '
-      normal_description: 'Cuando te unas a un nuevo grupo, te enviaremos correo electrónico sobre <strong>nuevos hilos y propuestas</strong>.  '
+      normal_description: 'Cuando te unas a un nuevo grupo, te enviaremos correo electrónico sobre <strong>nuevas conversaciones y propuestas</strong>.  '
       quiet_description: 'Cuando te unas a un nuevo grupo, no <strong>te enviaremos ningún correo electrónico</strong>.  '
     change_default: 'Cambiar configuración preestablecida  '
     edit: Editar
@@ -805,49 +801,49 @@ es:
   dashboard_page:
     aria_label: Escritorio
     no_groups:
-      show_all: 'No tienes ningún hilo reciente porque no eres miembro de ningún grupo. '
-      show_muted: No tienes ningún hilo silenciado porque no eres miembro de ningún grupo.
+      show_all: 'No tienes ningúna conversación reciente porque no eres miembro de ningún grupo. '
+      show_muted: No tienes ningúna conversación silenciado porque no eres miembro de ningún grupo.
       start: 'Empezar '
       or: 'o '
-      join_group: '<a href="/explore">únete</a> a un grupo para ver hilos.  '
+      join_group: '<a href="/explore">únete</a> a un grupo para ver las conversaciones.  '
     no_threads:
-      show_all: No tienes ningún hilo reciente.
-      show_starred: No tienes ningún hilo destacado.
+      show_all: No tienes ningúna conversación reciente.
+      show_starred: No tienes ningúna conversación destacada.
       show_proposals: No hay propuestas activas en este momento.
-      show_muted: No tienes ningún hilo silenciado.
-    view_recent: ¿Ver todos los hilos recientes?
-    load_more: Cargar más hilos
+      show_muted: No tienes ningúna conversación silenciada.
+    view_recent: ¿Ver todos las conversaciones recientes?
+    load_more: Cargar más conversaciones
     mark_as_read: Marcar como leído
     dismiss: Ignorar
-    thread_dismissed: 'Hilo ignorado '
+    thread_dismissed: 'Conversación ignorada '
     explain_mute:
-      title: No tienes ningún hilo silenciado.
+      title: No tienes ningúna conversación silenciada.
       explanation_html: >
-        Silenciar es una forma de esconder hilos en los que no estas interesada.
+        Silenciar es una forma de esconder las conversaciones en las que no estas interesado.
 
-        Silenciar significa que no veras el hilo en <strong>Recientes</strong>
+        Silenciar significa que no veras la conversación en <strong>Recientes</strong>
         o <strong>No leído</strong>, y no serás notificado sobre ninguna
-        actividad en ese hilo.
+        actividad en esa conversación.
 
         Solo serás alertada cuando alguien te <strong>@mencione</strong>.
-      instructions: 'Para silenciar un hilo, pasa el cursor por encima y selecciona el icono para silenciar.'
-      see_muted_html: 'Para ver tus hilos silenciados, selecciona <strong>Silenciado</strong> en la barra lateral. Puedes des-silenciar pasando el cursor por encima y seleccionando el mismo icono.'
+      instructions: 'Para silenciar una conversación, pasa el cursor por encima y selecciona el icono para silenciar.'
+      see_muted_html: 'Para ver tus conversaciones silenciadas, selecciona <strong>Silenciado</strong> en la barra lateral. Puedes des-silenciar pasando el cursor por encima y seleccionando el mismo icono.'
     filtering:
-      filter_threads: Filtrar hilos
-      filter_threads_aria_label: 'Filtrar hilos '
+      filter_threads: Filtrar conversaciones
+      filter_threads_aria_label: 'Filtrar conversaciones '
       dropdown_heading: Filtrar Escritorio
-      all: Hilos Recientes
-      all_aria_label: Mostrando hilos recientes
-      all_description: Ver hilos recientes
-      starred: Hilos destacados
-      starred_aria_label: Mostrando hilos que he marcado como importantes
-      starred_description: Viendo sólo hilos que has marcado como importantes
+      all: Conversaciones Recientes
+      all_aria_label: Mostrando conversaciones recientes
+      all_description: Ver conversaciones recientes
+      starred: Conversaciones destacadas
+      starred_aria_label: Mostrando las conversaciones que he marcado como importantes
+      starred_description: Viendo sólo las conversaciones que has marcado como importantes
       proposals: Propuestas
-      proposals_aria_label: Mostrando hilos con propuestas activas
-      proposals_description: Ver únicamente hilos con propuestas activas
+      proposals_aria_label: Mostrando conversaciones con propuestas activas
+      proposals_description: Ver únicamente conversaciones con propuestas activas
       muted: Silenciado
-      muted_aria_label: Mostrando hilos silenciados
-      muted_description: Ver únicamente hilos que han sido silenciados
+      muted_aria_label: Mostrando conversaciones silenciadas
+      muted_description: Ver únicamente conversaciones que han sido silenciadas
     aria_thread:
       unread: '{{count}} elementos no leídos.'
       current_proposal: 'Propuesta actual: {{name}}.'
@@ -856,25 +852,25 @@ es:
       you_voted: 'Votaste {{position}}'
       undecided: 'Estas indeciso '
     threads_from:
-      group: Hilos de
+      group: Conversaciones sobre
       proposals: 'Propuestas '
-      starred: Hilos destacados
+      starred: Conversaciones destacadas
       today: Hoy
       yesterday: Ayer
       thisweek: Esta semana
       thismonth: Este mes
       older: De hace más de un mes
   star_toggle:
-    star: Hilo destacado
+    star: Conversación destacada
   inbox_page:
-    no_threads: '¡Sí, has leído todos los hilos de tu bandeja de entrada!'
-    unread_threads: Hilos sin leer
+    no_threads: '¡Sí, has leído todas las conversaciones de tu bandeja de entrada!'
+    unread_threads: Conversaciones sin leer
     view_more: Ver más
     no_groups:
-      explanation: 'No tienes ningún hilo no leído porque no eres miembro de ningún grupo. '
+      explanation: 'No tienes ningúna conversación no leído porque no eres miembro de ningún grupo. '
       start: 'Empezar  '
       or: 'o '
-      join_group: '<a href="/explore">únete</a> a un grupo para ver hilos.   '
+      join_group: '<a href="/explore">únete</a> a un grupo para ver las conversaciones.   '
   groups_page:
     page_header: Tus grupos
   discussion:
@@ -894,36 +890,36 @@ es:
     started_by: 'Iniciado por <strong>{{name}}</strong>'
     edited: Editado
     volume:
-      mute_message: 'Hilo silenciado. '
-      unmute_message: 'Hilo silenciado '
+      mute_message: 'Conversación silenciada. '
+      unmute_message: 'Conversación silenciada '
   thread_group:
     aria_label: Nombre del grupo
   thread_context:
-    aria_label: Contexto del hilo
-    thread_options: Preferencias del hilo
+    aria_label: Contexto de la conversación
+    thread_options: Preferencias de la conversación
     email_settings: 'Ajustes de correo '
     edit: Editar
-    edit_thread: Editar hilo
+    edit_thread: Editar conversación
     mute_thread: Silenciar
     move_thread: Mover
     print_thread: 'Imprimir '
     delete_thread: Eliminar
     add_comment: Añadir comentario
   delete_thread_form:
-    aria_label: 'Borrar hilo '
-    title: 'Borrar hilo '
-    body: ¿Estás seguro que quieres eliminar este hilo?
-    confirm: 'Sí, elimina este hilo'
+    aria_label: 'Borrar conversación '
+    title: 'Borrar conversación '
+    body: ¿Estás seguro que quieres eliminar esta conversación?
+    confirm: 'Sí, elimina esta conversación'
     messages:
-      success: Hilo eliminado
+      success: Conversación eliminada
   move_thread_form:
-    aria_label: Mover hilo
-    title: Mover hilo
+    aria_label: Mover la conversación
+    title: Mover la conversación
     body: 'Grupo de destino:'
-    confirm: 'Mover hilo '
-    confirm_change_to_private_thread: '{{groupName}} es un grupo público. Si continuas, este hilo se hará público.'
+    confirm: 'Mover conversación '
+    confirm_change_to_private_thread: '{{groupName}} es un grupo público. Si continuas, esta conversación se hará público.'
     messages:
-      success: 'El hilo ha sido movido a {{name}}'
+      success: 'La conversación ha sido movida a {{name}}'
   activity_card:
     new_activity: Actividad nueva
     attachment_display:
@@ -971,18 +967,18 @@ es:
   proposal_outcome_updated_item:
     proposal_outcome_updated: actualizó el resultado de la propuesta
   discussion_edited_item:
-    attachment_ids: actualizó los archivos adjuntos del hilo
-    title: 'actualizó el título del hilo: <span>{{title}}</span>'
-    description: actualizó el contexto del hilo
-    description_title: 'actualizó el título y el contexto del hilo '
-    private: 'Actualizar la privacidad del hilo a '
+    attachment_ids: actualizó los archivos adjuntos de la conversación
+    title: 'actualizó el título de la conversación: <span>{{title}}</span>'
+    description: actualizó el contexto de la conversación
+    description_title: 'actualizó el título y el contexto de la conversación '
+    private: 'Actualizar la privacidad de la conversación a '
     public_to_private: privado
     private_to_public: público
-    private_title: 'actualizó el título y la privacidad del hilo '
-    description_private: 'actualizó el contexto y la privacidad del hilo '
-    description_private_title: 'se actualizó el título, el contexto y la privacidad del hilo '
+    private_title: 'actualizó el título y la privacidad de la conversación '
+    description_private: 'actualizó el contexto y la privacidad de la conversación '
+    description_private_title: 'se actualizó el título, el contexto y la privacidad de la conversación '
   discussion_moved_item:
-    discussion_moved: 'mover el hilo de <span>{{group}}</span>'
+    discussion_moved: 'mover la conversación de <span>{{group}}</span>'
   contact_message_form:
     contact_us: Contáctanos
     name_label: Tu nombre
@@ -994,7 +990,7 @@ es:
     send_message: Enviar mensaje
     new_contact_message: 'Gracias por tu mensaje; ¡pronto nos pondremos en contacto contigo!'
   help_page:
-    coordinating: Coordinando tu grupo en Loomio
+    coordinating: Coordinando tu grupo
     coordinating_details: >
       Como co-ordinador, eres responsable de iniciar tu grupo e invitar⏎
 
@@ -1006,13 +1002,13 @@ es:
 
       juntos. Aquí puedes encontrar algunos consejos para que tu grupo tenga
       mucho éxito:⏎
-    different_ways: Maneras diferentes de usar Loomio
+    different_ways: Maneras diferentes de usar la plataforma
     example1_html: "<h3>El grupo debe discutir sobre un tema amplio y desarrollar una solucion conjunta</h3>⏎\n<p>Estrategia: Discutir el tema durante un tiempo antes de iniciar una propuesta.</p>⏎\n<p>A menudo, las discusiones obtienen los mejores resultados si se crea un entendimiento⏎\ncompartido sobre el problema antes de decantarse por una solucion concreta. Cuando la gente⏎\nempieza a participar en el proceso, es mucho mas probable que esten satisfechos con⏎\nel resultado o decision final.⏎</p>\\n"
     get_in_touch: Ponte en contacto
     get_in_touch_description_html: "Si tienes preguntas o sugerencias, <a href='%{link}'> escríbenos a</a>."
     getting_started: Primeros pasos
     getting_started_description: 'A la izquierda, el grupo debate un tema, intercambiando ideas e información. Cuando hay que tomar una decisión, aparece a la derecha.'
-    getting_the_most: Aprovechando al máximo el uso de Loomio
+    getting_the_most: Aprovechando al máximo el uso de la plataforma
     have_your_say: 'Di tu opinión '
     have_your_say_details_html: "<p>Cuando estés listo para decidir, clica en uno de los cuatro botones de decisión.</p>⏎\n<p>Una vez hayas decidido, da una breve explicación. Debajo del gráfico circular⏎\npuedes ver lo que piensan los demás, facilitando una rápida comprensión del estado de la discusión.⏎\nA medida que se vaya añadiendo nueva informacón puedes ir cambiando tu decisión en cualquier momento</p>⏎\\n"
     have_a_discussion: Discutir un tema
@@ -1030,25 +1026,20 @@ es:
       estarán involucrados?</p>
 
       <p>Podría ser buena idea hablar primero con tu grupo, antes de invitarles
-      a Loomio.</p>
+      a al grupo digital.</p>
 
       <p>Las personas querrán saber por qué han sido invitadas, qué se espera de
-      ellas,
-
-      y por qué merece su tiempo aprender a usar una nueva herramienta.</p>
+      ellas, y por qué merece su tiempo aprender a usar una nueva herramienta.</p>
     join_the_community: Únete a la comunidad
-    join_the_community_description_html: "Todo el mundo es bienvenido a \"Loomio Community\", donde hablamos de cómo aprovechar la herramienta al máximo y de cómo mejorarla.<br /><br /><a href='https://www.loomio.org/g/WmPCB3IR'>Haz clic aquí para ir al grupo \"Loomio Community\"</a>."
+    join_the_community_description_html: "Todo el mundo es bienvenido a \"Comunidad RD\", donde hablamos de cómo aprovechar la herramienta al máximo y de cómo mejorarla.<br /><br /><a href='#'>Haz clic aquí para ir al grupo \"Comunidad RD\"</a>."
     images_and_text_formatting: Imagenes y formato de texto
     images_and_text_formatting_html: >
-      <p>Loomio usa «marcadores» para la inclusión de imágenes y el formateo de
+      <p>Puedes usar «marcadores» para la inclusión de imágenes y el formateo de
       texto.
 
       Puedes activar marcadores con el pequeño icono gris bajo el cuadro de
       comentarios.</p>
 
-      <p><a href='https://www.loomio.org/discussions/1124'>Pulsa aquí</a>
-
-      para información sobre cómo usar marcadores.</p>
     keep_up_to_date: Mantente informado
     keep_up_to_date_html: >
       <p>Pulsando el nombre de tu grupo al principio de la pantalla, irás a la
@@ -1102,62 +1093,31 @@ es:
     proposal: Consejos para redactar una propuesta clara
     vote: Puedes cambiar tu decisión en cualquier momento
   explore_page:
-    header: Explorar grupos en Loomio
-    search_placeholder: Buscar grupos públicos en Loomio
+    header: Explorar grupos
+    search_placeholder: Buscar grupos públicos
     single_search_result: '1 grupo público coincide con <strong>{{searchTerm}}:</strong> '
     multiple_search_results: '{{resultCount}} grupos públicos coinciden con <strong>{{searchTerm}}:</strong>'
     no_results_found: "<strong>¿No puedes encontrar el grupo que buscas?</strong> Si la privacidad de ese grupo es 'Secreto', no aparecerá aquí. Si conoces a un coordinador del grupo, puedes pedirles una invitación.  "
   angular:
-    switch_back: 'Vuelve al Loomio antiguo '
-    give_feedback: Comentarios para Loomio
+    switch_back: ' '
+    give_feedback: Comentarios para Revolución Democrática
     collapse: Contraer
     enable:
-      invite: Prueba el nuevo Loomio
-      title: 'Prueba el nuevo Loomio '
-      intro: 'Hemos reconstruido Loomio y necesitamos tu ayuda para asegurarnos de que es genial!'
+      invite: 
+      title: ''
+      intro: ''
       body_html: >
         <p></p>
 
-        <h3>;¿Cuál es la diferencia?</h3>
-
-
-
-        <p> La nueva interfaz es como la antigua pero más nueva:
-
-        <ul>
-
-        <li> Todo en la pagina se actualiza en vivo, como va sucediendo </li>
-
-        <li> Está diseñada para todos tus dispositivos, desde tu smartphone al
-        ordenador de escritorio </li>
-
-        <li> Es accesible para gente ciega, y esta traducido <a
-        href="https://www.loomio.org/translation">a muchos idiomas</a>
-
-        </ul>
-
-        </p>
-
-
-
-        <p> Usa la misma base de datos que la interfaz antigua, esto significa
-        que tiene todos tus grupos existentes y discusiones.</p>
-
-        <p>Hay un enlace para dar "Comentarios para Loomio" en la parte inferior
-        izquierda del nuevo app.También veras un enlace para "Volver al Loomio
-        antiguo" que estara disponible por un tiempo más.</p>
-
-        <p>Esperamos recibir tus comentarios, muchas gracias por tu tiempo
-        y apoyo.</p>
-      button_text: Habilita el nuevo Loomio
+      button_text: 
     disable:
-      title: Gracias por probar el nuevo Loomio
-      body_html: '<p> ¿Hicimos algo mal? Perdón si haz pasado un mal tiempo en el nuevo Loomio.</p>'
-      give_feedback: 'Antes de irte considera dejarnos un comentario para que podamos mejorar. '
-      button_text: Vuelve al Loomio antiguo
+      title: 
+      body_html: ''
+      give_feedback: ''
+      button_text: 
   global:
     messages:
-      app_update: 'Una nueva versión de Loomio está disponible '
+      app_update: 'Una nueva versión de Revolución Democrática está disponible '
       reload: 'Actualizar '
   emoji_picker:
     search: Busca un emoji / emoticono...
