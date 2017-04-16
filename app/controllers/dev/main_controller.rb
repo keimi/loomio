@@ -53,8 +53,16 @@ class Dev::MainController < Dev::BaseController
 
   def setup_dashboard
     sign_in patrick
-    starred_proposal_discussion; proposal_discussion; starred_discussion
-    recent_discussion; old_discussion; participating_discussion; muted_discussion; muted_group_discussion
+    starred_proposal_discussion
+    starred_poll_discussion
+    starred_discussion
+    poll_discussion
+    proposal_discussion
+    recent_discussion
+    old_discussion
+    participating_discussion
+    muted_discussion
+    muted_group_discussion
     redirect_to dashboard_url
   end
 
@@ -277,10 +285,6 @@ class Dev::MainController < Dev::BaseController
     redirect_to group_url(create_group)
   end
 
-  def view_homepage_as_visitor
-    patrick
-    redirect_to root_url
-  end
 
   def view_open_group_as_non_member
     sign_in patrick

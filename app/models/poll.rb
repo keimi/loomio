@@ -4,26 +4,35 @@ class Poll < ActiveRecord::Base
   include MakesAnnouncements
   TEMPLATES = YAML.load_file('config/poll_templates.yml')
   COLORS    = YAML.load_file('config/colors.yml')
+  TEMPLATE_FIELDS = %w(material_icon translate_option_name
+                       can_add_options can_remove_options
+                       must_have_options chart_type has_option_icons
+                       has_variable_score voters_review_responses
+                       dates_as_options required_custom_fields
+                       poll_options_attributes).freeze
+  TEMPLATE_FIELDS.each do |field|
+    define_method field, -> { TEMPLATES.dig(self.poll_type, field) }
+  end
 
   is_mentionable on: :details
 
   belongs_to :author, class_name: "User", required: true
-  has_many   :outcomes
+  has_many   :outcomes, dependent: :destroy
   has_one    :current_outcome, -> { where(latest: true) }, class_name: 'Outcome'
 
   belongs_to :motion
   belongs_to :discussion
-  delegate   :group, :group_id, to: :discussion, allow_nil: true
+  belongs_to :group
 
   update_counter_cache :discussion, :closed_polls_count
 
   after_update :remove_poll_options
 
-  has_many :stances
+  has_many :stances, dependent: :destroy
   has_many :stance_choices, through: :stances
   has_many :participants, through: :stances, source: :participant, source_type: "User"
+  has_many :visitors, through: :communities
   has_many :attachments, as: :attachable, dependent: :destroy
-  # has_many :visitors,     through: :stances, source: :participant, source_type: "Visitor"
 
   has_many :events, -> { includes(:eventable) }, as: :eventable, dependent: :destroy
 
@@ -37,24 +46,8 @@ class Poll < ActiveRecord::Base
   define_counter_cache(:stances_count)       { |poll| poll.stances.latest.count }
   define_counter_cache(:did_not_votes_count) { |poll| poll.poll_did_not_votes.count }
 
-  # has_many :poll_communities
-  # has_many :communities, through: :poll_communities
-
-  # has_many :poll_references
-
-  # there's some duplication here, but it's pretty unlikely we'll need references
-  # to other models, so it's unlikely to blow out
-  # def group
-  #   @group      ||= poll_references.find_by(reference_type: 'Group')&.reference
-  # end
-  #
-  # def discussion
-  #   @discussion ||= poll_references.find_by(reference_type: 'Discussion')&.reference
-  # end
-  #
-  # def motion
-  #   @motion     ||= poll_references.find_by(reference_type: 'Motion')&.reference
-  # end
+  has_many :poll_communities, dependent: :destroy
+  has_many :communities, through: :poll_communities
 
   scope :active, -> { where(closed_at: nil) }
   scope :closed, -> { where("closed_at IS NOT NULL") }
@@ -75,10 +68,10 @@ class Poll < ActiveRecord::Base
 
   validates :title, presence: true
   validates :poll_type, inclusion: { in: TEMPLATES.keys }
-  # validates :communities, length: { minimum: 1 }
 
   validate :poll_options_are_valid
   validate :closes_in_future
+  validate :require_custom_fields
 
   alias_method :user, :author
 
@@ -106,42 +99,19 @@ class Poll < ActiveRecord::Base
         GROUP BY poll_options.name
       }).map { |row| [row['name'], row['total'].to_i] }.to_h))
 
-      update_attribute(:stance_counts,
-        poll_options.order(:priority)
-                    .pluck(:name)
-                    .map { |name| stance_data[name] })
-  end
+    update_attribute(:stance_counts,
+      poll_options.order(:priority)
+                  .pluck(:name)
+                  .map { |name| stance_data[name] })
 
-  def material_icon
-    template['material_icon']
-  end
-
-  def translate_option_name
-    template['translate_option_name']
-  end
-
-  def can_add_options
-    template['can_add_options']
-  end
-
-  def can_remove_options
-    template['can_remove_options']
-  end
-
-  def must_have_options
-    template['must_have_options']
-  end
-
-  def chart_type
-    template['chart_type']
-  end
-
-  def has_option_icons
-    template['has_option_icons']
-  end
-
-  def has_variable_score
-    template['has_variable_score']
+    # TODO: convert this to a SQL query (CROSS JOIN?)
+    update_attribute(:matrix_counts,
+      poll_options.limit(5).map do |option|
+        stances.latest.limit(5).map do |stance|
+          stance.poll_options.include?(option)
+        end
+      end
+    ) if chart_type == 'matrix'
   end
 
   def active?
@@ -159,7 +129,44 @@ class Poll < ActiveRecord::Base
     @poll_option_removed_names = (existing - names)
   end
 
+  def anyone_can_participate
+    @anyone_can_participate ||= community_of_type(:public).present?
+  end
+
+  def anyone_can_participate=(boolean)
+    if boolean
+      community_of_type(:public, build: true)
+    else
+      community_of_type(:public)&.destroy
+    end
+  end
+
+  def discussion=(discussion)
+    super.tap { self.group_id = self.discussion&.group_id }
+  end
+
+  def discussion_id=(discussion_id)
+    super.tap { self.group_id = self.discussion&.group_id }
+  end
+
+  def group_id=(group_id)
+    return if self[:group_id] == group_id
+    super
+    poll_communities.where(community: community_of_type(:loomio_group)).destroy_all
+    if g = Group.find_by(id: group_id)
+      poll_communities.build(community: g.community)
+    end
+  end
+
+  def community_of_type(community_type, build: false)
+    communities.find_by(community_type: community_type) || (build && build_community(community_type)).presence
+  end
+
   private
+
+  def build_community(community_type)
+    poll_communities.build(community: "Communities::#{community_type.to_s.camelize}".constantize.new).community
+  end
 
   # provides a base hash of 0's to merge with stance data
   def zeroed_poll_options
@@ -171,10 +178,6 @@ class Poll < ActiveRecord::Base
     poll_options.where(name: @poll_option_removed_names).destroy_all
     @poll_option_removed_names = nil
     update_stance_data
-  end
-
-  def template
-    TEMPLATES.fetch(self.poll_type, {})
   end
 
   def poll_options_are_valid
@@ -207,7 +210,12 @@ class Poll < ActiveRecord::Base
   end
 
   def template_poll_options
-    Array(template['poll_options_attributes']).map { |o| o['name'] }
+    Array(poll_options_attributes).map { |o| o['name'] }
   end
 
+  def require_custom_fields
+    Array(required_custom_fields).each do |field|
+      errors.add(field, I18n.t(:"activerecord.errors.messages.blank")) if custom_fields[field].blank?
+    end
+  end
 end

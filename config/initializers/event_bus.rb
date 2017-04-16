@@ -28,6 +28,11 @@ EventBus.configure do |config|
                 'poll_create',
                 'poll_update') { |model| SearchVector.index! model.discussion_id }
 
+  # sync poll's discussion with it's group
+  config.listen('poll_create', 'poll_update') do |poll|
+    poll.update(group_id: poll.discussion.group_id) if poll.discussion
+  end
+
   # add creator to group if one doesn't exist
   config.listen('membership_join_group') { |group, actor| group.update(creator: actor) unless group.creator_id.present? }
 
@@ -48,7 +53,7 @@ EventBus.configure do |config|
   config.listen('discussion_reader_viewed!',
                 'discussion_reader_dismissed!') do |discussion, actor|
 
-    reader_cache = DiscussionReaderCache.new(user: actor, discussions: Array(discussion))
+    reader_cache = Caches::DiscussionReader.new(user: actor, parents: Array(discussion))
     collection = ActiveModel::ArraySerializer.new([discussion], each_serializer: MarkedAsRead::DiscussionSerializer, root: 'discussions', scope: { reader_cache: reader_cache } )
 
     MessageChannelService.publish(collection, to: actor)

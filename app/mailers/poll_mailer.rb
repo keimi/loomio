@@ -1,5 +1,6 @@
 class PollMailer < BaseMailer
   helper :email
+  helper :application
   REPLY_DELIMITER = "--"
 
   # emails sent to the group
@@ -24,6 +25,10 @@ class PollMailer < BaseMailer
   end
 
   def poll_expired(recipient, event)
+    send_poll_email recipient, event
+  end
+
+  def visitor_reminded(recipient, event)
     send_poll_email recipient, event
   end
 

@@ -8,6 +8,7 @@ angular.module('loomioApp').factory 'PollModel', (DraftableModel, AppConfig, Men
 
     afterConstruction: ->
       @newAttachmentIds = _.clone(@attachmentIds) or []
+      @customFields.dots_per_person = 8 if @pollType == 'dot_vote'
 
     defaultValues: ->
       discussionId: null
@@ -16,6 +17,7 @@ angular.module('loomioApp').factory 'PollModel', (DraftableModel, AppConfig, Men
       closingAt: moment().add(3, 'days').startOf('hour')
       pollOptionNames: []
       pollOptionIds: []
+      customFields: {}
 
     serialize: ->
       data = @baseSerialize()
@@ -33,7 +35,7 @@ angular.module('loomioApp').factory 'PollModel', (DraftableModel, AppConfig, Men
       @discussion().group() if @discussion()
 
     voters: ->
-      @recordStore.users.find(_.pluck(@stances(), 'participantId'))
+      @recordStore.users.find(_.pluck(@stances(), 'userId'))
 
     newAttachments: ->
       @recordStore.attachments.find(@newAttachmentIds)
@@ -68,23 +70,16 @@ angular.module('loomioApp').factory 'PollModel', (DraftableModel, AppConfig, Men
     outcome: ->
       @recordStore.outcomes.find(pollId: @id, latest: true)[0]
 
+    clearStaleStances: ->
+      existing = []
+      _.each @uniqueStances('-createdAt'), (stance) ->
+        if _.contains(existing, stance.participant())
+          stance.remove()
+        else
+          existing.push(stance.participant())
+
     uniqueStances: (order, limit) ->
-      _.slice(_.sortBy(_.values(@uniqueStancesByUserId()), order), 0, limit)
-
-    stanceFor: (user) ->
-      @uniqueStancesByUserId()[user.id]
-
-    lastStanceByUser: (user) ->
-      @uniqueStancesByUserId()[user.id]
-
-    userHasVoted: (user) ->
-      @lastStanceByUser(user)?
-
-    uniqueStancesByUserId: ->
-      stancesByUserId = {}
-      _.each @stances(), (stance) ->
-        stancesByUserId[stance.participantId] = stancesByUserId[stance.participantId] or stance
-      stancesByUserId
+      _.slice(_.sortBy(@recordStore.stances.find(pollId: @id, latest: true), order), 0, limit)
 
     group: ->
       @discussion().group() if @discussion()

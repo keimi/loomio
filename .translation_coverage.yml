@@ -3,45 +3,45 @@ af:
   marketing: 0
   server: 0
 an:
+  main_1_0: 11
+  marketing: 0
+  server: 21
+ar:
+  main_1_0: 50
+  marketing: 0
+  server: 36
+be-BY:
   main_1_0: 14
   marketing: 0
-  server: 30
-ar:
-  main_1_0: 68
-  marketing: 0
-  server: 51
-be-BY:
-  main_1_0: 18
-  marketing: 0
-  server: 54
+  server: 38
 bg-BG:
-  main_1_0: 10
+  main_1_0: 8
   marketing: 0
-  server: 8
+  server: 5
 ca:
-  main_1_0: 77
+  main_1_0: 56
   marketing: 62
-  server: 55
+  server: 38
 cmn:
-  main_1_0: 6
+  main_1_0: 5
   marketing: 0
-  server: 3
+  server: 2
 cs:
-  main_1_0: 49
+  main_1_0: 37
   marketing: 2
-  server: 39
+  server: 27
 da:
-  main_1_0: 21
+  main_1_0: 16
   marketing: 0
-  server: 30
+  server: 21
 de:
-  main_1_0: 78
+  main_1_0: 59
   marketing: 0
-  server: 54
+  server: 38
 el:
-  main_1_0: 32
+  main_1_0: 23
   marketing: 0
-  server: 44
+  server: 31
 en-BE:
   main_1_0: 0
   marketing: 0
@@ -52,13 +52,13 @@ en-NL:
   server: 0
 en-US: {}
 eo:
-  main_1_0: 17
+  main_1_0: 13
   marketing: 0
-  server: 30
+  server: 21
 es:
-  main_1_0: 96
+  main_1_0: 78
   marketing: 100
-  server: 99
+  server: 70
 es-AR:
   main_1_0: 0
   marketing: 0
@@ -68,29 +68,29 @@ fa-IR:
   marketing: 0
   server: 2
 fi:
-  main_1_0: 10
+  main_1_0: 7
   marketing: 0
-  server: 5
+  server: 3
 fr:
-  main_1_0: 99
+  main_1_0: 73
   marketing: 100
-  server: 100
+  server: 70
 fr-BE:
   main_1_0: 0
   marketing: 0
   server: 0
 ga-IE:
-  main_1_0: 65
+  main_1_0: 48
   marketing: 2
-  server: 30
+  server: 21
 gl:
-  main_1_0: 10
+  main_1_0: 8
   marketing: 0
-  server: 13
+  server: 9
 he:
-  main_1_0: 9
+  main_1_0: 7
   marketing: 0
-  server: 15
+  server: 10
 he-IL: {}
 hi:
   main_1_0: 0
@@ -98,63 +98,63 @@ hi:
   server: 0
 hi-IN: {}
 hr:
-  main_1_0: 5
+  main_1_0: 3
   marketing: 0
-  server: 4
+  server: 3
 hu:
-  main_1_0: 37
+  main_1_0: 26
   marketing: 0
-  server: 37
+  server: 26
 id:
-  main_1_0: 12
+  main_1_0: 9
   marketing: 0
-  server: 17
+  server: 12
 io:
   main_1_0: 0
   marketing: 0
   server: 0
 it:
-  main_1_0: 53
+  main_1_0: 39
   marketing: 0
-  server: 48
+  server: 34
 it-CH:
   main_1_0: 0
   marketing: 0
   server: 0
 it-IT: {}
 ja:
-  main_1_0: 15
-  marketing: 0
-  server: 22
-km:
-  main_1_0: 10
+  main_1_0: 11
   marketing: 0
   server: 16
-ko:
-  main_1_0: 62
+km:
+  main_1_0: 8
   marketing: 0
-  server: 27
+  server: 11
+ko:
+  main_1_0: 63
+  marketing: 45
+  server: 20
 ko-KR: {}
 lt:
-  main_1_0: 24
-  marketing: 0
-  server: 6
+  main_1_0: 18
+  marketing: 6
+  server: 4
 lv:
   main_1_0: 0
   marketing: 0
   server: 0
 mi:
-  main_1_0: 8
+  main_1_0: 5
   marketing: 1
   server: 1
 mk:
-  main_1_0: 10
+  main_1_0: 7
   marketing: 0
-  server: 20
+  server: 14
 ml:
-  main_1_0: 11
+  main_1_0: 8
   marketing: 0
-  server: 16
+  server: 11
 ml-IN:
   main_1_0: 0
   marketing: 0
@@ -165,54 +165,54 @@ nb-NO:
   server: 0
 nl: {}
 nl-NL:
-  main_1_0: 28
-  marketing: 17
-  server: 54
-pl:
-  main_1_0: 39
-  marketing: 0
-  server: 16
-pt-BR:
-  main_1_0: 100
+  main_1_0: 90
   marketing: 100
-  server: 100
+  server: 84
+pl:
+  main_1_0: 28
+  marketing: 0
+  server: 11
+pt-BR:
+  main_1_0: 74
+  marketing: 100
+  server: 70
 pt-PT:
   main_1_0: 0
   marketing: 0
-  server: 2
+  server: 1
 ro:
-  main_1_0: 31
-  marketing: 0
-  server: 42
-ru:
-  main_1_0: 36
-  marketing: 2
-  server: 13
-ru-RU: {}
-sk:
-  main_1_0: 14
+  main_1_0: 24
   marketing: 0
   server: 30
-sl:
-  main_1_0: 19
-  marketing: 0
-  server: 33
-sr:
-  main_1_0: 81
-  marketing: 81
-  server: 86
-sr-RS:
-  main_1_0: 27
-  marketing: 0
-  server: 48
-sv:
-  main_1_0: 23
-  marketing: 62
-  server: 32
-te:
-  main_1_0: 7
-  marketing: 0
+ru:
+  main_1_0: 28
+  marketing: 2
   server: 9
+ru-RU: {}
+sk:
+  main_1_0: 11
+  marketing: 0
+  server: 21
+sl:
+  main_1_0: 14
+  marketing: 0
+  server: 24
+sr:
+  main_1_0: 60
+  marketing: 81
+  server: 61
+sr-RS:
+  main_1_0: 20
+  marketing: 0
+  server: 34
+sv:
+  main_1_0: 17
+  marketing: 68
+  server: 23
+te:
+  main_1_0: 5
+  marketing: 0
+  server: 6
 te-IN: {}
 th: {}
 th-TH:
@@ -220,13 +220,13 @@ th-TH:
   marketing: 0
   server: 0
 tr:
-  main_1_0: 65
+  main_1_0: 48
   marketing: 0
-  server: 51
+  server: 36
 uk:
-  main_1_0: 83
-  marketing: 4
-  server: 32
+  main_1_0: 95
+  marketing: 5
+  server: 25
 ur:
   main_1_0: 0
   marketing: 0
@@ -236,10 +236,10 @@ ur-PK:
   marketing: 0
   server: 0
 vi:
-  main_1_0: 10
+  main_1_0: 7
   marketing: 0
-  server: 11
+  server: 7
 zh-TW:
   main_1_0: 100
   marketing: 100
-  server: 99
+  server: 100

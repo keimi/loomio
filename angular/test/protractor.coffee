@@ -1,8 +1,14 @@
-screenshooter = require('protractor-jasmine2-screenshot-reporter');
+# HtmlScreenshotReporter = require('protractor-jasmine2-screenshot-reporter');
+#
+# reporter = new HtmlScreenshotReporter
+#   dest: 'screenshots',
+#   filename: 'my-report.html'
+
 paths         = require('../tasks/paths')
 
 exports.config =
-  seleniumServerJar: '../node_modules/selenium-server-standalone-jar/jar/selenium-server-standalone-2.53.0.jar'
+  seleniumServerJar: '../node_modules/webdriver-manager/selenium/selenium-server-standalone-3.3.1.jar'
+  allScriptsTimeout: 40000
   capabilities:
     browserName:     'firefox'
   baseUrl:           'http://localhost:3000'
@@ -11,8 +17,15 @@ exports.config =
     isVerbose: false
     showColors: true
     includeStackTrace: true
-  onPrepare: ->
-    jasmine.getEnv().addReporter new screenshooter
-      dest: paths.protractor.screenshots
-      captureOnlyFailedSpecs: true
-      filename: 'index.html'
+    defaultTimeoutInterval: 40000
+
+  # beforeLaunch: ->
+  #   new Promise (resolve) ->
+  #     reporter.beforeLaunch(resolve);
+  #
+  # onPrepare: ->
+  #   jasmine.getEnv().addReporter(reporter);
+  #
+  # afterLaunch: (exitCode) ->
+  #   new Promise (resolve) ->
+  #     reporter.afterLaunch(resolve.bind(this, exitCode))
