@@ -203,9 +203,7 @@ class Group < ActiveRecord::Base
     if is_subgroup?
       self.parent.default_cover_photo
     elsif self.default_group_cover
-      /^.*(?=\?)/.match(self.default_group_cover.cover_photo.url).to_s
-    else
-      'img/default-cover-photo.png'
+      /^.*(?=\?)/.match(self.default_group_cover.cover_photo.url).to_s    
     end
   end
 
