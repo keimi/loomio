@@ -63,6 +63,8 @@ gem "griddler-mailin", github: 'loomio/griddler-mailin'
 gem 'activerecord-import'
 gem 'discriminator'
 gem 'has_secure_token'
+gem 'jquery-ui-rails', '~> 5.0.5'
+
 
 group :development, :test do
   gem 'minitest'
