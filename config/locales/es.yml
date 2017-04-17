@@ -738,6 +738,8 @@ es:
   already_have_account: "¿Ya tienes una cuenta en Loomio?"
   confirm_your_details: Confirma tus datos
   link_up_your_account: Vincula tu cuenta
+#  create_account: Don't have a Loomio account yet? %{sign_up_link}!
+#  sign_up_link: Create one
   log_in_to_your_loomio_account: Inicia sesión en tu cuenta Loomio vinculándola con %{provider_name}.
   now_that_your_logged_in: Ahora que has iniciado sesión con %{provider_name}, por favor, confirma tus datos para crear una cuenta de Loomio.
   confirmation_not_received: "¿No has recibido las instrucciones de confirmación?"
