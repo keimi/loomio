@@ -20,6 +20,15 @@ class PollService
     Events::PollClosedByUser.publish!(poll, actor)
   end
 
+  def self.publish(poll:, params:, actor:)
+    community = Communities::Base.find(params[:community_id])
+    actor.ability.authorize! :show, community
+    actor.ability.authorize! :share, poll
+
+    EventBus.broadcast('poll_publish', poll, actor, community, params[:message])
+    Events::PollPublished.publish!(poll, actor, community, params[:message])
+  end
+
   def self.publish_closing_soon
     hour_start = 1.day.from_now.at_beginning_of_hour
     hour_finish = hour_start + 1.hour
@@ -65,11 +74,13 @@ class PollService
     # create a new poll from the motion
     Array(motions).map do |motion|
       next if motion.poll.present?
-      # reference = PollReferences::Motion.new(motion)
       outcome = Outcome.new(statement: motion.outcome, author: motion.outcome_author) if motion.outcome.present?
-      Poll.create!(
+
+      # convert motion to poll
+      poll = Poll.new(
         poll_type:               "proposal",
         poll_options_attributes: Poll::TEMPLATES.dig('proposal', 'poll_options_attributes'),
+        key:                     motion.key,
         discussion:              motion.discussion,
         motion:                  motion,
         title:                   motion.name,
@@ -80,24 +91,31 @@ class PollService
         closing_at:              motion.closing_at,
         closed_at:               motion.closed_at,
         outcomes:                Array(outcome)
-      ).tap do |poll|
-        poll.update(
-          stances: motion.votes.map do |vote|
-            stance = Stance.new(
-              stance_choices:   [StanceChoice.new(poll_option: poll.poll_options.detect { |o| o.name == vote.position_verb })],
-              participant_type: 'User',
-              participant_id:   vote.user_id,
-              reason:           vote.statement,
-              latest:           vote.age.zero?,
-              created_at:       vote.created_at,
-              updated_at:       vote.updated_at
-            )
-          end
-        )
-        do_closing_work(poll: poll) if motion.closed?
-        poll.update_stance_data
-        poll.communities << Communities::Email.new
-      end
+      )
+      poll.save(validate: false)
+
+      # convert votes to stances
+      poll.update(
+        stances: motion.votes.map do |vote|
+          stance_choice = StanceChoice.new(poll_option: poll.poll_options.detect { |o| o.name == vote.position_verb })
+          Stance.new(
+            participant_type: 'User',
+            participant_id:   vote.user_id,
+            reason:           vote.statement,
+            latest:           vote.age.zero?,
+            created_at:       vote.created_at,
+            updated_at:       vote.updated_at,
+            stance_choices:   Array(stance_choice)
+          )
+        end
+      )
+      poll.update_stance_data
+
+      # set poll to closed if motion was closed
+      do_closing_work(poll: poll) if motion.closed?
+
+      # add communities
+      poll.communities << Communities::Email.new
     end
   end
 

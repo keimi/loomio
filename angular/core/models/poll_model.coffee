@@ -4,11 +4,25 @@ angular.module('loomioApp').factory 'PollModel', (DraftableModel, AppConfig, Men
     @plural: 'polls'
     @indices: ['discussionId', 'authorId']
     @serializableAttributes: AppConfig.permittedParams.poll
-    @draftParent: 'discussion'
+    @draftParent: 'draftParent'
+    @draftPayloadAttributes: ['title', 'details']
+
+    draftParent: ->
+      @discussion() or @author()
 
     afterConstruction: ->
       @newAttachmentIds = _.clone(@attachmentIds) or []
       @customFields.dots_per_person = 8 if @pollType == 'dot_vote'
+
+    # the polls which haven't closed have the highest importance
+    # (and so have the lowest value here)
+    # Both are sorted by distance from the current time
+    # (IE, polls which have closed or will close closest to now are most important)
+    importance: (now) ->
+      if @closedAt?
+        Math.abs(@closedAt - now)
+      else
+        0.0001 * Math.abs(@closingAt - now)
 
     defaultValues: ->
       discussionId: null
@@ -30,6 +44,7 @@ angular.module('loomioApp').factory 'PollModel', (DraftableModel, AppConfig, Men
       @hasMany   'pollOptions'
       @hasMany   'stances', sortBy: 'createdAt', sortDesc: true
       @hasMany   'pollDidNotVotes'
+      @hasMany   'communities'
 
     group: ->
       @discussion().group() if @discussion()
@@ -51,6 +66,9 @@ angular.module('loomioApp').factory 'PollModel', (DraftableModel, AppConfig, Men
         @group().membershipsCount
       else
         0
+
+    percentVoted: ->
+      (100 * @stancesCount / @communitySize()).toFixed(0) if @communitySize() > 0
 
     undecidedCount: ->
       if @isActive()
@@ -97,4 +115,12 @@ angular.module('loomioApp').factory 'PollModel', (DraftableModel, AppConfig, Men
       @customFields.goal or @communitySize()
 
     close: =>
-      @remote.postMember(@id, 'close')
+      @remote.postMember(@key, 'close')
+
+    publish: (community, message) =>
+      @remote.postMember(@key, 'publish', community_id: community.id, message: message).then =>
+        @published = true
+
+    enableCommunities: ->
+      @group() and @group().features.enable_communities or
+      @author().experiences.enable_communities

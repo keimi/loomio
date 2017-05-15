@@ -13,7 +13,6 @@ class User < ActiveRecord::Base
   attr_accessor :restricted
 
   validates :email, presence: true, uniqueness: true, email: true
-  #validates :name, presence: true
   validates_inclusion_of :uses_markdown, in: [true,false]
 
   has_many :stances, as: :participant
@@ -82,16 +81,21 @@ class User < ActiveRecord::Base
            dependent: :destroy
 
   has_many :polls, foreign_key: :author_id
-  has_many :communities, through: :polls, class_name: "Communities::Base"
-  has_many :visitors, through: :communities
+
+  has_many :identities, class_name: "Identities::Base", dependent: :destroy
+  has_many :communities, through: :identities, class_name: "Communities::Base"
+  has_many :email_communities,
+           -> { where(community_type: [:email, :public]) },
+           through: :polls,
+           source: :communities,
+           class_name: "Communities::Base"
 
   has_many :votes, dependent: :destroy
   has_many :comment_votes, dependent: :destroy
   has_many :stances, as: :participant, dependent: :destroy
+  has_many :participated_polls, through: :stances, source: :poll
 
   has_many :discussion_readers, dependent: :destroy
-  has_many :omniauth_identities, dependent: :destroy
-
 
   has_many :notifications, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -126,6 +130,24 @@ class User < ActiveRecord::Base
     where('memberships.group_id = ?', group.id).
     where('users.email_when_proposal_closing_soon = ?', true)
   }
+
+  scope :without, -> (users) {
+    users = Array(users).compact
+
+    if users.size > 0
+      where('users.id NOT IN (?)', users)
+    else
+      all
+    end
+  }
+
+  def slack_identity
+    identities.find_by(identity_type: :slack)
+  end
+
+  def facebook_identity
+    identities.find_by(identity_type: :facebook)
+  end
 
   def user_id
     id
@@ -176,10 +198,6 @@ class User < ActiveRecord::Base
 
   def time_zone
     self[:time_zone] || 'UTC'
-  end
-
-  def group_membership(group)
-    memberships.for_group(group).first
   end
 
   def self.find_by_email(email)
@@ -243,6 +261,14 @@ class User < ActiveRecord::Base
 
   def send_devise_notification(notification, *args)
     I18n.with_locale(locale) { devise_mailer.send(notification, self, *args).deliver_now }
+  end
+
+  def associate_with_identity(identity)
+    if existing = identities.find_by(uid: identity.uid, identity_type: identity.identity_type)
+      existing.update(access_token: identity.access_token)
+    else
+      identities.push(identity)
+    end
   end
 
   protected

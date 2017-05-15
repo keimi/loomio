@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170314040259) do
+ActiveRecord::Schema.define(version: 20170512024242) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -153,6 +153,8 @@ ActiveRecord::Schema.define(version: 20170314040259) do
     t.jsonb    "custom_fields",  default: {}, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "identity_id"
+    t.string   "identifier"
   end
 
   create_table "contact_messages", force: :cascade do |t|
@@ -658,13 +660,16 @@ ActiveRecord::Schema.define(version: 20170314040259) do
     t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "provider"
+    t.string   "identity_type"
     t.string   "uid"
     t.string   "name"
+    t.string   "access_token",  default: ""
+    t.string   "logo"
+    t.jsonb    "custom_fields", default: {}, null: false
   end
 
   add_index "omniauth_identities", ["email"], name: "index_omniauth_identities_on_email", using: :btree
-  add_index "omniauth_identities", ["provider", "uid"], name: "index_omniauth_identities_on_provider_and_uid", using: :btree
+  add_index "omniauth_identities", ["identity_type", "uid"], name: "index_omniauth_identities_on_identity_type_and_uid", using: :btree
   add_index "omniauth_identities", ["user_id"], name: "index_omniauth_identities_on_user_id", using: :btree
 
   create_table "organisation_visits", force: :cascade do |t|
@@ -694,6 +699,9 @@ ActiveRecord::Schema.define(version: 20170314040259) do
     t.integer "poll_id",      null: false
     t.integer "community_id", null: false
   end
+
+  add_index "poll_communities", ["community_id"], name: "index_poll_communities_on_community_id", using: :btree
+  add_index "poll_communities", ["poll_id"], name: "index_poll_communities_on_poll_id", using: :btree
 
   create_table "poll_did_not_votes", force: :cascade do |t|
     t.integer "poll_id"
@@ -736,6 +744,9 @@ ActiveRecord::Schema.define(version: 20170314040259) do
     t.jsonb    "matrix_counts",       default: [],    null: false
   end
 
+  add_index "polls", ["author_id"], name: "index_polls_on_author_id", using: :btree
+  add_index "polls", ["discussion_id"], name: "index_polls_on_discussion_id", using: :btree
+
   create_table "stance_choices", force: :cascade do |t|
     t.integer  "stance_id"
     t.integer  "poll_option_id"
@@ -756,6 +767,9 @@ ActiveRecord::Schema.define(version: 20170314040259) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "stances", ["participant_id", "participant_type"], name: "index_stances_on_participant_id_and_participant_type", using: :btree
+  add_index "stances", ["poll_id"], name: "index_stances_on_poll_id", using: :btree
 
   create_table "subscriptions", force: :cascade do |t|
     t.string  "kind"
@@ -854,6 +868,8 @@ ActiveRecord::Schema.define(version: 20170314040259) do
     t.string   "country"
     t.string   "region"
     t.string   "city"
+    t.integer  "facebook_community_id"
+    t.integer  "slack_community_id"
   end
 
   add_index "users", ["deactivated_at"], name: "index_users_on_deactivated_at", using: :btree

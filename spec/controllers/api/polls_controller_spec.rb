@@ -8,8 +8,9 @@ describe API::PollsController do
   let(:non_group_discussion) { create :discussion }
   let(:user) { create :user }
   let(:another_user) { create :user }
-  let!(:poll) { create :poll, discussion: discussion, author: user }
-  let(:another_poll) { create :poll, discussion: another_discussion }
+  let!(:poll) { create :poll, title: "POLL!", discussion: discussion, author: user }
+  let(:another_poll) { create :poll, title: "ANOTHER", discussion: another_discussion }
+  let(:closed_poll) { create :poll, title: "CLOSED", author: user, closed_at: 1.day.ago }
   let(:non_group_poll) { create :poll }
   let(:poll_params) {{
     title: "hello",
@@ -39,6 +40,8 @@ describe API::PollsController do
   end
 
   describe 'index' do
+    before { poll; another_poll; closed_poll }
+
     it 'shows polls in a discussion' do
       sign_in user
       get :index, discussion_id: discussion.key
@@ -56,7 +59,133 @@ describe API::PollsController do
     end
   end
 
+  describe 'search' do
+    let(:participated_poll) { create :poll }
+    let!(:my_stance) { create :stance, poll: participated_poll, participant: user, poll_options: [participated_poll.poll_options.first] }
+    let!(:authored_poll) { create :poll, author: user }
+    let!(:group_poll) { create :poll, discussion: discussion }
+    let!(:another_poll) { create :poll }
+
+    describe 'search_results_count' do
+      it 'returns a count of possible results' do
+        sign_in user
+        get :search_results_count
+        expect(response.body.to_i).to eq 4
+      end
+    end
+
+    describe 'signed in' do
+      before { sign_in user }
+
+      it 'returns visible polls' do
+        get :search
+        json = JSON.parse(response.body)
+        poll_ids = json['polls'].map { |p| p['id'] }
+
+        expect(poll_ids).to include participated_poll.id
+        expect(poll_ids).to include authored_poll.id
+        expect(poll_ids).to include group_poll.id
+        expect(poll_ids).to_not include another_poll.id
+      end
+
+      it 'filters by status' do
+        authored_poll.update(closed_at: 1.day.ago)
+        get :search, status: :closed
+
+        json = JSON.parse(response.body)
+        poll_ids = json['polls'].map { |p| p['id'] }
+
+        expect(poll_ids).to include authored_poll.id
+        expect(poll_ids).to_not include participated_poll.id
+        expect(poll_ids).to_not include group_poll.id
+        expect(poll_ids).to_not include another_poll.id
+      end
+
+      it 'filters by group' do
+        get :search, group_key: group.key
+        json = JSON.parse(response.body)
+        poll_ids = json['polls'].map { |p| p['id'] }
+
+        expect(poll_ids).to include group_poll.id
+        expect(poll_ids).to_not include participated_poll.id
+        expect(poll_ids).to_not include authored_poll.id
+        expect(poll_ids).to_not include another_poll.id
+      end
+
+      it 'filters by participated' do
+        get :search, user: :participation_by
+        json = JSON.parse(response.body)
+        poll_ids = json['polls'].map { |p| p['id'] }
+
+        expect(poll_ids).to include participated_poll.id
+        expect(poll_ids).to_not include group_poll.id
+        expect(poll_ids).to_not include authored_poll.id
+        expect(poll_ids).to_not include another_poll.id
+      end
+
+      it 'filters by authored' do
+        get :search, user: :authored_by
+        json = JSON.parse(response.body)
+        poll_ids = json['polls'].map { |p| p['id'] }
+
+        expect(poll_ids).to include authored_poll.id
+        expect(poll_ids).to_not include participated_poll.id
+        expect(poll_ids).to_not include group_poll.id
+        expect(poll_ids).to_not include another_poll.id
+      end
+
+      it 'filters by search fragment' do
+        authored_poll.update(title: "Made in Korea!")
+        get :search, query: "Korea"
+        json = JSON.parse(response.body)
+        poll_ids = json['polls'].map { |p| p['id'] }
+
+        expect(poll_ids).to include authored_poll.id
+        expect(poll_ids).to_not include group_poll.id
+        expect(poll_ids).to_not include participated_poll.id
+        expect(poll_ids).to_not include another_poll.id
+      end
+    end
+  end
+
+  describe 'publish' do
+    let(:another_poll) { create :poll }
+    let(:identity) { create :facebook_identity, user: user }
+    let(:community) { create :facebook_community, poll_id: poll.id, identity: identity }
+    let(:another_community) { create :facebook_community }
+
+    before { sign_in user }
+
+    it 'creates a poll publish event' do
+      expect { post :publish, id: poll.id, community_id: community.id }.to change { Event.where(kind: :poll_published).count }.by(1)
+      e = Events::PollPublished.last
+      expect(e.eventable).to eq poll
+      expect(e.custom_fields['community_id'].to_i).to eq community.id
+    end
+
+    it 'can save a message with the publish' do
+      post :publish, id: poll.id, community_id: community.id, message: "a message"
+      e = Events::PollPublished.last
+      expect(e.custom_fields['message']).to eq "a message"
+    end
+
+    it 'authorizes the poll' do
+      post :publish, id: another_poll.id, community_id: community.id
+      expect(response.status).to eq 403
+    end
+
+    it 'authorizes the community' do
+      post :publish, id: poll.id, community_id: another_community.id
+      expect(response.status).to eq 403
+    end
+  end
+
   describe 'create' do
+    let(:identity) { create :slack_identity, user: user }
+    let(:community) { create :slack_community, identity: identity }
+    let(:another_identity) { create :slack_identity }
+    let(:another_community) { create :slack_community, identity: another_identity }
+
     it 'creates a poll' do
       sign_in user
       expect { post :create, poll: poll_params }.to change { Poll.count }.by(1)
@@ -96,6 +225,28 @@ describe API::PollsController do
       expect { post :create, poll: poll_params }.to_not change { Poll.count }
       expect(response.status).to eq 403
     end
+
+    it 'can accept community_id on a poll' do
+      sign_in user
+      poll_params[:community_id] = community.id
+      expect { post :create, poll: poll_params }.to change { Poll.count }.by(1)
+      poll = Poll.last
+      expect(poll.community_ids).to include community.id
+    end
+
+    it 'publishes to the community if one is specified' do
+      sign_in user
+      poll_params[:community_id] = community.id
+      expect { post :create, poll: poll_params }.to change { Events::PollPublished.where(kind: :poll_published).count }.by(1)
+    end
+
+    it 'does not allow accept community_id for communities the author does not know about' do
+      sign_in user
+      poll_params[:community_id] = another_community.id
+      expect { post :create, poll: poll_params }.to_not change { Events::PollPublished.where(kind: :poll_published).count }
+      poll = Poll.last
+      expect(poll.community_ids).to_not include another_community.id
+    end
   end
 
   describe 'update' do
@@ -126,59 +277,6 @@ describe API::PollsController do
       sign_in another_user
       post :update, id: poll.key, poll: poll_params
       expect(response.status).to eq 403
-    end
-  end
-
-  describe 'autocomplete' do
-    let!(:red_poll) { create(:poll, discussion: discussion,  title: "I am a red ranger!") }
-    let!(:blue_poll) { create(:poll, discussion: discussion, title: "I am a blue bassoon!") }
-
-    it 'returns polls whose title matches the search fragment' do
-      sign_in user
-      get :search, group_id: group.id, q: 'red'
-      expect(response.status).to eq 200
-
-      json = JSON.parse(response.body)
-      poll_ids = json['polls'].map { |p| p['id'] }
-
-      expect(poll_ids).to include red_poll.id
-      expect(poll_ids).to_not include blue_poll.id
-    end
-
-    it 'requires a group id' do
-      sign_in user
-      get :search, q: "red"
-      expect(response.status).to eq 404
-    end
-
-    it 'requires a search query' do
-      sign_in user
-      get :search, group_id: group.id
-      expect(response.status).to eq 400
-    end
-
-    it 'does not search by details' do
-      sign_in user
-      blue_poll.update(details: "Zed's red, baby")
-      get :search, group_id: group.id, q: "red"
-
-      json = JSON.parse(response.body)
-      poll_ids = json['polls'].map { |p| p['id'] }
-
-      expect(poll_ids).to include red_poll.id
-      expect(poll_ids).to_not include blue_poll.id
-    end
-
-    it 'does not return polls the user cannot see' do
-      sign_in another_user
-      get :search, group_id: group.id, q: "red"
-      expect(response.status).to eq 200
-
-      json = JSON.parse(response.body)
-      poll_ids = json['polls'].map { |p| p['id'] }
-
-      expect(poll_ids).to_not include red_poll.id
-      expect(poll_ids).to_not include blue_poll.id
     end
   end
 

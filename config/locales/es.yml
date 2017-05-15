@@ -29,6 +29,14 @@ es:
   attachment:
     error:
       too_large: 'El archivo que tratas de adjuntar es mayor de 50MB, escoge uno mas pequeño. '
+    poll:
+      error:
+        cannot_add_options: Cannot add options to this poll
+        cannot_remove_options: Cannot remove options from this poll
+        must_have_options: Must have at least one poll option
+    stance:
+      error:
+        too_short: Please make a selection
   time:
     formats:
       for_today: "%l:%M %P"

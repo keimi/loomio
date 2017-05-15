@@ -7,10 +7,10 @@
 }
 
 .description-card__edit {
-  padding: 10px 0;
+  padding: 16px 0;
 }
 
 .description-card__actions {
-  display: flex;
+  @include displayFlex;
   justify-content: space-between;
 }

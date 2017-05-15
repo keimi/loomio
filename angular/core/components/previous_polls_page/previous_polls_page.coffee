@@ -17,7 +17,7 @@ angular.module('loomioApp').controller 'PreviousPollsPageController', ($scope, $
   LoadingService.applyLoadingFunction @, 'loadMore'
 
   @searchPolls = =>
-    Records.polls.search(@group.key, @fragment, per: 10)
+    Records.polls.search(@fragment, per: 10, group_key: @group.key)
   LoadingService.applyLoadingFunction @, 'searchPolls'
 
   @pollCollection =
@@ -27,7 +27,7 @@ angular.module('loomioApp').controller 'PreviousPollsPageController', ($scope, $
         _.filter(@group.closedPolls(), (poll) =>
           _.isEmpty(@fragment) or poll.title.match(///#{@fragment}///i)), '-closedAt')
 
-  @translations = TranslationService.eagerTranslate @,
+  TranslationService.eagerTranslate @,
     searchPlaceholder: 'previous_polls_page.search_activities'
 
   @canLoadMore = ->

@@ -2,18 +2,21 @@ class Poll < ActiveRecord::Base
   include ReadableUnguessableUrls
   include HasMentions
   include MakesAnnouncements
-  TEMPLATES = YAML.load_file('config/poll_templates.yml')
-  COLORS    = YAML.load_file('config/colors.yml')
+  TEMPLATES = YAML.load_file(Rails.root.join("config", "poll_templates.yml"))
+  COLORS    = YAML.load_file(Rails.root.join("config", "colors.yml"))
+  TIMEZONES = YAML.load_file(Rails.root.join("config", "timezones.yml"))
   TEMPLATE_FIELDS = %w(material_icon translate_option_name
                        can_add_options can_remove_options
                        must_have_options chart_type has_option_icons
                        has_variable_score voters_review_responses
                        dates_as_options required_custom_fields
-                       poll_options_attributes).freeze
+                       require_stance_choice poll_options_attributes).freeze
   TEMPLATE_FIELDS.each do |field|
     define_method field, -> { TEMPLATES.dig(self.poll_type, field) }
   end
 
+  include Translatable
+  is_translatable on: [:title, :details]
   is_mentionable on: :details
 
   belongs_to :author, class_name: "User", required: true
@@ -36,7 +39,7 @@ class Poll < ActiveRecord::Base
 
   has_many :events, -> { includes(:eventable) }, as: :eventable, dependent: :destroy
 
-  has_many :poll_options, dependent: :destroy
+  has_many :poll_options, ->(object) { order(object&.poll_option_order) }, dependent: :destroy
   accepts_nested_attributes_for :poll_options, allow_destroy: true
 
   has_many :poll_did_not_votes, dependent: :destroy
@@ -49,11 +52,23 @@ class Poll < ActiveRecord::Base
   has_many :poll_communities, dependent: :destroy
   has_many :communities, through: :poll_communities
 
+  delegate :locale, to: :author
+
   scope :active, -> { where(closed_at: nil) }
   scope :closed, -> { where("closed_at IS NOT NULL") }
   scope :search_for, ->(fragment) { where("polls.title ilike :fragment", fragment: "%#{fragment}%") }
   scope :lapsed_but_not_closed, -> { active.where("polls.closing_at < ?", Time.now) }
   scope :active_or_closed_after, ->(since) { where("closed_at IS NULL OR closed_at > ?", since) }
+  scope :participation_by, ->(participant) { joins(:stances).where("stances.participant_type": participant.class.to_s, "stances.participant_id": participant.id) }
+  scope :authored_by, ->(user) { where(author: user) }
+  scope :chronologically, -> { order('created_at asc') }
+  scope :with_includes, -> { includes(
+    :attachments,
+    :poll_options,
+    :outcomes,
+    {poll_communities: [:community]},
+    {stances: [:stance_choices]})
+  }
 
   scope :closing_soon_not_published, ->(timeframe, recency_threshold = 2.days.ago) do
      active
@@ -73,6 +88,8 @@ class Poll < ActiveRecord::Base
   validate :closes_in_future
   validate :require_custom_fields
 
+  attr_accessor :community_id
+
   alias_method :user, :author
 
   def poll
@@ -82,7 +99,8 @@ class Poll < ActiveRecord::Base
   # creates a hash which has a PollOption as a key, and a list of stance
   # choices associated with that PollOption as a value
   def grouped_stance_choices(since: nil)
-    @grouped_stance_choices ||= stance_choices.where("stance_choices.created_at > ?", since || 100.years.ago)
+    @grouped_stance_choices ||= stance_choices.reasons_first
+                                              .where("stance_choices.created_at > ?", since || 100.years.ago)
                                               .includes(:poll_option, stance: :participant)
                                               .to_a
                                               .group_by(&:poll_option)
@@ -116,6 +134,10 @@ class Poll < ActiveRecord::Base
 
   def active?
     closed_at.nil?
+  end
+
+  def poll_option_order
+    if dates_as_options then { name: :asc } else :id end
   end
 
   def poll_option_names

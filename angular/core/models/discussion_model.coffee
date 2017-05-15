@@ -5,6 +5,7 @@ angular.module('loomioApp').factory 'DiscussionModel', (DraftableModel, AppConfi
     @uniqueIndices: ['id', 'key']
     @indices: ['groupId', 'authorId']
     @draftParent: 'group'
+    @draftPayloadAttributes: ['title', 'description']
     @serializableAttributes: AppConfig.permittedParams.discussion
 
     afterConstruction: ->
@@ -48,7 +49,7 @@ angular.module('loomioApp').factory 'DiscussionModel', (DraftableModel, AppConfi
       groupName: @groupName()
 
     authorName: ->
-      @author().name
+      @author().name if @author()
 
     groupName: ->
       @group().name if @group()

@@ -1,11 +1,20 @@
 en:
   poll_types:
     proposal: Proposal
-    count: Count
+    count: Check
     poll: Poll
-    dot_vote: Dot Vote
-    meeting: Meeting
+    dot_vote: Dot vote
+    meeting: Time poll
+  timezones:
+    local: Local time ({{value}})
   common:
+    expand: Expand
+    all_day: All day
+    ok_got_it: Ok, got it
+    learn_more: Learn more
+    not_found: Not found
+    time_zone: Time zone
+    local_time: Local time
     confirm_discard_changes: Discard your changes?
     time:
       am: am
@@ -16,6 +25,9 @@ en:
     notification_volume: 'Notification Volume'
     group: 'Group'
     groups: 'Groups'
+    threads: 'Threads'
+    decisions: 'Decisions'
+    settings: 'Settings'
     help: 'Help'
     privacy:
       privacy: 'Privacy'
@@ -63,8 +75,11 @@ en:
       load_more: 'Load More'
       share: Share
       ok: Ok!
+      retry: Retry
+      done: Done
+      start: Start
     formatting_help:
-      label: 'Formatting help'
+      label: 'Formatting'
       title: 'Learn how to use Markdown to format your text on Loomio'
 
   devise:
@@ -83,8 +98,8 @@ en:
   proposal_outcome_panel:
     heading: Outcome
     set_outcome_hint: Use this space to let everyone know the outcome of the proposal.
-    set_outcome_btn: Set proposal outcome
-    edit_outcome_link: Edit proposal outcome
+    set_outcome_btn: Set outcome
+    edit_outcome_link: Edit outcome
 
   proposal_outcome_form:
     aria_label: Proposal outcome form
@@ -221,7 +236,7 @@ en:
   comment_form:
     aria_label: 'Add a comment'
     attachments:
-      add_attachment: 'Attach a file'
+      add_attachment: 'Attach file'
       remove_attachment: 'Remove attachment'
     messages:
       created: 'Comment added'
@@ -232,7 +247,7 @@ en:
     delete_comment: 'Delete comment'
     cancel_reply: 'Cancel Reply'
     confirm_delete_message: 'Are you sure you want to delete this comment?'
-    confirm_delete: 'Yes, I am sure'
+    confirm_delete: 'Delete comment'
     in_reply_to: "In reply to <strong>{{name}}</strong>:"
     submit_button:
       label: 'Post'
@@ -241,19 +256,18 @@ en:
     sign_in: "Log in to join the conversation"
 
   sidebar:
-    my_threads: 'My threads'
-    my_groups: 'My groups'
-    my_settings: 'My settings'
-    recent: 'Recent'
-    unread: 'Unread'
-    muted: 'Muted'
-    start_group: 'Start new group'
+    recent_threads: 'Recent threads'
+    unread_threads: 'Unread threads ({{count}})'
+    muted_threads: 'Muted threads'
+    start_group: 'New group'
     explore: 'Public groups'
     edit_profile: 'Edit profile'
     email_settings: 'Email settings'
     help: 'Help'
     contact: 'Contact Loomio'
     sign_out: 'Sign out'
+    start_thread: New thread
+    start_decision: New decision
     aria_labels:
       heading: 'Sidebar'
       threads_list: 'Threads actions'
@@ -263,7 +277,7 @@ en:
   navbar:
     recent_title: 'Go to dashboard'
     unread_title: 'View unread activity'
-    start_thread: 'Start a new thread'
+    start_thread: 'New thread'
     notifications: 'Notifications panel'
     search:
       label: 'Search field; search for groups and threads'
@@ -360,7 +374,7 @@ en:
     aria_label: 'Close proposal'
     close_proposal: 'Close proposal'
     helptext: 'Are you sure you want to close this proposal now?'
-    close_proposal_submit: 'Yes, close proposal'
+    close_proposal_submit: 'Close proposal'
     messages:
       success: Proposal closed
 
@@ -400,7 +414,6 @@ en:
       updated: 'Thread updated'
     new_discussion_title: 'Start new thread'
     edit_discussion_title: 'Edit thread'
-    discussion_helptext: 'The thread is where everyone can discuss a topic and make decisions together.'
     group_label: 'Group'
     group_placeholder: 'Select a group'
     title_label: 'Title'
@@ -411,8 +424,6 @@ en:
     privacy_public: 'Anyone can see the thread. Only members can participate.'
     privacy_private: 'The thread will only be visible to members of {{group}}.'
     privacy_organisation: 'The thread will be visible to members of {{parent}} and members of {{group}}.'
-    new_discussion_submit: 'Start thread'
-    edit_discussion_submit: 'Update thread'
     make_announcement: Announcement
     notified_count: '{{count}} people will be emailed'
 
@@ -464,7 +475,6 @@ en:
 
   join_group_button:
     join_group: Join group
-    ask_to_join_group: Ask to join group
     membership_requested: Membership request pending
     messages:
       joined_group: 'You are now a member of {{group}}'
@@ -475,7 +485,7 @@ en:
     name_label: Name
     email_label: Email
     introduction_label: Why do you want to join?
-    submit_button: Ask to join group
+    submit_button: Ask to join
     introduction_over_limit: Response too long
     messages:
       membership_requested: 'You have requested membership to {{group}}'
@@ -520,7 +530,7 @@ en:
     pending_invitations: '+ ({{count}}) pending'
     subgroups: 'Subgroups'
     subgroups_placeholder: 'Subgroups let you break the group up into different teams.'
-    invite_people: 'Invite people'
+    invite_people: 'Invite'
     visibility_label: 'Visibility'
     options_label: 'Options'
     options:
@@ -762,7 +772,7 @@ en:
     group: 'Group'
     group_placeholder: 'Select a group'
     shareable_link: 'Shareable link'
-    copy_link: 'Copy link'
+    copy_link: 'Copy'
     email_addresses: 'Email addresses'
     email_addresses_placeholder: 'e.g. helperbot@loomio.org, friendlybot@loomio.org'
     shareable_link_explanation: 'Copy the link and send it to anyone you want to join the group. This will give them access to all threads in the group.'
@@ -807,7 +817,7 @@ en:
   remove_membership_form:
     aria_label: 'Remove member'
     title: 'Remove member'
-    question: 'Are you sure you want to remove {{name}} as a member of {{group}}?'
+    question: 'Are you sure you want to remove {{name}} from {{group}}?'
     submit: 'Remove'
 
   pending_invitations_card:
@@ -1002,18 +1012,18 @@ en:
     thread_options: 'Thread options'
     email_settings: 'Email settings'
     edit: 'Edit'
-    edit_thread: 'Edit thread'
+    edit_thread: 'Edit'
     mute_thread: 'Mute'
     move_thread: 'Move'
     print_thread: 'Print'
     delete_thread: 'Delete'
-    add_comment: 'Add comment'
+    add_comment: 'Comment'
 
   delete_thread_form:
     aria_label: 'Delete thread'
     title: Delete thread
     body: Are you sure you want to delete this thread?
-    confirm: 'Yes, delete the thread'
+    confirm: 'Delete thread'
     messages:
       success: Thread deleted
 
@@ -1316,24 +1326,18 @@ en:
       success: "'{{name}}' can no longer use your account."
 
   decision_tools_card:
-    title: Facilitation tools
-    purpose: Clear input from everyone. Move the conversation forward. Hear from many people at once. Create shared
-    purpose: Collect individual views to understand the whole.
+    title: Decision tools
     proposal_title: Proposal
-    proposal_subtitle: Find consensus
-    count_title: Count
-    count_subtitle: Track who has completed a task
+    count_title: Check
     poll_title: Poll
-    poll_subtitle: Measure popularity of different options
     dot_vote_title: Dot Vote
-    dot_vote_subtitle: Everyone gets some votes to spend
-    meeting_title: Schedule Meeting
-    meeting_subtitle: Find a time to meet
+    meeting_title: Time poll
 
   poll_common:
     your_response: Your response
     change_your_response: Change your response
     reason: Reason
+    message: Message
     results: Results
     vote: Vote
     votes: Votes
@@ -1349,8 +1353,12 @@ en:
     participant_email: Email address
     share_poll: Share poll
     share_proposal: Share proposal
-    share_count: Share count
-    start_poll: Start a new poll
+    share_count: Share check
+    start_poll: Start a decision
+    publish_poll: Share poll
+
+  poll_common_attachment_form:
+    label: Attachments
 
   poll_common_card:
     show_results: Show results
@@ -1368,21 +1376,18 @@ en:
     helptext: Are you sure you're ready to close this early?
     close_proposal: Close proposal
     close_poll: Close poll
-    close_count: Close count
+    close_count: Close check
     close_dot_vote: Close dot vote
-    close_meeting: Close meeting poll
+    close_meeting: Close time poll
     proposal_closed: Proposal closed
     poll_closed: Poll closed
-    count_closed: Count closed
+    count_closed: Check closed
     dot_vote_closed: Dote vote closed
-    meeting_closed: Meeting time poll closed
+    meeting_closed: Time poll closed
 
   poll_common_closing_at_field:
     closing: Closing
     closing_hour: Closing hour
-
-  poll_common_school_link:
-    learn_about: "Learn about:"
 
   poll_card:
     started_by: Started by {{name}}
@@ -1395,6 +1400,7 @@ en:
     no_votes_yet: No votes have been placed yet.
     change_results_order: Change results order
     show_undecided: Show undecided
+    none_of_the_above: (None of the above)
 
   poll_common_did_not_votes_panel:
     undecided: Undecided ({{count}})
@@ -1407,8 +1413,8 @@ en:
     share_outcome: Share outcome
     poll: 'This poll has closed. <strong>Share the outcome</strong> with the group.'
     proposal: 'This proposal has closed. Please consider what as been said and <strong>share an outcome</strong>, so people know what’ll happen next.'
-    count: 'This count has closed. <strong>Share an outcome</strong> to complete the process.'
-    meeting: 'This meeting poll has closed. <strong>Share an outcome</strong> to let others know when the meeting will happen.'
+    count: 'This check has closed. <strong>Share an outcome</strong> to complete the process.'
+    meeting: 'This time poll has closed. <strong>Share an outcome</strong> to let others know when the meeting will happen.'
     dot_vote: 'This dot vote has closed. <storng>Share an outcome</strong> with the group.'
 
   poll_common_outcome_form:
@@ -1422,22 +1428,97 @@ en:
   poll_common_outcome_panel:
     authored_by: 'By {{name}}'
 
-  poll_proposal_form:
-    start_header: Start a proposal
-    edit_header: Edit proposal
-    start_a_proposal: Start a proposal
-    edit_proposal: Edit proposal
-    tip: Proposals are a convergence tool. Use them to bring the discussion to a clear outcome. <a href="https://www.loomio.school/beginner/proposals.html" target="_blank">Learn more</a>
+  poll_common_form:
     title: Title
-    title_placeholder: E.g. Let's go to the moon!
     details: Details
-    details_placeholder: Give enough information so everyone knows what it means to agree or disagree
     options: Options
     closing: Closing
-    start: Start proposal
-    update: Update proposal
-    proposal_created: Proposal created
+    start: Start
+    update: Update
+
+  poll_proposal_form:
+    tool_tip_expanded: |
+      <p>A proposal is a tool for seeking collective agreement about a statement or course of action.</p>
+      <p>Participants can agree, abstain, disagree or block - and give a statement to explain their position.</p>
+      <p>A pie chart gives an overview of the positions in the group, while the statements allow individual voices to be heard. </p>
+      <p>Don't be discouraged if you don't see agreement at first, proposals are designed to surface issues that need resolving.</p>
+      <p>With good participation a proposal is a powerful mandate to take action.</p>
+      <p>Find out more in <a href="https://www.loomio.school/beginner/proposals.html" target="_blank">Loomio School</a>.</p>
+    tool_tip_collapsed: Seek collective agreement
+    start_header: Start proposal
+    edit_header: Edit proposal
+    tip: Seek collective agreement through a process which allows all voices to be heard. <a href="https://www.loomio.school/beginner/proposals.html" target="_blank">Learn more</a>
+    title_placeholder: E.g. Let's go to the moon!
+    details_placeholder: Give enough information so everyone knows what it means to agree or disagree
+    proposal_created: Proposal started
     proposal_updated: Proposal updated
+
+  poll_poll_form:
+    tool_tip_expanded: |
+      <p>Use a poll to measure popularity or offer a choice.</p>
+      <p>Provide some options to choose from. Decide if participants choose single or multiple options as their response.</p>
+      <p>Everyone votes, and can enter a statement too if they like. Results are represented in a bar graph.</p>
+    tool_tip_collapsed: Measure popularity or offer a choice
+    start_header: Start poll
+    edit_header: Edit poll
+    tip: Measure the popularity of different options
+    title_placeholder: E.g. Where do you want to go on holiday?
+    details_placeholder: Provide any clarifying details people might need to answer the question.
+    add_option_placeholder: Add option
+    remove_option: Remove option
+    multiple_choice: Multiple choice
+    multiple_choice_explained: Allow voters to select as many options as they like.
+    poll_created: Poll created
+    poll_updated: Poll updated
+
+  poll_count_form:
+    tool_tip_expanded: |
+      <p>A <em>check</em> is a tool with many possible uses but only 2 responses: Tick or Dash.</p>
+      <p>Use it to engage people with an offer, like an RSVP: "I'm coming to the event" or "I'll join the working group".</p>
+      <p>Or use it to track completion of a task: "I've checked my contact details are correct", or "I've read the document and left my feedback".</p>
+      <p>A check has a <em>goal</em>, which is the number of participants you'd like. The goal indicates to the group if something needs more attention or is well subscribed.</p>
+      <p>A day before the check closes, it will remind those who have not participated to do so - like a digital cat herder.</p>
+    tool_tip_collapsed: Track participation and find volunteers
+    start_header: Start check
+    edit_header: Edit check
+    tip: Engage people with an offer or request
+    title_placeholder: E.g. Who wants to join the working group?
+    details_placeholder: Explain what committment is involved, or give details about how to participate.
+    count_created: Check started
+    count_updated: Check updated
+
+  poll_dot_vote_form:
+    tool_tip_expanded: |
+      <p>Dot voting is a way to prioritise a list of options.</p>
+      <p>Participants are given a limited number of ‘dots’ which they can allocate however they like among the options provided to represent their own preferences.</p>
+      <p>The process results in a cumulative bar chart as well as and the individual allocations so you can consider various points of view.</p>
+    tool_tip_collapsed: Prioritise options
+    start_header: Start dot vote
+    edit_header: Edit dot vote
+    tip: Allocate resources collectively
+    title_placeholder: E.g. How should we allocate our budget?
+    details_placeholder: Provide any clarifying details people might need to participate
+    add_option_placeholder: Add option
+    dots_per_person: Dots per person
+    dot_vote_created: Dot vote created
+    dot_vote_updated: Dot vote updated
+
+  poll_meeting_form:
+    tool_tip_expanded: |
+      <p>Use a time poll to find when people are available to meet.</p>
+      <p>Enter a list of dates or times when you could have your meeting.</p>
+      <p>Participants tick those which they’re able to attend, or they can use the statement field to explain their circumstances, so you can update the options if necessary.</p>
+      <p>If you add new times during a time poll, people who have already voted are prompted to update their response.</p>
+      <p>You can then see who’s available when, and decide when to meet.</p>
+      <p>Times are automatically converted to the participant's time zone.</p>
+    tool_tip_collapsed: Find a time to meet
+    start_header: Start time poll
+    edit_header: Edit time poll
+    tip: Find out when people are available to meet
+    title_placeholder: E.g. When should we have our next meetup?
+    details_placeholder: Provide any clarifying details people might need to participate
+    meeting_created: Time poll created
+    meeting_updated: Time poll updated
 
   poll_proposal_vote_form:
     default_reason_placeholder: Please explain your reasoning
@@ -1462,30 +1543,14 @@ en:
     block_verb: "blocked"
     block_meaning: The urgent attention of the group is required to address a deep concern
 
-  poll_count_options:
-    'yes': 'Yes'
-    'no': 'No'
-
-  poll_count_form:
-    start_header: Start a count
-    edit_header: Edit count
-    new_count: Start a count
-    update_count: Edit count
-    tip: 'A count is like asking: "Can I get a show of hands..". Use it to follow up on tasks or seek participants.'
-    title: Title
-    title_placeholder: E.g. Who wants to join the working group?
-    details: Details
-    details_placeholder: Explain what opting-in involves, or give details about how to participate.
-    start: Start count
-    update: Update count
-    count_created: Count created
-    count_updated: Count updated
-
   poll_count_vote_form:
     reason_label: Message
-    reason_placeholder: message (optional)
+    reason_placeholder: Leave a message if you like
     stance_created: Vote created
     stance_updated: Vote updated
+
+  poll_common_percent_voted:
+    sentence: "{{percent}}% of members have stated their position ({{numerator}}/{{denominator}})"
 
   poll_count_chart_panel:
     out_of: out of {{goal}}
@@ -1493,61 +1558,15 @@ en:
   poll_meeting_chart_panel:
     total: Total
 
-  poll_poll_form:
-    start_header: Start a poll
-    edit_header: Edit poll
-    tip: Polls can be used to measure support for different options to understand preferences in the group.
-    title: Question
-    title_placeholder: E.g. What's you're favourite colour?
-    details: Details
-    details_placeholder: Provide any clarifying details people might need to answer the question.
-    options: Options
-    add_option_placeholder: Add option
-    remove_option: Remove option
-    closing: Closing
-    start: Start poll
-    update: Update poll
-    multiple_choice: Multiple choice
-    multiple_choice_explained: Voters can choose more than 1 option.
-    poll_created: Poll created
-    poll_updated: Poll updated
 
   poll_poll_vote_form:
     stance_created: Vote created
     stance_updated: Vote updated
 
   poll_meeting_vote_form:
-    stance_created: Your times have been recorded
-    stance_updated: Your times have been updated
-
-  poll_dot_vote_form:
-    tip: Dot voting is a form of cumulative voting. Use it to understand preferences with more detail than a single vote.
-    start_header: Start a dot vote
-    edit_header: Edit dot vote
-    title: Title
-    title_placeholder: 'E.g. how should we allocate our resources?'
-    details: Details
-    details_placeholder: Provide any clarifying details people might need to participate
-    options: Options
-    add_option_placeholder: Add option
-    dots_per_person: Dots per person
-    start: Start Dot Vote
-    update: Update Dot Vote
-    dot_vote_created: Dot vote created
-    dot_vote_updated: Dot vote updated
-
-  poll_meeting_form:
-    start_header: Schedule a time
-    tip: Find the time that best suits the group. Provide a list of times to meet and see which ones people can attend <a href='#'>Learn more</a>
-    title: Title
-    title_placeholder: E.g. When should we have our next meetup?
-    details: Details
-    details_placeholder: Provide any clarifying details people might need to participate
-    options: Times
-    start: Schedule a time
-    update: Update schedule
-    meeting_created: Meeting poll created
-    meeting_updated: Meeting poll updated
+    your_response: When can you attend?
+    stance_created: Availability saved
+    stance_updated: Availability updated
 
   poll_dot_vote_vote_form:
     dots_remaining: You have {{count}} dots remaining.
@@ -1571,11 +1590,11 @@ en:
       poll_closed_by_user: '<strong>{{author}}</strong> closed the proposal: <span>{{title}}</span>'
 
     count:
-      poll_created: '<strong>{{author}}</strong> started a count: <span>{{title}}</span>'
+      poll_created: '<strong>{{author}}</strong> started a check: <span>{{title}}</span>'
       stance_created: '<strong>{{author}}</strong> responded:'
-      poll_edited: '<strong>{{author}}</strong> edited the count: <span>{{title}}</span>'
-      poll_expired: 'Count finished: <span>{{title}}</span>'
-      poll_closed_by_user: '<strong>{{author}}</strong> closed the count: <span>{{title}}</span>'
+      poll_edited: '<strong>{{author}}</strong> edited the check: <span>{{title}}</span>'
+      poll_expired: 'Check finished: <span>{{title}}</span>'
+      poll_closed_by_user: '<strong>{{author}}</strong> closed the check: <span>{{title}}</span>'
 
     dot_vote:
       poll_created: '<strong>{{author}}</strong> started a dot vote: <span>{{title}}</span>'
@@ -1592,11 +1611,11 @@ en:
       poll_closed_by_user: '<strong>{{author}}</strong> closed the dot vote: <span>{{title}}</span>'
 
     meeting:
-      poll_created: '<strong>{{author}}</strong> started a meeting time poll: <span>{{title}}</span>'
+      poll_created: '<strong>{{author}}</strong> started a time poll: <span>{{title}}</span>'
       stance_created: '<strong>{{author}}</strong> responded:'
-      poll_edited: '<strong>{{author}}</strong> edited the meeting time poll: <span>{{title}}</span>'
-      poll_expired: 'Meeting time poll finished: <span>{{title}}</span>'
-      poll_closed_by_user: '<strong>{{author}}</strong> closed the meeting time poll: <span>{{title}}</span>'
+      poll_edited: '<strong>{{author}}</strong> edited the time poll: <span>{{title}}</span>'
+      poll_expired: 'Time poll finished: <span>{{title}}</span>'
+      poll_closed_by_user: '<strong>{{author}}</strong> closed the time poll: <span>{{title}}</span>'
 
     # outcome
     outcome_created: '<strong>{{author}}</strong> shared an outcome:'
@@ -1606,6 +1625,7 @@ en:
 
   poll_common_share_form:
     no_group_selected: No group selected
+    no_communities: "You haven't connected any communities yet. Click 'add community' below to add one"
     share_a_link: Shareable link
     anyone_can_participate: Anyone can participate
     anyone_can_participate_true: Shareable link created
@@ -1620,17 +1640,54 @@ en:
     existing_guests: Existing guests
     new_guests: New emails to invite
     enter_email: "E.g. guest@example.com"
-    reminded: Reminder email sent!
+    reminded: Reminder sent!
     send_emails: Send invitations ({{count}})
     no_loomio_group: This poll is not currently associated with any Loomio group
     has_loomio_group: Members of this group will be able to view and participate in this poll.
-    poll_is_shareable: Anyone who has the link to this poll can vote. Send the link above to anyone you wish to participate.
-    poll_is_private: Users must be invited in order to view and participate in this poll.
+    poll_is_shareable: Copy the link above and share it. Anyone with the link can pariticpate.
+    enter_emails: Enter an email address to send a single use participation link.
     view_poll: View poll
     email_invited: 'Invitation email sent to {{email}}'
     email_exists: '{{email}} has already been invited'
     email_empty: 'Please enter an email'
     email_invalid: "That doesn't appear to be a valid email"
+    communities: Connect Community
+    add_facebook_community: Add facebook group
+    add_slack_community: Add slack channel
+    community_revoked: This community will no longer be able to participate
+    community_added: Community added to poll
+
+  poll_common_publish_form:
+    community: Inform the following group of your poll
+    message: Enter a message
+    message_placeholder: Add a message to accompany the link to your poll
+    published: Message successfully sent
+
+  poll_common_publish_facebook_preview:
+    shared_a: shared a
+    link: link
+    just_now: Just now
+
+  poll_common_publish_slack_preview:
+    poll_published: "published a poll:"
+    poll_published_with_discussion: "published a poll in <strong>{{discussion}}</strong>:"
+    view_it_on_loomio: View it on Loomio
+    timestamp: Today at {{timestamp}}
+
+  add_community_form:
+    title: Add community
+    existing_communities: Previously connected communities
+    no_communities: You haven't connected any communities yet. Select one below to get started.
+    connect_new_community: Connect a new community
+    currently_signed_in_as: "Currently signed in as:"
+    community_created: This poll is now connected to a {{type}} community
+    error_explanation: Oops! We had some trouble connecting to {{type}}. Click below to retry.
+    slack:
+      another_account: (Switch teams)
+      fragment_placeholder: Search for channels...
+    facebook:
+      another_account: (Sign in to another account)
+      fragment_placeholder: Search for groups...
 
   poll_common_participant_form:
     participant_name_placeholder: What is your name?
@@ -1644,3 +1701,9 @@ en:
 
   share_poll_page:
     title: Share poll - {{title}}
+
+  polls_page:
+    heading: Decisions
+    search_placeholder: Search for polls...
+    polls_count: Displaying {{count}} of {{total}} polls
+    start_new_poll: New decision

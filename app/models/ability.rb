@@ -173,7 +173,6 @@ class Ability
 
     can [:show,
          :print,
-         :mark_as_read,
          :dismiss,
          :subscribe_to], Discussion do |discussion|
       if discussion.archived_at.present?
@@ -185,6 +184,10 @@ class Ability
         user_is_member_of?(discussion.group_id) or
         (discussion.group.parent_members_can_see_discussions? and user_is_member_of?(discussion.group.parent_id))
       end
+    end
+
+    can :mark_as_read, Discussion do |discussion|
+      @user.is_logged_in? && can?(:show, discussion)
     end
 
     can :update_version, Discussion do |discussion|
@@ -315,8 +318,24 @@ class Ability
       @user.is_logged_in?
     end
 
-    can :show, Communities::Base do |community|
-      community.polls.any? { |poll| @user.can? :share, poll }
+    can [:show, :remind], Communities::Base do |community|
+      @user.communities.include?(community)
+    end
+
+    can :manage_visitors, Communities::Base do |community|
+      @user.email_communities.include?(community)
+    end
+
+    can :create, Communities::Base do |community|
+      @user.is_logged_in? # TODO: ensure user owns one of the community's polls?
+    end
+
+    can [:destroy, :update], Communities::Base do |community|
+      @user.communities.include? community
+    end
+
+    can :destroy, PollCommunity do |poll_community|
+      @user.can? :share, poll_community.poll
     end
 
     can [:make_draft, :show], Poll do |poll|
@@ -339,19 +358,15 @@ class Ability
       poll.active? && (user_is_author_of?(poll) || user_is_admin_of?(poll.group_id))
     end
 
-    can [:destroy], Visitor do |visitor|
-      @user.visitors.include?(visitor)
-    end
-
-    can [:create, :remind], Visitor do |visitor|
-      @user.communities.include?(visitor.community)
-    end
-
     can :update, Visitor do |visitor|
       @user.can?(:create, visitor) || @user.participation_token == visitor.participation_token
     end
 
-    can :create, Stance do |stance|
+    can [:show, :destroy], Identities::Base do |identity|
+      @user.identities.include? identity
+    end
+
+    can [:make_draft, :create], Stance do |stance|
       poll = stance.poll
       if !poll.active?
         false
