@@ -5,11 +5,12 @@ class User < ActiveRecord::Base
   include HasExperiences
   include HasAvatar
   include UsesWithoutScope
+  include SelfReferencing
 
   MAX_AVATAR_IMAGE_SIZE_CONST = 100.megabytes
 
   devise :database_authenticatable, :recoverable, :registerable, :rememberable, :trackable, :omniauthable, :validatable
-  attr_accessor :honeypot
+  attr_accessor :recaptcha
   attr_accessor :restricted
 
   validates :email, presence: true, uniqueness: true, email: true
@@ -31,10 +32,12 @@ class User < ActiveRecord::Base
 
   validates_uniqueness_of :username
   validates_length_of :username, maximum: 30
+  validates_length_of :short_bio, maximum: 250
   validates_format_of :username, with: /\A[a-z0-9]*\z/, message: I18n.t(:'error.username_must_be_alphanumeric')
 
   validates_length_of :password, minimum: 8, allow_nil: true
   validates :password, nontrivial_password: true, allow_nil: true
+  validate  :ensure_recaptcha, if: :recaptcha
 
   has_many :contacts, dependent: :destroy
   has_many :admin_memberships,
@@ -101,6 +104,7 @@ class User < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   has_many :attachments, dependent: :destroy
   has_many :drafts, dependent: :destroy
+  has_many :login_tokens, dependent: :destroy
 
   has_one :deactivation_response,
           class_name: 'UserDeactivationResponse',
@@ -125,20 +129,9 @@ class User < ActiveRecord::Base
   scope :email_when_proposal_closing_soon, -> { active.where(email_when_proposal_closing_soon: true) }
 
   scope :email_proposal_closing_soon_for, -> (group) {
-    active.
-    joins(:memberships).
-    where('memberships.group_id = ?', group.id).
-    where('users.email_when_proposal_closing_soon = ?', true)
-  }
-
-  scope :without, -> (users) {
-    users = Array(users).compact
-
-    if users.size > 0
-      where('users.id NOT IN (?)', users)
-    else
-      all
-    end
+     email_when_proposal_closing_soon
+    .joins(:memberships)
+    .where('memberships.group_id': group.id)
   }
 
   def slack_identity
@@ -149,8 +142,17 @@ class User < ActiveRecord::Base
     identities.find_by(identity_type: :facebook)
   end
 
-  def user_id
-    id
+  def associate_with_identity(identity)
+    if existing = identities.find_by(user: self, uid: identity.uid, identity_type: identity.identity_type)
+      existing.update(access_token: identity.access_token)
+    else
+      identities.push(identity)
+      identity.assign_logo! if avatar_kind == 'initials'
+    end
+  end
+
+  def remember_me
+    true
   end
 
   def participation_token
@@ -161,8 +163,8 @@ class User < ActiveRecord::Base
     true
   end
 
-  def first_name
-    name.split(' ').first
+  def email_status
+    if deactivated_at.present? then :inactive else :active end
   end
 
   def name_and_email
@@ -176,14 +178,6 @@ class User < ActiveRecord::Base
 
   delegate :can?, :cannot?, :to => :ability
 
-  def is_group_admin?(group=nil)
-    if group.present?
-      admin_memberships.where(group_id: group.id).any?
-    else
-      admin_memberships.any?
-    end
-  end
-
   def is_member_of?(group)
     !!memberships.find_by(group_id: group&.id)
   end
@@ -192,8 +186,8 @@ class User < ActiveRecord::Base
     !!memberships.find_by(group_id: group&.id, admin: true)
   end
 
-  def time_zone_city
-    TimeZoneToCity.convert time_zone
+  def first_name
+    self.name.to_s.split(' ').first
   end
 
   def time_zone
@@ -215,14 +209,6 @@ class User < ActiveRecord::Base
 
   def self.helper_bot_email
     ENV['HELPER_BOT_EMAIL'] || 'contact@loomio.org'
-  end
-
-  def subgroups
-    groups.where("parent_id IS NOT NULL")
-  end
-
-  def parent_groups
-    groups.where("parent_id IS NULL").order("LOWER(name)")
   end
 
   def name
@@ -263,14 +249,6 @@ class User < ActiveRecord::Base
     I18n.with_locale(locale) { devise_mailer.send(notification, self, *args).deliver_now }
   end
 
-  def associate_with_identity(identity)
-    if existing = identities.find_by(uid: identity.uid, identity_type: identity.identity_type)
-      existing.update(access_token: identity.access_token)
-    else
-      identities.push(identity)
-    end
-  end
-
   protected
   def password_required?
     !password.nil? || !password_confirmation.nil?
@@ -280,6 +258,11 @@ class User < ActiveRecord::Base
 
   def ensure_email_api_key
     self.email_api_key ||= SecureRandom.hex(16)
+  end
+
+  def ensure_recaptcha
+    return if Clients::Recaptcha.instance.validate(self.recaptcha)
+    self.errors.add(:recaptcha, I18n.t(:"user.error.recaptcha"))
   end
 
   def ensure_unsubscribe_token

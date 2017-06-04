@@ -112,6 +112,17 @@ describe API::PollsController do
         expect(poll_ids).to_not include another_poll.id
       end
 
+      it 'filters by discussion' do
+        get :search, discussion_key: discussion.key
+        json = JSON.parse(response.body)
+        poll_ids = json['polls'].map { |p| p['id'] }
+
+        expect(poll_ids).to include group_poll.id
+        expect(poll_ids).to_not include participated_poll.id
+        expect(poll_ids).to_not include authored_poll.id
+        expect(poll_ids).to_not include another_poll.id
+      end
+
       it 'filters by participated' do
         get :search, user: :participation_by
         json = JSON.parse(response.body)
@@ -313,6 +324,80 @@ describe API::PollsController do
       post :close, id: poll.key
       expect(poll.communities.map(&:class)).to_not include Communities::LoomioGroup
       expect(poll.communities.map(&:class)).to include Communities::LoomioUsers
+    end
+  end
+
+  describe 'destroy' do
+    it 'destroys a poll' do
+      sign_in poll.author
+      expect { delete :destroy, id: poll.key }.to change { Poll.count }.by(-1)
+      expect(response.status).to eq 200
+    end
+
+    it 'allows group admins to destroy polls' do
+      sign_in poll.group.admins.first
+      expect { delete :destroy, id: poll.key }.to change { Poll.count }.by(-1)
+      expect(response.status).to eq 200
+    end
+
+    it 'does not allow an unauthed user to destroy a poll' do
+      sign_in create(:user)
+      expect { delete :destroy, id: poll.key }.to_not change { Poll.count }
+      expect(response.status).to eq 403
+    end
+
+  end
+
+  describe 'toggle_subscription' do
+    it 'creates an unsubscription if one does not exist' do
+      sign_in user
+      expect { post :toggle_subscription, id: poll.key }.to change { poll.unsubscribers.count }.by(1)
+      expect(response.status).to eq 200
+    end
+
+    it 'deletes an unsubscription if one does exist' do
+      sign_in user
+      poll.poll_unsubscriptions.create(user: user)
+      expect { post :toggle_subscription, id: poll.key }.to change { poll.unsubscribers.count }.by(-1)
+      expect(response.status).to eq 200
+    end
+
+    it 'does not allow visitors to have an unsubscription' do
+      expect { post :toggle_subscription, id: poll.key }.to_not change { poll.unsubscribers.count }
+      expect(response.status).to eq 403
+    end
+
+    it 'does not allow users who cant see the poll to have unsubscriptions' do
+      sign_in another_user
+      expect { post :toggle_subscription, id: poll.key }.to_not change { poll.unsubscribers.count }
+    end
+  end
+
+  describe 'create_visitors' do
+    let(:pending_emails) { 'one@one.com,two@two.com' }
+    let(:poll) { create :poll, custom_fields: { pending_emails: pending_emails } }
+
+    it 'can create some visitors' do
+      sign_in poll.author
+      expect { post :create_visitors, id: poll.key, emails: pending_emails }.to change { Visitor.count }.by(2)
+      expect(response.status).to eq 200
+    end
+
+    it 'does not send emails to the author' do
+      sign_in poll.author
+      expect { post :create_visitors, id: poll.key, emails: poll.author.email }.to_not change { ActionMailer::Base.deliveries.count }
+      expect(response.status).to eq 200
+    end
+
+    it 'sends emails to each visitor' do
+      sign_in poll.author
+      expect { post :create_visitors, id: poll.key, emails: pending_emails }.to change { ActionMailer::Base.deliveries.count }.by(2)
+    end
+
+    it 'does not allow someone other than the poll author to create visitors' do
+      sign_in create(:user)
+      expect { post :create_visitors, id: poll.key, emails: pending_emails }.to_not change { Visitor.count }
+      expect(response.status).to eq 403
     end
   end
 end

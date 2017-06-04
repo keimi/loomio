@@ -28,6 +28,10 @@ FactoryGirl.define do
     end
   end
 
+  factory :login_token do
+    user
+  end
+
   factory :admin_user, class: User do
     sequence(:email) { Faker::Internet.email }
     sequence(:name) { Faker::Name.name }
@@ -324,6 +328,11 @@ FactoryGirl.define do
     association :community, factory: :public_community
     name "John Doe"
     email "john@doe.com"
+  end
+
+  factory :received_email do
+    sender_email "John Doe <john@doe.com>"
+    body "FORWARDED MESSAGE------ TO: Mary <mary@example.com>, beth@example.com, Tim <tim@example.com> SUBJECT: We're having an argument! blahblahblah"
   end
 
 end

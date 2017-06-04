@@ -52,6 +52,7 @@ Loomio::Application.routes.draw do
     resources :groups, only: [:index, :show, :create, :update] do
       get :subgroups, on: :member
       get :count_explore_results, on: :collection
+      post :publish, on: :member
       patch :archive, on: :member
       put :archive, on: :member
       post 'upload_photo/:kind', on: :member, action: :upload_photo
@@ -94,13 +95,17 @@ Loomio::Application.routes.draw do
 
     resources :profile, only: [:show] do
       get  :me, on: :collection
+      get  :email_status, on: :collection
       post :update_profile, on: :collection
       post :set_volume, on: :collection
       post :upload_avatar, on: :collection
       post :change_password, on: :collection
       post :deactivate, on: :collection
       post :save_experience, on: :collection
+      post :set_password, on: :collection
     end
+
+    resources :login_tokens, only: [:create]
 
     resources :events, only: :index
     resources :drafts do
@@ -137,9 +142,11 @@ Loomio::Application.routes.draw do
       get  :closed, on: :collection
     end
 
-    resources :polls,       only: [:show, :index, :create, :update] do
+    resources :polls,       only: [:show, :index, :create, :update, :destroy] do
       post :close, on: :member
       post :publish, on: :member
+      post :create_visitors, on: :member
+      post :toggle_subscription, on: :member
       get  :closed, on: :collection
       get  :search, on: :collection
       get  :search_results_count, on: :collection
@@ -198,7 +205,9 @@ Loomio::Application.routes.draw do
     namespace(:sessions)        { get :unauthorized }
     devise_scope :user do
       resource :sessions, only: [:create, :destroy]
-      resource :registrations, only: :create
+      resource :registrations, only: :create do
+        post :oauth, on: :collection
+      end
     end
 
     resources :communities, only: [:create, :update, :index]
@@ -215,16 +224,18 @@ Loomio::Application.routes.draw do
 
   get "/browser_not_supported", to: "application#browser_not_supported"
 
-  devise_for :users, controllers: { sessions: 'users/sessions',
-                                    registrations: 'users/registrations',
-                                    omniauth_callbacks: 'users/omniauth_callbacks' }
+  get '/users/sign_in', to: redirect('/dashboard')
+  get '/users/sign_up', to: redirect('/dashboard')
+  devise_for :users, controllers: { passwords: :"users/passwords" }
 
   namespace(:subscriptions) do
     get :select_gift_plan
     post :webhook
   end
 
+  resources :received_emails, only: :create
   resources :invitations, only: [:show]
+  resources :login_tokens, only: [:show]
   get '/users/invitation/accept' => redirect {|params, request|  "/invitations/#{request.query_string.gsub('invitation_token=','')}"}
 
   namespace :email_actions do
@@ -275,7 +286,7 @@ Loomio::Application.routes.draw do
   get 'd/:key(/:slug)'                     => 'discussions#show',            as: :discussion
   get 'd/:key/comment/:comment_id'         => 'discussions#show',            as: :comment
   get 'm/:key(/:slug)'                     => 'motions#show',                as: :motion
-  get 'p/:key/share'                       => 'polls#share',                 as: :share_poll
+  get 'p/:key/unsubscribe'                 => 'polls#unsubscribe',           as: :poll_unsubscribe
   get 'p/:key(/:slug)'                     => 'polls#show',                  as: :poll
   get 'vote/:key(/:slug)'                  => 'polls#show'
   get 'u/:username/'                       => 'users#show',                  as: :user
@@ -285,19 +296,19 @@ Loomio::Application.routes.draw do
   get '/g/:key/membership_requests/new'    => 'application#gone'
   get '/comments/:id'                      => 'application#gone'
 
-  scope :facebook do
-    get :oauth,                           to: 'identities/facebook#oauth',   as: :facebook_oauth
-    get :authorize,                       to: 'identities/facebook#create',  as: :facebook_authorize
-    post '/',                             to: 'identities/facebook#destroy', as: :facebook_unauthorize
+  Identities::Base::PROVIDERS.each do |provider|
+    scope provider do
+      get :oauth,                           to: "identities/#{provider}#oauth",       as: :"#{provider}_oauth"
+      get :authorize,                       to: "identities/#{provider}#create",      as: :"#{provider}_authorize"
+      get '/',                              to: "identities/#{provider}#destroy",     as: :"#{provider}_unauthorize"
+    end
   end
 
   scope :slack do
-    get :oauth,                           to: 'identities/slack#oauth',       as: :slack_oauth
-    get :authorize,                       to: 'identities/slack#create',      as: :slack_authorize
-    get :authorized,                      to: 'identities/slack#authorized',  as: :slack_authorized
+    get  :install,                        to: 'identities/slack#install',     as: :slack_install
+    get  :authorized,                     to: 'identities/slack#authorized',  as: :slack_authorized
     post :participate,                    to: 'identities/slack#participate', as: :slack_participate
     post :initiate,                       to: 'identities/slack#initiate',    as: :slack_initiate
-    post '/',                             to: 'identities/slack#destroy',     as: :slack_unauthorize
   end
 
   get '/donate', to: redirect('https://loomio-donation.chargify.com/subscribe/9wnjv4g2cc9t/donation')

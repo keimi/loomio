@@ -1,4 +1,4 @@
-angular.module('loomioApp').directive 'pollCommonShareVisitorForm', (Records, KeyEventService, FlashService) ->
+angular.module('loomioApp').directive 'pollCommonShareVisitorForm', ($translate, Records, KeyEventService, FlashService) ->
   scope: {poll: '='}
   restrict: 'E'
   templateUrl: 'generated/components/poll/common/share/visitor_form/poll_common_share_visitor_form.html'
@@ -8,7 +8,7 @@ angular.module('loomioApp').directive 'pollCommonShareVisitorForm', (Records, Ke
       Records.visitors.find(communityId: $scope.poll.emailCommunityId)
 
     $scope.init = ->
-      Records.visitors.fetch(params: {community_id: $scope.poll.emailCommunityId})
+      Records.visitors.fetch(params: {poll_id: $scope.poll.id})
       $scope.newVisitor = Records.visitors.build(email: '', communityId: $scope.poll.emailCommunityId)
     $scope.init()
 

@@ -15,6 +15,7 @@ describe Event do
   let(:user_motion_closing_soon) { FactoryGirl.create :user, all_emails_disabled.merge(email_when_proposal_closing_soon: true) }
   let(:user_mentioned) { FactoryGirl.create :user }
   let(:user_mentioned_text) { "Hello @#{user_mentioned.username}" }
+  let(:user_unsubscribed) { FactoryGirl.create :user }
 
   let(:discussion) { FactoryGirl.create :discussion, description: user_mentioned_text }
   let(:mentioned_user) {FactoryGirl.create :user, username: 'sam', email_when_mentioned: true }
@@ -24,6 +25,8 @@ describe Event do
   let(:vote) { FactoryGirl.create :vote, motion: motion }
   let(:poll) { FactoryGirl.create :poll, discussion: discussion, details: user_mentioned_text }
   let(:outcome) { FactoryGirl.create :outcome, poll: poll, statement: user_mentioned_text }
+
+  let(:visitor) { FactoryGirl.create :visitor, community: poll.community_of_type(:email, build: true) }
 
   def emails_sent
     ActionMailer::Base.deliveries.count
@@ -44,6 +47,7 @@ describe Event do
     discussion.group.add_member!(user_thread_quiet).set_volume! :mute
     discussion.group.add_member!(user_thread_mute).set_volume! :mute
     discussion.group.add_member!(user_mentioned)
+    discussion.group.add_member!(user_unsubscribed)
 
     DiscussionReader.for(discussion: discussion, user: user_thread_loud).set_volume! :loud
     DiscussionReader.for(discussion: discussion, user: user_thread_normal).set_volume! :normal
@@ -58,6 +62,9 @@ describe Event do
 
     # set email motion closing soon
     discussion.group.add_member!(user_motion_closing_soon).set_volume! :mute
+
+    # create an unsubscription for a poll user
+    poll.poll_unsubscriptions.create(user: user_unsubscribed)
   end
 
   it 'new_comment' do
@@ -267,6 +274,7 @@ describe Event do
 
       email_users.should_not include user_membership_mute
       email_users.should_not include user_thread_mute
+      email_users.should_not include user_unsubscribed
       email_users.should_not include poll.author
 
       notification_users = Events::PollCreated.last.send(:notification_recipients)
@@ -312,6 +320,7 @@ describe Event do
 
       email_users.should_not include user_membership_mute
       email_users.should_not include user_thread_mute
+      email_users.should_not include user_unsubscribed
       email_users.should_not include poll.author
 
       notification_users = Events::PollEdited.last.send(:notification_recipients)
@@ -401,6 +410,7 @@ describe Event do
 
       email_users.should_not include user_membership_mute
       email_users.should_not include user_thread_mute
+      email_users.should_not include user_unsubscribed
       email_users.should_not include poll.author
 
       notification_users = Events::PollClosingSoon.last.send(:notification_recipients)
@@ -426,28 +436,73 @@ describe Event do
       notification_users = Events::PollClosingSoon.last.send(:notification_recipients)
       expect(notification_users).to be_empty
     end
+
+    it 'does not email helper bot' do
+      poll.update(author: User.helper_bot)
+      expect { Events::PollClosingSoon.publish!(poll) }.to_not change { emails_sent }
+    end
   end
 
   describe 'poll_expired' do
     it 'notifies the author' do
       expect { Events::PollExpired.publish!(poll) }.to change { emails_sent }
       email_users = Events::PollExpired.last.send(:email_recipients)
-      expect(email_users.length).to eq 1
-      expect(email_users).to include poll.author
+      expect(email_users).to be_empty # the author is notified via a separate email
 
       notification_users = Events::PollExpired.last.send(:notification_recipients)
-      expect(notification_users.length).to eq 1
-      expect(notification_users).to include poll.author
+      expect(notification_users).to be_empty
+      expect(notification_users).to_not include poll.author
+      n = Notification.last
+      expect(n.user).to eq poll.author
+      expect(n.kind).to eq 'poll_expired'
     end
 
     it 'does not notify loomio helper bot' do
       poll.author = User.helper_bot
       expect { Events::PollExpired.publish!(poll) }.to_not change { ActionMailer::Base.deliveries.count }
     end
+
+    it 'notifies everyone if announcement' do
+      poll.make_announcement = true
+      Events::PollCreated.publish!(poll)
+      Events::PollExpired.publish!(poll)
+      event = Events::PollExpired.last
+
+      expect(event.announcement).to eq true
+      email_users = event.send(:email_recipients)
+      email_users.should     include user_thread_loud
+      email_users.should     include user_membership_loud
+
+      email_users.should     include user_membership_normal
+      email_users.should     include user_thread_normal
+
+      email_users.should_not include user_membership_quiet
+      email_users.should_not include user_thread_quiet
+
+      email_users.should_not include user_membership_mute
+      email_users.should_not include user_thread_mute
+      email_users.should_not include user_unsubscribed
+      email_users.should_not include poll.author
+
+      notification_users = event.send(:notification_recipients)
+      notification_users.should     include user_thread_loud
+      notification_users.should     include user_membership_loud
+
+      notification_users.should     include user_membership_normal
+      notification_users.should     include user_thread_normal
+
+      notification_users.should     include user_membership_quiet
+      notification_users.should     include user_thread_quiet
+
+      notification_users.should     include user_membership_mute
+      notification_users.should     include user_thread_mute
+      notification_users.should_not include poll.author
+    end
   end
 
   describe 'outcome_created' do
     it 'makes an announcement' do
+      visitor
       outcome.make_announcement = true
       expect { Events::OutcomeCreated.publish!(outcome) }.to change { emails_sent }
       email_users = Events::OutcomeCreated.last.send(:email_recipients)
@@ -462,7 +517,11 @@ describe Event do
 
       email_users.should_not include user_membership_mute
       email_users.should_not include user_thread_mute
+      email_users.should_not include user_unsubscribed
       email_users.should_not include poll.author
+
+      email_visitors = Events::OutcomeCreated.last.send(:email_visitors)
+      email_visitors.should  include visitor
 
       notification_users = Events::OutcomeCreated.last.send(:notification_recipients)
       notification_users.should     include user_thread_loud
@@ -491,4 +550,41 @@ describe Event do
     end
   end
 
+  describe 'stance_created' do
+    let(:stance) { build :stance, poll: poll }
+
+    it 'notifies the author if notify_on_participate' do
+      poll.update(notify_on_participate: true)
+      expect { Events::StanceCreated.publish!(stance) }.to change { emails_sent }
+      email_users = Events::StanceCreated.last.send(:email_recipients)
+      expect(email_users.length).to eq 1
+      expect(email_users).to include poll.author
+
+      notification_users = Events::StanceCreated.last.send(:notification_recipients)
+      expect(notification_users.length).to eq 1
+      expect(notification_users).to include poll.author
+    end
+
+    it 'does not notify the author of her own stance' do
+      poll.update(notify_on_participate: true)
+      stance.update(participant: poll.author)
+      expect { Events::StanceCreated.publish!(stance) }.to_not change { emails_sent }
+      expect(Events::StanceCreated.last.send(:email_recipients)).to be_empty
+      expect(Events::StanceCreated.last.send(:notification_recipients)).to be_empty
+    end
+
+    it 'does not notify the author if not notify_on_participate' do
+      expect { Events::StanceCreated.publish!(stance) }.to_not change { emails_sent }
+      expect(Events::StanceCreated.last.send(:email_recipients)).to be_empty
+      expect(Events::StanceCreated.last.send(:notification_recipients)).to be_empty
+    end
+
+    it 'notifies the author for visitor participation' do
+      visitor = create(:visitor)
+      poll.update(notify_on_participate: true)
+      stance.update(participant: visitor)
+      expect { Events::StanceCreated.publish!(stance) }.to change { poll.author.notifications.count }.by(1)
+      expect(Notification.last.actor).to eq visitor
+    end
+  end
 end
