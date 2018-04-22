@@ -1,21 +1,29 @@
-class Poll < ActiveRecord::Base
+class Poll < ApplicationRecord
+  include CustomCounterCache::Model
+  extend  HasCustomFields
   include ReadableUnguessableUrls
   include HasMentions
+  include HasDrafts
+  include HasGuestGroup
   include MakesAnnouncements
   include MessageChannel
   include SelfReferencing
+  include UsesOrganisationScope
+  include Reactable
+  include HasEvents
+  include HasCreatedEvent
 
-  TEMPLATES = YAML.load_file(Rails.root.join("config", "poll_templates.yml"))
-  COLORS    = YAML.load_file(Rails.root.join("config", "colors.yml"))
-  TIMEZONES = YAML.load_file(Rails.root.join("config", "timezones.yml"))
+  set_custom_fields :meeting_duration, :time_zone, :dots_per_person, :pending_emails, :minimum_stance_choices, :can_respond_maybe
+
   TEMPLATE_FIELDS = %w(material_icon translate_option_name
-                       can_add_options can_remove_options
+                       can_add_options can_remove_options author_receives_outcome
                        must_have_options chart_type has_option_icons
                        has_variable_score voters_review_responses
-                       dates_as_options required_custom_fields
-                       require_stance_choice poll_options_attributes).freeze
+                       dates_as_options required_custom_fields has_option_score_counts
+                       require_stance_choices require_all_choices prevent_anonymous
+                       poll_options_attributes experimental has_score_icons).freeze
   TEMPLATE_FIELDS.each do |field|
-    define_method field, -> { TEMPLATES.dig(self.poll_type, field) }
+    define_method field, -> { AppConfig.poll_templates.dig(self.poll_type, field) }
   end
 
   include Translatable
@@ -26,9 +34,8 @@ class Poll < ActiveRecord::Base
   has_many   :outcomes, dependent: :destroy
   has_one    :current_outcome, -> { where(latest: true) }, class_name: 'Outcome'
 
-  belongs_to :motion
   belongs_to :discussion
-  belongs_to :group
+  belongs_to :group, class_name: "FormalGroup"
 
   update_counter_cache :group, :polls_count
   update_counter_cache :group, :closed_polls_count
@@ -38,43 +45,58 @@ class Poll < ActiveRecord::Base
 
   has_many :stances, dependent: :destroy
   has_many :stance_choices, through: :stances
-  has_many :participants, through: :stances, source: :participant, source_type: "User"
-  has_many :visitors, through: :communities
-  has_many :attachments, as: :attachable, dependent: :destroy
+  has_many :participants, through: :stances, source: :participant
 
   has_many :poll_unsubscriptions, dependent: :destroy
   has_many :unsubscribers, through: :poll_unsubscriptions, source: :user
 
-  has_many :events, -> { includes(:eventable) }, as: :eventable, dependent: :destroy
+  has_many :guest_invitations, through: :guest_group, source: :invitations
 
   has_many :poll_options, dependent: :destroy
   accepts_nested_attributes_for :poll_options, allow_destroy: true
 
   has_many :poll_did_not_votes, dependent: :destroy
+  has_many :poll_did_not_voters, through: :poll_did_not_votes, source: :user
 
-  has_paper_trail only: [:title, :details, :closing_at]
+  has_many :documents, as: :model, dependent: :destroy
 
-  define_counter_cache(:stances_count)       { |poll| poll.stances.latest.count }
-  define_counter_cache(:did_not_votes_count) { |poll| poll.poll_did_not_votes.count }
+  has_paper_trail only: [:title, :details, :closing_at, :group_id]
 
-  has_many :poll_communities, dependent: :destroy
-  has_many :communities, through: :poll_communities
+  define_counter_cache(:stances_count) { |poll| poll.stances.latest.count }
+  define_counter_cache(:undecided_user_count) do |poll|
+    if poll.active?
+      poll.undecided.count
+    else
+      poll.poll_did_not_votes.count
+    end
+  end
 
   delegate :locale, to: :author
+
+  def groups
+    [group, guest_group].compact
+  end
+
+  def undecided_count
+    undecided_user_count + guest_group.pending_invitations_count
+  end
+
+  def time_zone
+    custom_fields.fetch('time_zone', author.time_zone)
+  end
 
   scope :active, -> { where(closed_at: nil) }
   scope :closed, -> { where("closed_at IS NOT NULL") }
   scope :search_for, ->(fragment) { where("polls.title ilike :fragment", fragment: "%#{fragment}%") }
   scope :lapsed_but_not_closed, -> { active.where("polls.closing_at < ?", Time.now) }
   scope :active_or_closed_after, ->(since) { where("closed_at IS NULL OR closed_at > ?", since) }
-  scope :participation_by, ->(participant) { joins(:stances).where("stances.participant_type": participant.class.to_s, "stances.participant_id": participant.id) }
+  scope :participation_by, ->(participant) { joins(:stances).where("stances.participant_id": participant.id) }
   scope :authored_by, ->(user) { where(author: user) }
   scope :chronologically, -> { order('created_at asc') }
   scope :with_includes, -> { includes(
-    :attachments,
+    :documents,
     :poll_options,
     :outcomes,
-    {poll_communities: [:community]},
     {stances: [:stance_choices]})
   }
 
@@ -90,16 +112,24 @@ class Poll < ActiveRecord::Base
   end
 
   validates :title, presence: true
-  validates :poll_type, inclusion: { in: TEMPLATES.keys }
+  validates :poll_type, inclusion: { in: AppConfig.poll_templates.keys }
   validates :details, length: {maximum: Rails.application.secrets.max_message_length }
 
   validate :poll_options_are_valid
+  validate :valid_minimum_stance_choices
   validate :closes_in_future
   validate :require_custom_fields
 
-  attr_accessor :community_id
-
   alias_method :user, :author
+  alias_method :draft_parent, :discussion
+
+  def parent_event
+    if discussion
+      discussion.created_event
+    else
+      created_event
+    end
+  end
 
   # creates a hash which has a PollOption as a key, and a list of stance
   # choices associated with that PollOption as a value
@@ -107,8 +137,32 @@ class Poll < ActiveRecord::Base
     @grouped_stance_choices ||= stance_choices.reasons_first
                                               .where("stance_choices.created_at > ?", since || 100.years.ago)
                                               .includes(:poll_option, stance: :participant)
+                                              .where("stances.latest": true)
                                               .to_a
                                               .group_by(&:poll_option)
+  end
+
+  def group
+    super || NullFormalGroup.new
+  end
+
+  def group_members
+    User.joins(:memberships)
+        .joins(:groups)
+        .where("memberships.group_id": group_id)
+        .where("groups.members_can_vote IS TRUE OR memberships.admin IS TRUE")
+  end
+
+  def members
+    User.distinct.from("(#{[group_members, guests].map(&:to_sql).join(" UNION ")}) as users")
+  end
+
+  def undecided
+    reload.members.where.not(id: participants)
+  end
+
+  def invitations
+    Invitation.where(group_id: [group_id, guest_group_id].compact)
   end
 
   def update_stance_data
@@ -122,16 +176,15 @@ class Poll < ActiveRecord::Base
         GROUP BY poll_options.name
       }).map { |row| [row['name'], row['total'].to_i] }.to_h))
 
-    update_attribute(:stance_counts,
-      poll_options.order(:priority)
-                  .pluck(:name)
-                  .map { |name| stance_data[name] })
+    update_attribute(:stance_counts, ordered_poll_options.pluck(:name).map { |name| stance_data[name] })
+    poll_options.map(&:update_option_score_counts) if poll.has_option_score_counts
 
     # TODO: convert this to a SQL query (CROSS JOIN?)
     update_attribute(:matrix_counts,
-      poll_options.limit(5).map do |option|
-        stances.latest.limit(5).map do |stance|
-          stance.poll_options.include?(option)
+      poll_options.order(:name).limit(5).map do |option|
+        stances.latest.order(:created_at).limit(5).map do |stance|
+          # the score of the stance choice which has this poll option in this stance
+          stance.stance_choices.find_by(poll_option:option)&.score.to_i
         end
       end
     ) if chart_type == 'matrix'
@@ -141,8 +194,30 @@ class Poll < ActiveRecord::Base
     closed_at.nil?
   end
 
+  def closed?
+    !active?
+  end
+
   def is_single_vote?
-    TEMPLATES.dig(self.poll_type, 'single_choice') && !self.multiple_choice
+    AppConfig.poll_templates.dig(self.poll_type, 'single_choice') && !self.multiple_choice
+  end
+
+  def meeting_score_tallies
+    ordered_poll_options.map do |option|
+      [option.id, {
+        maybe:    option.stance_choices.latest.where(score: 1).count,
+        yes:      option.stance_choices.latest.where(score: 2).count
+      }]
+    end
+
+  end
+
+  def ordered_poll_options
+    if self.dates_as_options
+      self.poll_options.order(name: :asc)
+    else
+      self.poll_options.order(priority: :asc)
+    end
   end
 
   def poll_option_names
@@ -152,25 +227,13 @@ class Poll < ActiveRecord::Base
   def poll_option_names=(names)
     names    = Array(names)
     existing = Array(poll_options.pluck(:name))
-    (names - existing).each_with_index { |name, priority| poll_options.build(name: name, priority: priority) }
+    (names - existing).each_with_index { |name, priority| poll_options.build(name: name, priority: existing.count + priority) }
     @poll_option_removed_names = (existing - names)
   end
 
   def is_new_version?
     !self.poll_options.map(&:persisted?).all? ||
     (['title', 'details', 'closing_at'] & self.changes.keys).any?
-  end
-
-  def anyone_can_participate
-    @anyone_can_participate ||= community_of_type(:public).present?
-  end
-
-  def anyone_can_participate=(boolean)
-    if boolean
-      community_of_type(:public, build: true)
-    else
-      community_of_type(:public)&.destroy
-    end
   end
 
   def discussion_id=(discussion_id)
@@ -181,29 +244,11 @@ class Poll < ActiveRecord::Base
     super.tap { self.group_id = self.discussion&.group_id }
   end
 
-  def group_id=(group_id)
-    self.group = Group.find_by(id: group_id)
-  end
-
-  def group=(group)
-    sync_poll_communities(group) if self[:group_id] != group&.id
-    super
-  end
-
-  def community_of_type(community_type, build: false)
-    communities.find_by(community_type: community_type) || (build && build_community(community_type)).presence
+  def minimum_stance_choices
+    self.custom_fields.fetch('minimum_stance_choices', 1).to_i
   end
 
   private
-
-  def sync_poll_communities(group)
-    poll_communities.where(community: community_of_type(:loomio_group)).destroy_all
-    poll_communities.build(community: group.community) if group
-  end
-
-  def build_community(community_type)
-    poll_communities.build(community: "Communities::#{community_type.to_s.camelize}".constantize.new).community
-  end
 
   # provides a base hash of 0's to merge with stance data
   def zeroed_poll_options
@@ -240,8 +285,15 @@ class Poll < ActiveRecord::Base
     end
   end
 
+  def valid_minimum_stance_choices
+    return unless require_stance_choices
+    if minimum_stance_choices > poll_options.length
+      self.errors.add(:minimum_stance_choices, I18n.t(:"poll.error.minimum_too_high"))
+    end
+  end
+
   def prevent_empty_options
-    if self.poll_options.empty?
+    if (self.poll_options.map(&:name) - Array(@poll_option_removed_names)).empty?
       self.errors.add(:poll_options, I18n.t(:"poll.error.must_have_options"))
     end
   end
@@ -252,7 +304,7 @@ class Poll < ActiveRecord::Base
 
   def require_custom_fields
     Array(required_custom_fields).each do |field|
-      errors.add(field, I18n.t(:"activerecord.errors.messages.blank")) if custom_fields[field].blank?
+      errors.add(field, I18n.t(:"activerecord.errors.messages.blank")) if custom_fields[field].nil?
     end
   end
 end

@@ -1,17 +1,17 @@
 require 'rails_helper'
 
 describe Queries::UsersByVolumeQuery do
-  let(:user_with_reader_volume_loud) { FactoryGirl.create :user }
-  let(:user_with_membership_volume_loud) { FactoryGirl.create :user }
-  let(:user_with_reader_volume_normal) { FactoryGirl.create :user }
-  let(:user_with_membership_volume_normal) { FactoryGirl.create :user }
-  let(:user_with_reader_volume_quiet) { FactoryGirl.create :user }
-  let(:user_with_membership_volume_quiet) { FactoryGirl.create :user }
-  let(:user_with_reader_volume_mute) { FactoryGirl.create :user }
-  let(:user_with_membership_volume_mute) { FactoryGirl.create :user }
-  let(:user_with_archived_membership) { FactoryGirl.create :user }
+  let(:user_with_reader_volume_loud) { FactoryBot.create :user }
+  let(:user_with_membership_volume_loud) { FactoryBot.create :user }
+  let(:user_with_reader_volume_normal) { FactoryBot.create :user }
+  let(:user_with_membership_volume_normal) { FactoryBot.create :user }
+  let(:user_with_reader_volume_quiet) { FactoryBot.create :user }
+  let(:user_with_membership_volume_quiet) { FactoryBot.create :user }
+  let(:user_with_reader_volume_mute) { FactoryBot.create :user }
+  let(:user_with_membership_volume_mute) { FactoryBot.create :user }
+  let(:user_with_archived_membership) { FactoryBot.create :user }
 
-  let(:discussion) { FactoryGirl.create :discussion }
+  let(:discussion) { FactoryBot.create :discussion }
 
   before do
     discussion.group.add_member!(user_with_membership_volume_loud).set_volume! :loud
@@ -85,5 +85,9 @@ describe Queries::UsersByVolumeQuery do
     users.should_not include user_with_membership_volume_quiet
     users.should_not include user_with_membership_volume_mute
     users.should_not include user_with_archived_membership
+  end
+
+  it 'deals with nils' do
+    expect(Queries::UsersByVolumeQuery.normal_or_loud(nil)).to eq User.none
   end
 end

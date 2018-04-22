@@ -1,61 +1,48 @@
 eo:
+  poll:
+    export:
+      title: Titolo
+      author: Aŭtoro
+      details: Detaloj
+      reason: Kialo
+      total: Entute
+  date:
+    formats:
+      for_another_year: "%-d-%-m-%y"
+  time:
+    formats:
+      closing_soon_subject: "%d %b %H:%M"
   email:
+    login:
+      subject: Ensaluti al %{site_name}.
+      intro: Saluton %{name}, jen estas ligilo por ensaluti al via %{site_name} konto.
+      login: Ensaluti kiel %{name}
+    reset_password:
+      link_text: Restarigi vian pasvorton
+    start_decision:
+      intro: Saluton, <strong>%{name}</strong>!
+      poll: Startigi enketon
     group_email:
       intro: "%{who} anoncis al %{group}"
     by_who: de %{person}
     reply_to_this_discussion: Respondi al ĉi tiu diskuto
-    to_join_discussion:
-      subject: "%{who} volas ke vi aliĝu al diskuto en Loomio"
-      content: 'Vi estas invitita por partopreni en la diskuto: %{discussion}'
-      message_intro: "%{who} diras:"
-      link: Aliĝi al la diskuto
+    view_group: Vidi grupon
     to_join_group:
-      subject: "%{member} invitis vin por aliĝi al %{group_name} en Loomio"
-    to_start_group:
-      subject: "Konfiguri vian novan Loomio-grupon: %{group_name}"
+      accept_invitation: "Akcepti inviton"
     unsubscribe: 'Malaboni aŭ ŝanĝi viajn retpoŝtpreferojn:'
     unsubscribe_html: "<a href='%{link_path}'>%{link_text}</a> por malaboni aŭ ŝanĝi viajn retpoŝtpreferojn."
-    view_comment: Klaku ĉi tie por vidi vian komenton en Loomio
-    view_discussion: Klaku ĉi tie por vidi ĉi tiun diskuton
-    view_proposal: Vidi ĉi tiun proponon en Loomio
-    create_proposal:
-      intro: Nova propono kreiĝis en Loomio-grupo al kiu vi apartenas.
-      closes_in: Fermiĝos post
-      subject: 'Nova propono: %{which}'
-    daily_activity:
-      heading: Via aktiveco en Loomio
-      intro: Montras al vi kio okazis en viaj Loomio-grupoj en la lastaj 24 horoj
-      subject: Loomio - Resumo de la lastaj 24 horoj
     missed_yesterday:
-      subject: Hieraŭ en Loomio
+      subject: Hieraŭ en %{site_name}
       mark_as_read: Marki kiel legita
       thanks_for_reading: Dankon por legi, havu bonegan tagon!
       marked_as_read_success: Ĉio de la retpoŝtaĵo markiĝis kiel legita
+      click_here: Klaku ĉi tie
+    group_membership_approved:
+      join_group: "Aliĝi al la grupo"
     membership_request:
-      intro: "%{name} (%{email}) petis aliron al unu el viaj Loomio-grupoj."
       subject: "%{who} petis aliĝi al %{which_group}"
       view_group: Vi povas aprobi aŭ malaprobi la peton ĉi tie
-    new_motion_created:
-      subject: 'Propono: %{proposal_title}'
-    proposal_closed:
-      proposal_has_closed: La propono fermiĝis.
-      specify_outcome_and_notify_group: Kreu rezulton kaj sendu ĝin al via grupo!
-      specify_outcome_and_notify_group_html: Kreu rezulton kaj sendu ĝin al via grupo!
-      subject: Propono fermita - %{which}
-    proposal_closing_soon:
-      closes_on: Fermiĝos dum
-      closes_at: Fermiĝos je
-      closes_in: Fermiĝos post
-      subject: 'Fermiĝos en 24 horoj: %{proposal_title}'
-      headline: "La propono de %{author} en %{group} baldaŭ fermiĝos:"
-      summary: Resumo
-    thread_mailer:
-      change_preferences: 'Ŝanĝi viajn retpoŝtajn preferojn:'
-      motion_closing_soon: 'Propono fermiĝos en 24 horoj:'
-      proposal_closed: 'Propono fermita:'
-      specify_outcome_html: Via propono estas fermita. <a href='%{link}'>Decidu rezulton</a> por sciigi al ĉiuj kiel elturniĝis.
-      specify_outcome: 'Via propono estas fermita. Decidu rezulton por sciigi al ĉiuj kiel elturniĝis:'
-      you_agreed: Vi %{past_tense_position}
+      button_text: Vidu peton
   footer:
     about: Pri
     blog: Blogo
@@ -65,19 +52,80 @@ eo:
     pricing: Prezo
     public_groups: Publikaj grupoj
     terms: Kondiĉoj
-  start_group_form:
-    header: Komenci novan grupon
-    name: Via nomo
-    group_name: Grupnomo
-    group_description: Grupa priskribo
-    success:
-      header: Vi preskaŭ pretas! Kontrolu vian retpoŝton.
-  contact_page:
-    contact_us: Kontakti nin
-    labels:
-      name: Via nomo
-      email: Via retpoŝtadreso
-      message: Via mesaĝo
-      submit: Sendi mesaĝon
-    messages:
-      email_html: "Plenigu ĉi tiun formularon aŭ sendu retpoŝtaĵon al <a href='mailto:%{email}'>%{email}</a>"
+  password_reset:
+    change_your_password: Ŝanĝi vian pasvorton
+    change_my_password: Ŝanĝi pasvorton
+    confirm_new_password: Konfirmi vian pasvorton
+    new_password: Nova pasvorto
+  how_it_works_thread:
+    title: Kiel uzi Loomio-n
+  markdown:
+    intro:
+      title: |
+        # Kio estas markdown?
+    lists:
+      title: |
+        ## Listoj
+    links:
+      title: |
+        ## Ligiloj kaj bildoj
+  poll_mailer:
+    common:
+      or: aŭ
+      view_on_loomio: Vidi ĝin en %{site_name}
+      results: Rezultoj
+      responses: Respondoj
+      change_your_stance: Ŝanĝi
+      your_response: "Vi voĉdonis:"
+      please_respond: Bonvolu respondi
+      more_undecided: "%{count} pli…"
+      vote_now: Voĉdonu nun
+    proposal:
+      subject:
+        poll_closing_soon: 'Propozicio fermiĝis en 24 horoj: %{title}'
+        poll_closing_soon_author: 'Via propozicio fermiĝos en 24 horoj: %{title}'
+        poll_expired: "Propozicio fermita: %{title}"
+        stance_created_author: "Bonvolu kontroli vian voĉdonon pri: %{title}"
+      header:
+        poll_created: '<strong>%{actor}</strong> startigis propozicion'
+      body:
+        voted: '<strong>%{participant}</strong>:'
+    poll:
+      subject:
+        stance_created_author: "Bonvolu kontroli vian voĉdonon pri: %{title}"
+      body:
+        voted: '<strong>%{participant}</strong>:'
+    count:
+      subject:
+        poll_closing_soon: '24 ceteraj horoj por kontroli: %{title}'
+        poll_closing_soon_author: 'Via kontrolo finiĝos en 24 horoj: %{title}'
+        poll_expired: "Kontrolo fermita: %{title}"
+        stance_created: "%{actor} partoprenis en: %{title}"
+        stance_created_author: "Bonvolu kontroli vian voĉdonon pri: %{title}"
+      body:
+        voted: '<strong>%{participant}</strong>:'
+    dot_vote:
+      subject:
+        stance_created_author: "Bonvolu kontroli vian voĉdonon pri: %{title}"
+      body:
+        voted: '<strong>%{participant}</strong>:'
+    meeting:
+      subject:
+        stance_created: '%{actor} partoprenis en: %{title}'
+        stance_created_author: "Bonvolu kontroli vian voĉdonon pri: %{title}"
+      body:
+        voted: '<strong>%{participant}</strong>:'
+    ranked_choice:
+      subject:
+        stance_created: '%{actor} partoprenis en: %{title}'
+        stance_created_author: "Bonvolu kontroli vian voĉdonon pri: %{title}"
+      body:
+        voted: '<strong>%{participant}</strong>:'
+  comment_by: Komentis %{comment_author}
+  poll_unsubscribe:
+    visit_poll: Vidi enketon
+  slack:
+    poll_closing_soon: "Rememoro: *%{poll}* fermiĝos en 24 horoj"
+    poll_expired: "*%{poll}* fermiĝis"
+    poll_closed: "*%{title}* jam fermiĝis! <%{url}|klaku ĉi tie> por vidi la rezultojn."
+    go_to_slack: Iri al Slack

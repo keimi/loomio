@@ -1,88 +1,64 @@
-class Discussion < ActiveRecord::Base
-  SALIENT_ITEM_KINDS = %w[new_comment
-                          new_motion
-                          new_vote
-                          motion_closed
-                          motion_closed_by_user
-                          motion_outcome_created]
-
-  THREAD_ITEM_KINDS = %w[new_comment
-                         new_motion
-                         new_vote
-                         motion_closed
-                         motion_closed_by_user
-                         motion_edited
-                         motion_outcome_created
-                         motion_outcome_updated
-                         discussion_edited
-                         discussion_moved
-                         poll_created
-                         poll_edited
-                         stance_created
-                         outcome_created
-                         poll_expired
-                         poll_closed_by_user
-                       ]
-
+class Discussion < ApplicationRecord
+  include CustomCounterCache::Model
   include ReadableUnguessableUrls
   include Translatable
+  include Reactable
   include HasTimeframe
   include HasMentions
-  include HasPolls
+  include HasDrafts
+  include HasImportance
   include MessageChannel
   include MakesAnnouncements
   include SelfReferencing
+  include UsesOrganisationScope
+  include HasCreatedEvent
 
   scope :archived, -> { where('archived_at is not null') }
-  scope :published, -> { where(archived_at: nil, is_deleted: false) }
 
   scope :last_activity_after, -> (time) { where('last_activity_at > ?', time) }
   scope :order_by_latest_activity, -> { order('discussions.last_activity_at DESC') }
-  scope :order_by_closing_soon_then_latest_activity, -> { order('motions.closing_at ASC, discussions.last_activity_at DESC') }
 
-  scope :visible_to_public, -> { published.where(private: false) }
+  scope :visible_to_public, -> { where(private: false) }
   scope :not_visible_to_public, -> { where(private: true) }
-  scope :with_motions, -> { where("discussions.id NOT IN (SELECT discussion_id FROM motions WHERE id IS NOT NULL)") }
-  scope :without_open_motions, -> { where("discussions.id NOT IN (SELECT discussion_id FROM motions WHERE id IS NOT NULL AND motions.closed_at IS NULL)") }
-  scope :with_open_motions, -> { joins(:motions).merge(Motion.voting) }
-  scope :joined_to_current_motion, -> { joins('LEFT OUTER JOIN motions ON motions.discussion_id = discussions.id AND motions.closed_at IS NULL') }
   scope :chronologically, -> { order('created_at asc') }
+
+  scope :is_open, -> { where(closed_at: nil) }
+  scope :is_closed, -> { where.not(closed_at: nil) }
 
   validates_presence_of :title, :group, :author
   validate :private_is_not_nil
   validates :title, length: { maximum: 150 }
   validates :description, length: { maximum: Rails.application.secrets.max_message_length }
-  validates_inclusion_of :uses_markdown, in: [true,false]
   validate :privacy_is_permitted_by_group
 
   is_mentionable on: :description
   is_translatable on: [:title, :description], load_via: :find_by_key!, id_field: :key
-  has_paper_trail only: [:title, :description, :private]
+  has_paper_trail only: [:title, :description, :private, :group_id]
 
-  belongs_to :group
+  belongs_to :group, class_name: 'FormalGroup'
   belongs_to :author, class_name: 'User'
   belongs_to :user, foreign_key: 'author_id'
-  has_many :motions, dependent: :destroy
   has_many :polls, dependent: :destroy
-  has_one :current_motion, -> { where('motions.closed_at IS NULL') }, class_name: 'Motion'
-  has_one :most_recent_motion, -> { order('motions.created_at DESC') }, class_name: 'Motion'
+  has_many :active_polls, -> { where(closed_at: nil) }, class_name: "Poll"
   has_one :search_vector
-  has_many :votes, through: :motions
   has_many :comments, dependent: :destroy
-  has_many :comment_likes, through: :comments, source: :comment_votes
   has_many :commenters, -> { uniq }, through: :comments, source: :user
-  has_many :attachments, as: :attachable, dependent: :destroy
+  has_many :documents, as: :model, dependent: :destroy
+  has_many :poll_documents,    through: :polls,    source: :documents
+  has_many :comment_documents, through: :comments, source: :documents
 
-  has_many :events, -> { includes :user }, as: :eventable, dependent: :destroy
-
-  has_many :items, -> { includes(:user).where(kind: THREAD_ITEM_KINDS).order('created_at ASC') }, class_name: 'Event'
-  has_many :salient_items, -> { includes(:user).where(kind: SALIENT_ITEM_KINDS).order('created_at ASC') }, class_name: 'Event'
+  has_many :items, -> { includes(:user).thread_events.order('events.id ASC') }, class_name: 'Event'
 
   has_many :discussion_readers
 
-  scope :search_for, ->(query, user, opts = {}) do
-    query = sanitize(query)
-     select(:id, :key, :title, :result_group_name, :description, :last_activity_at, :rank, "#{query}::text as query")
+  scope :search_for, ->(fragment) do
+     joins("INNER JOIN users ON users.id = discussions.author_id")
+    .where("discussions.title ilike :fragment OR users.name ilike :fragment", fragment: "%#{fragment}%")
+  end
+
+  scope :weighted_search_for, ->(query, user, opts = {}) do
+    query = connection.quote(query)
+    select(:id, :key, :title, :result_group_name, :description, :last_activity_at, :rank, "#{query}::text as query")
     .select("ts_headline(discussions.description, plainto_tsquery(#{query}), 'ShortWord=0') as blurb")
     .from(SearchVector.search_for(query, user, opts))
     .joins("INNER JOIN discussions on subquery.discussion_id = discussions.id")
@@ -98,68 +74,43 @@ class Discussion < ActiveRecord::Base
   delegate :name_and_email, to: :author, prefix: :author
   delegate :locale, to: :author
 
+  alias_method :draft_parent, :group
+
   after_create :set_last_activity_at_to_created_at
 
-  define_counter_cache(:motions_count)        { |discussion| discussion.motions.count }
-  define_counter_cache(:closed_motions_count) { |discussion| discussion.motions.closed.count }
   define_counter_cache(:closed_polls_count)   { |discussion| discussion.polls.closed.count }
   define_counter_cache(:versions_count)       { |discussion| discussion.versions.where(event: :update).count }
+  define_counter_cache(:items_count)          { |discussion| discussion.items.count }
+  define_counter_cache(:seen_by_count)        { |discussion| discussion.discussion_readers.where("last_read_at is not null").count }
 
   update_counter_cache :group, :discussions_count
   update_counter_cache :group, :public_discussions_count
-  update_counter_cache :group, :motions_count
-  update_counter_cache :group, :closed_motions_count
+  update_counter_cache :group, :open_discussions_count
+  update_counter_cache :group, :closed_discussions_count
   update_counter_cache :group, :closed_polls_count
-  update_counter_cache :group, :proposal_outcomes_count
 
-  def organisation_id
-    group.parent_id || group_id
+  def groups
+    Array(group)
   end
 
-  alias_method :current_proposal, :current_motion
+  def created_event_kind
+    :new_discussion
+  end
 
-  def thread_item_created!(item)
-    if THREAD_ITEM_KINDS.include? item.kind
-      self.items_count += 1
-    end
-
-    if SALIENT_ITEM_KINDS.include? item.kind
-      self.salient_items_count += 1
-      self.last_activity_at = item.created_at
-    end
-
-    if self.first_sequence_id == 0
-      self.first_sequence_id = item.sequence_id
-    end
-
-    self.last_sequence_id = item.sequence_id
-
+  def update_sequence_info!
+    discussion.ranges_string =
+     RangeSet.serialize RangeSet.reduce RangeSet.ranges_from_list discussion.items.order(:sequence_id).pluck(:sequence_id)
+    discussion.last_activity_at = discussion.items.order(:sequence_id).last&.created_at || created_at
     save!(validate: false)
   end
 
-  def thread_item_destroyed!(item)
-    self.items_count -= 1
-    self.salient_items_count -= 1 if SALIENT_ITEM_KINDS.include? item.kind
-
-    if item.sequence_id == first_sequence_id
-      self.first_sequence_id = sequence_id_or_0(items.sequenced.first)
-    end
-
-    if item.sequence_id == last_sequence_id
-      last_item = items.sequenced.last
-      self.last_sequence_id = sequence_id_or_0(last_item)
-      self.last_activity_at = salient_items.last.try(:created_at) || created_at
-    end
-
-    save!(validate: false)
-
-    discussion_readers.
-      where('last_read_at <= ?', item.created_at).
-      map { |dr| dr.viewed!(dr.last_read_at) }
-
-    true
+  def thread_item_created!
+    update_sequence_info!
   end
 
+  def thread_item_destroyed!
+    update_sequence_info!
+  end
 
   def public?
     !private
@@ -171,7 +122,34 @@ class Discussion < ActiveRecord::Base
     end
   end
 
+  def discussion
+    self
+  end
+
+  def body
+    self.description
+  end
+
+  def ranges
+    RangeSet.parse(self.ranges_string)
+  end
+
+  def first_sequence_id
+    Array(ranges.first).first.to_i
+  end
+
+  def last_sequence_id
+    Array(ranges.last).last.to_i
+  end
+
+  # this is insted of a big slow migration
+  def ranges_string
+    update_sequence_info! if self[:ranges_string].nil?
+    self[:ranges_string]
+  end
+
   private
+
   def set_last_activity_at_to_created_at
     update_attribute(:last_activity_at, created_at)
   end

@@ -1,10 +1,11 @@
-class MembershipRequest < ActiveRecord::Base
-  validates :name,  presence: true, :if => 'requestor.blank?'
-  validates :email, presence: true, email: true, :if => 'requestor.blank?' #this uses the gem 'valid_email'
+class MembershipRequest < ApplicationRecord
+  include HasEvents
+  validates :name,  presence: true, if: :requestor
+  validates :email, presence: true, email: true, if: :requestor
 
   validate :validate_not_in_group_already
   validate :validate_unique_membership_request
-  validates_presence_of :responder, :if => 'response.present?'
+  validates_presence_of :responder, if: :response
 
   validates :group, presence: true
 
@@ -14,11 +15,10 @@ class MembershipRequest < ActiveRecord::Base
   belongs_to :requestor, class_name: 'User'
   belongs_to :user, foreign_key: 'requestor_id' # duplicate relationship for eager loading
   belongs_to :responder, class_name: 'User'
-  has_many :events, as: :eventable, dependent: :destroy
   has_many :admins, through: :group
 
   validates :introduction, length: { maximum: Rails.application.secrets.max_message_length }
-  
+
   scope :pending, -> { where(response: nil).order('created_at DESC') }
   scope :responded_to, -> { where('response IS NOT ?', nil).order('responded_at DESC') }
   scope :requested_by, ->(user) { where requestor_id: user.id }
@@ -80,7 +80,7 @@ class MembershipRequest < ActiveRecord::Base
 
   def already_in_group?
     if from_a_visitor?
-      group_members.find_by_email(email)
+      group_members.find_by(email: email)
     else
       group_members.include?(requestor)
     end

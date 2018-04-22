@@ -1,12 +1,10 @@
 mi:
-  email:
-    analytics:
-      user_table:
-        motions_created: "Ngā whakatakoto"
-        comments_created: "Kōrero poto"
+  poll:
+    export:
+      title: Taitara
+      author: Kaituhi
+      details: Ngā Taipitopito
   footer:
     help: Āwhina
     privacy: Matatapu
     public_groups: rōpū public
-  start_group_form:
-    group_name: Ingoa rōpū

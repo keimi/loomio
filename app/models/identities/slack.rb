@@ -3,10 +3,6 @@ class Identities::Slack < Identities::Base
   set_identity_type :slack
   set_custom_fields :slack_team_id, :slack_team_name, :slack_team_logo
 
-  def fetch_user_info
-    apply_user_info(client.fetch_user_info.json)
-  end
-
   def apply_user_info(payload)
     self.name  ||= payload['real_name_normalized']
     self.email ||= payload['email']
@@ -22,17 +18,5 @@ class Identities::Slack < Identities::Base
 
   def channels
     client.fetch_channels
-  end
-
-  private
-
-  def publish_events
-    %w(
-      group_published
-      poll_published
-      poll_closing_soon
-      poll_expired
-      outcome_published
-    ).freeze
   end
 end

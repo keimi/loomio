@@ -1,10 +1,14 @@
 class Pending::BaseSerializer < ActiveModel::Serializer
   embed :ids, include: true
   attributes :name, :email, :email_status, :has_password, :identity_type
-  attributes :avatar_kind, :avatar_initials, :gravatar_md5, :avatar_url
+  attributes :avatar_kind, :avatar_initials, :gravatar_md5, :avatar_url, :has_token
 
   def identity_type
-    # no-op, only included for oauth pending identities
+    # included for oauth pending identities
+  end
+
+  def has_token
+    # pending login or invitation token
   end
 
   def avatar_kind
@@ -28,7 +32,7 @@ class Pending::BaseSerializer < ActiveModel::Serializer
   end
 
   def has_password
-    user.encrypted_password.present?
+    user.has_password
   end
 
   private
@@ -46,6 +50,6 @@ class Pending::BaseSerializer < ActiveModel::Serializer
   end
 
   def user
-    @user ||= User.find_by_email(email) || LoggedOutUser.new
+    @user ||= User.verified.find_by(email: email) || LoggedOutUser.new
   end
 end

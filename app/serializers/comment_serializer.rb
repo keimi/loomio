@@ -4,31 +4,31 @@ class CommentSerializer < ActiveModel::Serializer
 
   has_one :author, serializer: UserSerializer, root: :users
   has_one :discussion, serializer: DiscussionSerializer
-  has_many :likers, serializer: UserSerializer, root: :users
-  has_many :attachments, serializer: AttachmentSerializer, root: :attachments
+  has_many :reactions, serializer: ReactionSerializer, root: :reactions
+  has_many :documents, serializer: DocumentSerializer, root: :documents
 
-  def likers
-    from_cache :likers
+  def reactions
+    scope.dig(:cache, :reactions).get_for(object)
   end
 
   def mentioned_usernames
     from_cache :mentions
   end
 
-  def attachments
-    from_cache :attachments
+  def documents
+    from_cache :documents
   end
 
-  def include_likers?
-    from_cache(:likers).present?
+  def include_reactions?
+    scope.dig(:cache, :reactions).present?
   end
 
   def include_mentioned_usernames?
     from_cache(:mentions).present?
   end
 
-  def include_attachments?
-    from_cache(:attachments).present?
+  def include_documents?
+    from_cache(:documents).present?
   end
 
   def parent_author_name
@@ -38,10 +38,14 @@ class CommentSerializer < ActiveModel::Serializer
   private
 
   # pull the specified attributes from the cache passed in via serializer scope
-  # This allows us to make 1 query to fetch all attachments, or likers for a series
+  # This allows us to make 1 query to fetch all documents, or reactors for a series
   # of comments, rather than needing to do a separate query for each comment
   def from_cache(field)
-    Hash(scope).dig(:cache, field, object.id)
+    scope.dig(:cache, field, object.id)
+  end
+
+  def scope
+    Hash(super)
   end
 
 end

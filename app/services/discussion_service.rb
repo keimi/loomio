@@ -1,26 +1,4 @@
 class DiscussionService
-  def self.recount_everything!
-    # I'm not sure anyone will need this .. but it's cool sql
-    # WHOA I TOTALLY NEEDED IT!
-    ActiveRecord::Base.connection.execute(
-      "UPDATE discussion_readers SET
-       read_items_count = (SELECT count(id) FROM events WHERE discussion_id = discussion_readers.discussion_id AND events.created_at <= discussion_readers.last_read_at AND events.kind IN ('#{Discussion::THREAD_ITEM_KINDS.join('\', \'')}') ),
-       read_salient_items_count = (SELECT count(id) FROM events WHERE discussion_id = discussion_readers.discussion_id AND events.created_at <= discussion_readers.last_read_at AND events.kind IN ('#{Discussion::SALIENT_ITEM_KINDS.join('\', \'')}') )")
-    ActiveRecord::Base.connection.execute(
-      "UPDATE discussions SET
-       items_count = (SELECT count(id) FROM events WHERE discussions.id = events.discussion_id AND events.kind IN ('#{Discussion::THREAD_ITEM_KINDS.join('\', \'')}') ),
-       salient_items_count = (SELECT count(id) FROM events WHERE discussions.id = events.discussion_id AND events.kind IN ('#{Discussion::SALIENT_ITEM_KINDS.join('\', \'')}') )")
-  end
-
-  def self.mark_as_participating!
-    Discussion.reset_column_information
-    Discussion.includes(:events).find_each(batch_size: 100) do |discussion|
-      participant_ids = (discussion.events.pluck(:user_id) << discussion.author_id).compact.uniq
-      DiscussionReader.where(user_id: participant_ids, discussion: discussion).update_all(participating: true)
-      yield if block_given?
-    end
-  end
-
   def self.create(discussion:, actor:)
     actor.ability.authorize! :create, discussion
     discussion.author = actor
@@ -41,9 +19,10 @@ class DiscussionService
   def self.update(discussion:, params:, actor:)
     actor.ability.authorize! :update, discussion
 
-    discussion.assign_attributes(params.slice(:private, :title, :description))
+    discussion.assign_attributes(params.slice(:private, :title, :description, :pinned))
     version_service = DiscussionVersionService.new(discussion: discussion, new_version: discussion.changes.empty?)
-    discussion.attachment_ids = params[:attachment_ids]
+    discussion.assign_attributes(params.slice(:document_ids))
+    discussion.document_ids = [] if params.slice(:document_ids).empty?
 
     return false unless discussion.valid?
     discussion.save!
@@ -53,6 +32,22 @@ class DiscussionService
     Events::DiscussionEdited.publish!(discussion, actor)
   end
 
+  def self.close(discussion:, actor:)
+    actor.ability.authorize! :update, discussion
+    discussion.update(closed_at: Time.now)
+
+    EventBus.broadcast('discussion_close', discussion, actor)
+    Events::DiscussionClosed.publish!(discussion, actor)
+  end
+
+  def self.reopen(discussion:, actor:)
+    actor.ability.authorize! :update, discussion
+    discussion.update(closed_at: nil)
+
+    EventBus.broadcast('discussion_reopen', discussion, actor)
+    Events::DiscussionReopened.publish!(discussion, actor)
+  end
+
   def self.move(discussion:, params:, actor:)
     source = discussion.group
     destination = ModelLocator.new(:group, params).locate
@@ -60,28 +55,54 @@ class DiscussionService
     actor.ability.authorize! :move, discussion
 
     discussion.update group: destination, private: moved_discussion_privacy_for(discussion, destination)
+    discussion.polls.each { |poll| poll.update(group: destination) }
 
     EventBus.broadcast('discussion_move', discussion, params, actor)
     Events::DiscussionMoved.publish!(discussion, actor, source)
   end
 
+  def self.pin(discussion:, actor:)
+    actor.ability.authorize! :pin, discussion
+
+    discussion.update(pinned: !discussion.pinned)
+
+    EventBus.broadcast('discussion_pin', discussion, actor)
+  end
+
   def self.update_reader(discussion:, params:, actor:)
     actor.ability.authorize! :show, discussion
-    DiscussionReader.for(discussion: discussion, user: actor).update(params.slice(:starred, :volume))
+    reader = DiscussionReader.for(discussion: discussion, user: actor)
+    reader.update(params.slice(:volume))
 
-    EventBus.broadcast('discussion_update_reader', discussion, params, actor)
+    EventBus.broadcast('discussion_update_reader', reader, params, actor)
+  end
+
+  def self.mark_as_seen(discussion:, actor:)
+    actor.ability.authorize! :mark_as_seen, discussion
+    reader = DiscussionReader.for_model(discussion, actor)
+    reader.viewed!
+    EventBus.broadcast('discussion_mark_as_seen', reader, actor)
   end
 
   def self.mark_as_read(discussion:, params:, actor:)
     actor.ability.authorize! :mark_as_read, discussion
-
-    target_to_read = Event.where(discussion_id: discussion.id, sequence_id: params[:sequence_id]).first || discussion
-    DiscussionReader.for(user: actor, discussion: discussion).viewed! target_to_read.created_at
+    reader = DiscussionReader.for_model(discussion, actor)
+    reader.viewed!(params[:ranges])
+    EventBus.broadcast('discussion_mark_as_read', reader, actor)
   end
 
   def self.dismiss(discussion:, params:, actor:)
     actor.ability.authorize! :dismiss, discussion
-    DiscussionReader.for(user: actor, discussion: discussion).dismiss!
+    reader = DiscussionReader.for(user: actor, discussion: discussion)
+    reader.dismiss!
+    EventBus.broadcast('discussion_dismiss', reader, actor)
+  end
+
+  def self.recall(discussion:, params:, actor:)
+    actor.ability.authorize! :dismiss, discussion
+    reader = DiscussionReader.for(user: actor, discussion: discussion)
+    reader.recall!
+    EventBus.broadcast('discussion_recall', reader, actor)
   end
 
   def self.moved_discussion_privacy_for(discussion, destination)

@@ -19,6 +19,7 @@ end
 
 module Loomio
   class Application < Rails::Application
+    config.middleware.use Rack::Attack if ENV['USE_RACK_ATTACK']
     config.active_job.queue_adapter = :delayed_job
 
     config.generators do |g|
@@ -72,8 +73,6 @@ module Loomio
     config.quiet_assets = true
     config.action_mailer.preview_path = "#{Rails.root}/spec/mailers/previews"
 
-    config.active_record.raise_in_transactional_callbacks = true
-
     if ENV['FOG_PROVIDER']
       def self.fog_credentials
         env = Rails.application.secrets
@@ -92,7 +91,6 @@ module Loomio
       }
     end
 
-    config.force_ssl = ENV.has_key?('FORCE_SSL')
     config.action_mailer.raise_delivery_errors = true
     config.action_mailer.perform_deliveries = true
 
@@ -120,5 +118,9 @@ module Loomio
     config.action_mailer.asset_host = lmo_asset_host
     config.action_dispatch.tld_length = (ENV['TLD_LENGTH'] || 1).to_i
 
+    config.action_controller.include_all_helpers = false
+
+    # expecting something like wss://hostname/cable, defaults to wss://canonical_host/cable
+    config.action_cable.url = ENV['ACTION_CABLE_URL'] if ENV['ACTION_CABLE_URL']
   end
 end

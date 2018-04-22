@@ -1,6 +1,6 @@
-<h1><a href="https://www.loomio.org"> <img src="app/assets/images/logo-orange.png" alt="Loomio"/></a> </h1>
-
 Loomio is a collaborative decision-making tool that makes it easy for anyone to participate in decisions which affect them. If you'd like to find out more, check out [Loomio.org](https://www.loomio.org).
+
+
 
 ### Contributing
 
@@ -11,6 +11,11 @@ To setup up a Loomio development environment, or to develop plugin to extend Loo
 To setup your own Loomio instance see [loomio/loomio-deploy](https://github.com/loomio/loomio-deploy)
 
 To learn about working within the Loomio Co-op, read the [Loomio Coop Handbook](https://github.com/loomio/loomio-coop-handbook)
+
+[![View performance data on Skylight](https://badges.skylight.io/status/BGzqZwewZHUe.svg)](https://oss.skylight.io/app/applications/BGzqZwewZHUe)
+
+[![Build Status](https://travis-ci.org/loomio/loomio.svg?branch=master)](https://travis-ci.org/loomio/loomio)
+Note: We have a really temperamental e2e suite. We use it regularly but the overall status breaks too much and that is sad. We're working on it. 
 
 ### Contact
 

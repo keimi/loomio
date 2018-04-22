@@ -1,28 +1,23 @@
 class Full::UserSerializer < UserSerializer
   attributes :email, :email_when_proposal_closing_soon, :email_missed_yesterday,
              :email_when_mentioned, :email_on_participation, :selected_locale, :locale,
-             :default_membership_volume, :experiences, :is_coordinator
+             :default_membership_volume, :experiences, :is_coordinator, :is_admin
 
-  has_many :memberships,    serializer: MembershipSerializer, root: :memberships
-  has_many :unread_threads, serializer: DiscussionSerializer, root: :discussions
-  has_many :notifications,  serializer: NotificationSerializer, root: :notifications
-  has_many :visitors,       serializer: VisitorSerializer, root: :visitors
-  has_many :identities,     serializer: IdentitySerializer, root: :identities
+  has_many :formal_memberships, serializer: MembershipSerializer, root: :memberships
+  has_many :guest_memberships,  serializer: Simple::MembershipSerializer, root: :memberships
+  has_many :notifications,      serializer: NotificationSerializer, root: :notifications
+  has_many :identities,         serializer: IdentitySerializer, root: :identities
 
-  def memberships
+  def guest_memberships
     from_scope :memberships
   end
 
-  def unread_threads
-    from_scope :unread
+  def formal_memberships
+    from_scope :formal_memberships
   end
 
   def notifications
     from_scope :notifications
-  end
-
-  def visitors
-    from_scope :visitors
   end
 
   def identities
@@ -34,6 +29,10 @@ class Full::UserSerializer < UserSerializer
   end
 
   def include_gravatar_md5?
+    true
+  end
+
+  def include_has_password?
     true
   end
 

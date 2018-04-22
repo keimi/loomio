@@ -1,20 +1,28 @@
 class ManifestController < ApplicationController
   respond_to :json
 
+  ICON_SIZES = %w(32 48 128 144 192 512).freeze
+
   def show
     render json: {
-      name: ENV['SITE_NAME'] || 'Asamblea de Revolución Democrática',
-      short_name: ENV['SITE_NAME'] || 'Asamblea RD',
-      display: 'standalone',
-      orientation: 'portrait',
-      start_url: '/dashboard',
-      background_color: '#ffffff',
-      theme_color: '#007769',
-      icons: [{
-        src:   [root_url.chomp('/'), :img, :"logo-square.png"].join('/'),
-        sizes: '144x144',
-        type:  'image/png'
-      }]
+      name:             AppConfig.theme[:site_name],
+      short_name:       AppConfig.theme[:site_name],
+      display:          'standalone',
+      orientation:      'portrait',
+      start_url:        '/dashboard',
+      background_color: AppConfig.theme[:primary_color],
+      theme_color:      AppConfig.theme[:text_on_primary_color],
+      icons:            ICON_SIZES.map { |size| icon_for(size) }
+    }
+  end
+
+  private
+
+  def icon_for(size)
+    {
+      src: [root_url.chomp('/'), AppConfig.theme[:"icon#{size}_src"]].join(''),
+      sizes: "#{size}x#{size}",
+      type: "image/png"
     }
   end
 end

@@ -1,4 +1,4 @@
-ActiveAdmin.register Group do
+ActiveAdmin.register FormalGroup, as: 'Group' do
 
   controller do
     def permitted_params
@@ -6,28 +6,20 @@ ActiveAdmin.register Group do
     end
 
     def find_resource
-      Group.friendly.find(params[:id])
-    end
-
-    def collection
-      super.includes(:group_request)
+      FormalGroup.friendly.find(params[:id])
     end
   end
 
-  actions :index, :show, :edit, :update
-
+  actions :index, :show, :new, :edit, :update, :create
 
   filter :name
   filter :description
   filter :memberships_count
   filter :created_at
-  filter :subdomain
+  filter :handle
   filter :analytics_enabled
 
   scope :parents_only
-  scope :engaged
-  scope :engaged_but_stopped
-  scope :has_members_but_never_engaged
 
   batch_action :delete_spam do |group_ids|
     group_ids.each do |group_id|
@@ -51,18 +43,12 @@ ActiveAdmin.register Group do
     selectable_column
     column :id
     column :name do |g|
-      simple_format(g.full_name.sub(' - ', "\n \n> "))
-    end
-    column :contact do |g|
-      admin_name = ERB::Util.h(g.requestor_name)
-      admin_email = ERB::Util.h(g.requestor_email)
-      simple_format "#{admin_name} \n &lt;#{admin_email}&gt;"
+      g.full_name
     end
 
     column "Size", :memberships_count
 
     column "Discussions", :discussions_count
-    column "Motions", :motions_count
     column :created_at
     column :description, :sortable => :description do |group|
       group.description
@@ -103,9 +89,6 @@ ActiveAdmin.register Group do
       row :invitations_count
       row :pending_invitations_count
       row :public_discussions_count
-      row :motions_count
-      row :closed_motions_count
-      row :proposal_outcomes_count
       row :payment_plan
 
       row "Group Privacy" do
@@ -134,10 +117,10 @@ ActiveAdmin.register Group do
       row :members_can_vote
       row :members_can_start_discussions
       row :members_can_create_subgroups
-      row :subdomain
+      row :handle
       row :is_referral
       row :cohort_id
-      row :subscription_id
+      row :subscription
       row :enable_experiments
       row :analytics_enabled
       row :experiences
@@ -186,7 +169,7 @@ ActiveAdmin.register Group do
     end
 
     panel("Pending invitations") do
-      table_for group.pending_invitations.each do |invitation|
+      table_for group.invitations.pending.each do |invitation|
         column :recipient_email
         column :link do |i|
           invitation_url(i)
@@ -212,52 +195,28 @@ ActiveAdmin.register Group do
       end
     end
 
-    panel 'Data export' do
-      export_enabled = group.features['dataExport']
-      form action: toggle_export_admin_group_path(group), method: :post do |f|
-        f.label "Data Export is enabled. <a href=\"/g/#{group.key}/export.xls\">XLS</a> <a href=\"/g/#{group.key}/export.html\">HTML</a>".html_safe if export_enabled
-        f.label "Data Export is not enabled" unless export_enabled
-        f.input type: :submit, value: 'Toggle data export'
-      end
-    end
-
-    panel 'Polls' do
-      enabled = group.features['use_polls']
-      form action: use_polls_admin_group_path(group), method: :post do |f|
-        if enabled
-          f.label "Polls is enabled"
-        else
-          f.label "Polls disabled"
-        end
-        f.input type: :submit, value: 'Enable polls'
-      end
-    end
-
     active_admin_comments
   end
 
   form do |f|
     f.inputs "Details" do
-      f.input :id, :input_html => { :disabled => true }
-      f.input :name, :input_html => { :disabled => true }
+      if f.object.persisted?
+        f.input :id, :input_html => { :disabled => true }
+      end
+      f.input :name, :input_html => { :disabled => f.object.persisted? }
       f.input :description
-      f.input :subdomain
-      f.input :theme, as: :select, collection: Theme.all
+      f.input :parent_id, label: "Parent Id"
+      f.input :handle, as: :string
       f.input :analytics_enabled
       f.input :enable_experiments
-      f.input :category_id, as: :select, collection: Category.all
     end
     f.actions
-  end
-
-  collection_action :massey_data, method: :get do
-    render json: Group.visible_to_public.pluck(:id, :parent_id, :name, :description)
   end
 
   member_action :move, method: :post do
     group = Group.friendly.find(params[:id])
     if parent = Group.find_by(key: params[:parent_id]) || Group.find_by(id: params[:parent_id].to_i)
-      group.subscription&.destroy if Plugins.const_defined?("LoomioBuyerExperience")
+      group.subscription&.destroy if Plugins.const_defined?("LoomioOrgPlugin")
       group.update(parent: parent)
     end
     redirect_to admin_group_path(group)
@@ -276,41 +235,4 @@ ActiveAdmin.register Group do
     flash[:notice] = "Unarchived #{group.name}"
     redirect_to [:admin, :groups]
   end
-
-  member_action :use_polls, :method => :post do
-    group = Group.friendly.find(params[:id])
-    group.features['use_polls'] = true
-    flash[:notice] = "polls enabled for #{group.name}"
-
-    group.polls.where('motion_id is not null').destroy_all
-    PollService.delay.convert(motions: group.motions)
-    group.save!
-    redirect_to [:admin, :groups]
-  end
-
-  member_action :toggle_export, :method => :post do
-    group = Group.friendly.find(params[:id])
-    export_enabled = group.features.fetch 'dataExport', false
-    if export_enabled
-      group.features['dataExport'] = false
-      flash[:notice] = "data export disabled for #{group.name}"
-    else
-      group.features['dataExport'] = true
-      flash[:notice] = "data export enabled for #{group.name}"
-    end
-    group.save
-    redirect_to [:admin, :groups]
-  end
-
-  #controller do
-    #def set_pagination
-      #if params[:pagination].blank?
-        #@per_page = 40
-      #elsif params[:pagination] == 'false'
-        #@per_page = 999999999
-      #else
-        #@per_page = params[:pagination]
-      #end
-    #end
-  #end
 end

@@ -11,6 +11,11 @@ class API::ProfileController < API::RestfulController
     respond_with_resource serializer: UserSerializer
   end
 
+  def remind
+    service.remind(user: load_resource, actor: current_user, model: load_and_authorize(:poll))
+    respond_with_resource
+  end
+
   def update_profile
     service.update(current_user_params)
     respond_with_resource
@@ -38,16 +43,7 @@ class API::ProfileController < API::RestfulController
   end
 
   def email_status
-    respond_with_resource(serializer: Pending::UserSerializer)
-  end
-
-  def set_password
-    if resource.presence
-      resource.send_reset_password_instructions
-      head :ok
-    else
-      head :not_found
-    end
+    respond_with_resource(serializer: Pending::UserSerializer, scope: {has_token: has_invitation_token?})
   end
 
   private
@@ -57,11 +53,16 @@ class API::ProfileController < API::RestfulController
   end
 
   def user_by_email
-    resource_class.active.find_by_email(params[:email]) || LoggedOutUser.new(email: params[:email])
+    resource_class.active.verified_first.find_by(email: params[:email]) || LoggedOutUser.new(email: params[:email])
   end
 
   def current_user_params
     { user: current_user, actor: current_user, params: permitted_params.user }
+  end
+
+  def has_invitation_token?
+    return unless invitation = Invitation.find_by(token: params[:token])
+    invitation.token if resource.email == invitation.email
   end
 
   def resource_class

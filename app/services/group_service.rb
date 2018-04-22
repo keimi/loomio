@@ -6,10 +6,10 @@ module GroupService
 
     group.is_referral = actor.groups.size > 0
 
-    if group.is_parent?
+    if group.is_formal_group? && group.is_parent?
       group.default_group_cover = DefaultGroupCover.sample
       group.creator             = actor if actor.is_logged_in?
-      ExampleContent.new(group).add_to_group!
+      ExampleContent.new(group).add_to_group! if AppConfig.app_features[:help_link]
     else
       group.save!
     end
@@ -17,19 +17,10 @@ module GroupService
     EventBus.broadcast('group_create', group, actor)
   end
 
-  def self.publish(group:, params:, actor:)
-    actor.ability.authorize! :publish, group
-
-    group.community.update(slack_channel_id: params[:identifier], slack_channel_name: params[:channel])
-    group.make_announcement = params[:make_announcement]
-
-    Events::GroupPublished.publish!(group, actor)
-    EventBus.broadcast('group_publish', group, actor)
-  end
-
   def self.update(group:, params:, actor:)
     actor.ability.authorize! :update, group
 
+    params[:features].reject! { |_,v| v.blank? } if params.has_key?(:features)
     group.assign_attributes(params)
     group.group_privacy = params[:group_privacy] if params.has_key?(:group_privacy)
     privacy_change = PrivacyChange.new(group)

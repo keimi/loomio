@@ -9,17 +9,16 @@ class Identities::BaseController < ApplicationController
       associate_identity
       redirect_to session.delete(:back_to) || dashboard_path
     else
-      # TODO: this should be an error page, not JSON
-      render json: { error: "Could not connect to #{controller_name}!" }, status: :bad_request
+      respond_with_error message: "Could not connect to #{controller_name}!"
     end
   end
 
   def destroy
-    if i = current_user.send(:"#{controller_name}_identity")
+    if i = current_user.identities.find_by(identity_type: controller_name)
       i.destroy
       redirect_to request.referrer || root_path
     else
-      render json: { error: "Not connected to #{controller_name}!" }, status: :bad_request
+      respond_with_error message: "Not connected to #{controller_name}!"
     end
   end
 
@@ -45,7 +44,7 @@ class Identities::BaseController < ApplicationController
   end
 
   def existing_user
-    @existing_user ||= User.find_by_email(identity.email)
+    @existing_user ||= User.verified.find_by(email: identity.email)
   end
 
   def associate_identity

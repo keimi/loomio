@@ -32,6 +32,21 @@ module Dev::PollsScenarioHelper
      poll:     scenario[:poll]}
   end
 
+  def poll_options_added_scenario(poll_type:)
+    scenario = poll_stance_created_scenario(poll_type: poll_type)
+    scenario[:poll].make_announcement = true
+    PollService.add_options(poll: scenario[:poll],
+                            actor: scenario[:actor],
+                            params: {poll_option_names: option_names(2)[poll_type]})
+
+    scenario.merge(observer: scenario[:voter])
+  end
+
+  def poll_options_added_author_scenario(poll_type:)
+    scenario = poll_options_added_scenario(poll_type: poll_type)
+    scenario.merge(observer: scenario[:poll].author)
+  end
+
   def poll_created_as_logged_out_scenario(poll_type:)
     scenario = poll_created_as_visitor_scenario(poll_type: poll_type)
     scenario[:poll].update(anyone_can_participate: true)
@@ -41,14 +56,15 @@ module Dev::PollsScenarioHelper
   end
 
   def poll_created_as_visitor_scenario(poll_type:)
+    # TODO: fix me
     actor = saved fake_user
     poll = fake_poll(poll_type: poll_type, discussion: nil, make_announcement: true)
     event = PollService.create(poll: poll, actor: actor)
-    visitor = Visitor.create(email: "hello@test.com", community: poll.community_of_type(:email))
+    invitation = poll.guest_group.invitations.create(recipient_email: "hello@test.com", intent: :join_poll)
 
     {poll: poll,
      actor: actor,
-     params: {participation_token: visitor.participation_token}}
+     params: {invitation_token: invitation.token}}
   end
 
   def poll_edited_scenario(poll_type:)
@@ -78,6 +94,16 @@ module Dev::PollsScenarioHelper
     scenario.merge(observer: scenario[:poll].author, voter: voter)
   end
 
+  def poll_anonymous_scenario(poll_type:)
+    scenario = poll_created_scenario(poll_type: poll_type)
+    voter    = saved(fake_user)
+    scenario[:poll].update(notify_on_participate: true, anonymous: true)
+    scenario[:poll].group.add_member!(voter)
+    choices  =  [{poll_option_id: scenario[:poll].poll_option_ids[0]}]
+    StanceService.create(stance: fake_stance(poll: scenario[:poll], stance_choices_attributes: choices), actor: voter)
+
+    scenario.merge(observer: scenario[:poll].author, voter: voter)
+  end
 
   def poll_closing_soon_scenario(poll_type:)
     discussion = fake_discussion(group: create_group_with_members)
@@ -89,7 +115,9 @@ module Dev::PollsScenarioHelper
                                                      poll_type: poll_type,
                                                      discussion: discussion,
                                                      closing_at: 1.day.from_now))
+
     PollService.create(poll: poll, actor: actor)
+
     PollService.publish_closing_soon
 
     { discussion: discussion,
@@ -134,7 +162,7 @@ module Dev::PollsScenarioHelper
     poll.update_attribute(:closing_at, 1.day.ago)
     poll.make_announcement = true
     poll.discussion.group.add_member! poll.author
-    Events::PollCreated.publish!(poll)
+    Events::PollCreated.publish!(poll, poll.author)
     PollService.expire_lapsed_polls
     { discussion: discussion,
       actor: actor,
@@ -207,5 +235,49 @@ module Dev::PollsScenarioHelper
      observer:   observer,
      poll:       observer_poll,
      admin:      admin}
+  end
+
+  def poll_with_guest_scenario(poll_type:)
+    group = create_group_with_members
+    user  = saved fake_user
+    another_user = saved fake_user
+    group.add_member!(user)
+    group.add_member!(another_user)
+
+    poll = fake_poll(poll_type: poll_type, discussion: fake_discussion(group: group))
+    PollService.create(poll: poll, actor: another_user)
+    Stance.create(poll: poll, participant: user, choice: poll.poll_option_names.first)
+    poll.update_stance_data
+
+    poll.guest_group.add_member! fake_user(email_verified: false)
+    poll.invite_guest! email: "bill@example.com"
+
+    {group: group,
+     poll: poll,
+     observer: user}
+  end
+
+  def poll_with_guest_as_author_scenario(poll_type:)
+    scenario = poll_with_guest_scenario(poll_type: poll_type)
+    scenario.merge(observer: scenario[:poll].author)
+  end
+
+  def alternative_poll_option_selection (poll_option_ids, i)
+    poll_option_ids.each_with_index.map {|id, j| {poll_option_id: id, score: (i+j)%3}}
+  end
+
+  def poll_meeting_populated_scenario(poll_type:)
+    user = saved fake_user
+
+    poll = fake_poll(poll_type: poll_type, option_count: 5)
+    PollService.create(poll: poll, actor: user)
+
+    5.times do |i|
+      choices = alternative_poll_option_selection(poll.poll_option_ids, i)
+      stance = saved fake_stance(poll:poll, participant:saved(fake_user), stance_choices_attributes: choices)
+    end
+
+    { poll: poll,
+      observer: user}
   end
 end

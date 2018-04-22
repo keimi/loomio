@@ -1,6 +1,6 @@
 class PollEmailInfo
   include Routing
-  attr_reader :recipient, :poll, :actor, :action_name, :eventable
+  attr_reader :recipient, :poll, :actor, :action_name, :eventable, :event
 
   def send_reason
     # TODO: determine why this recipient is receiving this email
@@ -8,12 +8,32 @@ class PollEmailInfo
     "some reason"
   end
 
-  def initialize(recipient:, poll:, actor: nil, action_name:, eventable: nil)
+  def login_token(redirect_path: poll_path(@poll))
+    @token ||= @recipient.login_tokens.create!(redirect: redirect_path)
+  end
+
+  def initialize(recipient:, event:, action_name:)
     @recipient   = recipient
-    @poll        = poll
-    @actor       = actor || LoggedOutUser.new
-    @eventable   = eventable
+    @event       = event
+    @eventable   = event.eventable
+    @poll        = @eventable.poll
     @action_name = action_name
+  end
+
+  def stance_icon_for(stance_choice)
+    case stance_choice&.score.to_i
+      when 0 then "disagree"
+      when 1 then "abstain"
+      when 2 then "agree"
+    end if @poll.has_score_icons
+  end
+
+  def actor
+    @actor ||= if @eventable.is_a?(Stance)
+      @eventable.participant_for_client
+    else
+      @event.user || LoggedOutUser.new
+    end
   end
 
   def recipient_stance
@@ -21,23 +41,15 @@ class PollEmailInfo
   end
 
   def poll_options
-    if @poll.dates_as_options
-      @poll.poll_options.order(name: :asc)
-    else
-      @poll.poll_options
-    end
+    @poll.ordered_poll_options
   end
 
   def poll_type
     @poll.poll_type
   end
 
-  def undecided_memberships
-    @undecided_members ||= Membership.includes(:user).undecided_for(@poll)
-  end
-
-  def undecided_visitors
-    @undecided_visitors ||= Visitor.undecided_for(@poll)
+  def undecided
+    @undecided ||= @poll.undecided
   end
 
   def undecided_max
@@ -45,7 +57,7 @@ class PollEmailInfo
   end
 
   def time_zone
-    @recipient.time_zone || @poll.custom_fields['time_zone']
+    @recipient.time_zone || @poll.time_zone
   end
 
   def formatted_time_zone
@@ -73,7 +85,7 @@ class PollEmailInfo
       utm_medium: 'email',
       utm_campaign: 'poll_mailer',
       utm_source: action_name,
-      participation_token: @recipient.participation_token
+      invitation_token: @recipient.token
     }.merge(args)
   end
 

@@ -1,10 +1,13 @@
 class Events::PollExpired < Event
   include Events::PollEvent
+  include Events::Notify::Author
+  include Events::Notify::ThirdParty
+  include Events::Notify::InApp
 
   def self.publish!(poll)
     create(kind: "poll_expired",
            eventable: poll,
-           discussion: poll.discussion,
+           parent: poll.created_event,
            announcement: !!poll.events.find_by(kind: :poll_created)&.announcement,
            created_at: poll.closed_at).tap { |e| EventBus.broadcast('poll_expired_event', e) }
   end
@@ -14,20 +17,15 @@ class Events::PollExpired < Event
     notification_for(poll.author).save
   end
 
-  def email_users!
-    super
-    mailer.poll_expired_author(poll.author, self).deliver_now
-  end
-
   private
 
   # the author is always notified above, so don't notify them twice
   def notification_recipients
-    super.without(poll.author)
+    super.where.not(id: poll.author)
   end
 
   def email_recipients
-    super.without(poll.author)
+    super.where.not(id: poll.author)
   end
 
   # don't notify mentioned users for poll expired

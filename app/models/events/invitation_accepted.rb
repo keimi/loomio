@@ -1,9 +1,18 @@
 class Events::InvitationAccepted < Event
   include Events::Notify::InApp
+  include Events::LiveUpdate
 
   def self.publish!(membership)
     create(kind: "invitation_accepted",
-           eventable: membership).tap { |e| EventBus.broadcast('invitation_accepted_event', e) }
+           user_id: membership.user_id,
+           eventable: membership,
+           created_at: membership.created_at).tap { |e| EventBus.broadcast('invitation_accepted_event', e) }
+  end
+
+  def notify_clients!
+    if eventable.invitation&.email == eventable.user.email
+      ActionCable.server.broadcast eventable.invitation.message_channel, action: :accepted
+    end
   end
 
   private
@@ -17,6 +26,9 @@ class Events::InvitationAccepted < Event
   end
 
   def notification_url
-    group_memberships_username_url(eventable.group, eventable.user.username) if eventable
+    case eventable.group
+    when FormalGroup then group_memberships_username_url(eventable.group, eventable.user.username)
+    when GuestGroup  then polymorphic_url(eventable.group.invitation_target)
+    end
   end
 end

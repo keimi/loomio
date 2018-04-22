@@ -1,5 +1,46 @@
 eo:
+  reactions:
+    slight_smile: Ŝati
+    heart: Ŝategi
+    laughing: Ridi
+    clap: Klapi
+    hugging: Brakumi
+    sunglasses: Mojoze
+    wink: Palpebrumi
+    nerd: Saĝe
+    relieved: Trankvilige
+    worried: Maltrankvilige
+    confused: Konfuze
+    confounded: Frenezige
+    neutral_face: Neŭtrale
+    slight_frown: paŭte
+    disappointed: Seniluzige
+    angry: Furioze
+    weary: Maltrankvile
+    astonished: Surprizite
+    rolling_eyes: Sinĝene rigardi
+    cry: Krii
+    scream: Kriegi
+    sleeping: Enue
+    thinking: Penseme
+    raised_hands: Manleve
+    pray: Preĝe
+    fingers_crossed: Bonŝancon!
+    v: Pacon!
+    ok_hand: Bone!
+  poll_types:
+    proposal: Propozicio
+    count: Kontroli
+    poll: Enketo
   common:
+    you: Vi
+    expand: Klarigu!
+    all_day: Tut-tage
+    ok_got_it: Bone, komprenite!
+    learn_more: lerni pli
+    not_found: Ne trovebla
+    time_zone: Horzono
+    local_time: Loka tempo
     confirm_discard_changes: Ĉu tamen ne fari la ŝanĝojn?
     time:
       am: atm
@@ -10,9 +51,18 @@ eo:
     notification_volume: 'Sciiga laŭteco'
     group: 'Grupo'
     groups: 'Grupoj'
+    threads: 'Fadenoj'
+    decisions: 'Decidoj'
+    settings: 'Agordoj'
+    help: 'Helpo'
+    anonymous: Anonima
     privacy:
+      privacy: 'Privateco'
       public: 'Publika'
+      open: 'Malfermita'
+      closed: 'Fermita'
       private: 'Privata'
+      secret: 'Sekreto'
     selected: 'Elektita'
     date_range:
       today: 'Hodiaŭ'
@@ -23,7 +73,14 @@ eo:
     more_help: 'Plia helpo'
     models:
       proposal: 'Propono'
+    copy: 'Kopii'
+    copy_text: 'Kopii tekston'
+    copied: 'Kopiite al la tondaĵ-poŝo'
+    points_abbrev: Ĉiu voĉo valoras {{score}} poentojn
+    total: Entute
     action:
+      next: 'Sekva'
+      close: 'Fermigi'
       save: 'Konservi'
       save_changes: 'Konservi ŝanĝojn'
       reply: 'Respondi'
@@ -37,92 +94,134 @@ eo:
       new_thread: "Nova fadeno"
       add_subgroup: 'Aldoni subgrupon'
       loading: 'Ŝargiĝas'
+      translate: 'Traduki'
       uploading: 'Alŝutiĝas'
-    formatting_help:
-      title: 'Lerni kiel uzi Markdown por formatigi vian tekston en Loomio'
+      retry: Reprovi
+  ordinal:
+    _1: 1a
+    _2: 2a
+    _3: 3a
+    _4: 4a
+    _5: 5a
+    _6: 6a
+    _7: 7a
+    _8: 8a
+    _9: 9a
+    _10: 10a
   error_page:
     forbidden: 'Vi ne havas permeson fari ĉi tion'
-  proposal_outcome_panel:
-    heading: Rezulto
-  proposal_outcome_form:
-    outcome_label: Propona rezulto
-    publish_outcome: Publikigi rezulton
+  volume_levels:
+    loud: 'Brua'
+    normal: 'Normala'
+    quiet: 'Malbrua'
+    mute: 'Silentigi'
+    unmute: 'Malsilentigi'
+  change_volume_form:
+    mute_label: "Silentigi"
+  close_explanation_modal:
+    aria_label: Fermigi fadenon
+    close_thread: Fermigi fadenon
+  mute_explanation_modal:
+    aria_label: Silentigi fadenon
+    mute_thread: Silentigi fadenon
   inbox:
     unread: 'Nelegitaj'
+  signed_out_modal:
+    ok: "Bone!"
   comment_form:
     edit_comment: 'Redakti komenton'
     delete_comment: 'Forigi komenton'
     confirm_delete_message: 'Ĉu vi certas, ke vi volas forigi tiun ĉi komenton?'
   sidebar:
-    edit_profile: 'Redakti profilon'
-    email_settings: 'Retpoŝtaj agordoj'
-    help: 'Helpo'
-    sign_out: 'Eliri'
+    start_thread: Nova fadeno
+    aria_labels:
+      groups_list: 'Grupoj'
   navbar:
+    start_thread: 'Nova fadeno'
     search:
       placeholder: 'Serĉi'
       discussions: 'Diskutoj'
+      proposals: 'Propozicioj'
+      comments: 'Komentoj'
+    sign_in: 'Ensaluti'
+    logo_title: 'Ĉefpaĝo'
+  user_dropdown:
+    edit_profile: 'Redakti profilon'
+    help: 'Helpo'
+    contact_site_name: 'Kontakti {{site_name}}'
+    sign_out: 'Elsaluti'
+  start_menu:
+    title: 'Ago'
+    start_thread: 'Komenci fadenon'
+    start_poll: 'Komenci enketon'
+    invite_people: 'Inviti homojn'
   notifications:
     header: "Sciigoj"
   position_buttons_panel:
     heading: Donu vian opinion
-  vote_form:
-    heading: Donu vian opinion
-    i_agree: 'Konsentite'
-    i_abstain: 'Mi sindetenas'
-    i_abstain_details: 'Mi senĝene akceptas, ke la grupo decidu sen mia partopreno.'
-    i_disagree: 'Mi malkonsentas'
-    i_disagree_details: 'Mi opinias, ke ni probable povas plibonigi tion.'
-    i_block: 'Mi blokas'
-    i_block_details: 'Mi havas fortan kontraŭstaron kontraŭ tiu ĉi propono kaj mi tue ne konsentas daŭrigi laŭ tiu vojo.'
-    submit_position: 'Submeti sintenon'
-  proposal_positions_panel:
-    heading: Sintenoj
-  close_proposal_form:
-    close_proposal: 'Fermi proponon'
-  proposal_form:
-    start_proposal: 'Starigi proponon'
-    edit_proposal: 'Redakti proponon'
-    title_label: 'Titolo'
-    closes_at_label: 'Fermiĝos je'
-    details_label: 'Detaloj'
   discussion_form:
     group_label: 'Grupo'
     title_label: 'Titolo'
     context_label: 'Kunteksto'
     privacy_label: 'Privateco'
-  proposal_expanded:
-    edit_proposal: 'Redakti proponon'
-    close_proposal: 'Fermi proponon'
+  action_dock:
+    add_comment: Komenti
+    edit_poll: Redakti enketon
+    translate_poll: Traduki enketon
+    edit_stance: Ŝanĝi vian voĉdonon
   join_group_button:
     join_group: Aliĝi al la grupo
   membership_request_form:
     heading: Peti aliĝon al la grupo
     name_label: Nomo
     email_label: Retpoŝto
+  reactions_display:
+    you: "Vi"
   group_page:
-    thread_list:
-      empty:
-        membership_is_invitation_only: "Por aliĝi al ĉi tiu grupo vi devas esti invitita de membro."
-        membership_is_invitation_by_admin_only: "Por aliĝi al ĉi tiu grupo vi devas esti invitita de kunordiganto."
-    discussions: 'Diskutoj'
+    subgroups: 'Subgrupoj'
+    invite_people: 'Inviti'
     options_label: 'Opcioj'
     options:
       label: 'Opcioj'
+  group_form:
+    privacy: 'Privateco'
+  document:
+    form:
+      title_label: Nomo
   membership_requests_page:
     approve: Aprobi
     ignore: Ignori
+  invitation_form:
+    invite_people: 'Inviti homojn'
+    group: 'Grupo'
+    copy_link: 'Kopii'
   memberships_page:
     members: 'Membroj'
     name_label: 'Nomo'
     coordinator_label: 'Kunordiganto'
     remove_member_label: 'Forviŝi'
+  pending_invitations_card:
+    email: Retadreso
+  cancel_invitation_form:
+    cancel: 'Ne'
   profile_page:
+    change_picture_link: 'Ŝanĝi bildon'
     profile: 'Profilo'
+    edit_profile: 'Redakti profilon'
     picture_label: 'Bildo'
     name_label: 'Nomo'
+    username_label: 'Uzantnomo'
     email_label: 'Retpoŝto'
+    short_bio_label: 'Enkonduko'
     locale_label: 'Lingvo'
+    update_profile: 'Ĝisdatigi profilon'
+  change_picture_form:
+    title: 'Ŝanĝi bildon'
+  change_password_form:
+    change_password_title: Ŝanĝi vian pasvorton
+    change_password: Ŝanĝi pasvorton
+  email_settings_page:
+    edit: Redakti
   dashboard_page:
     aria_label: 'Supervidpanelo'
     no_groups:
@@ -130,19 +229,39 @@ eo:
     no_threads:
       show_all: Vi ne havas lastatempajn fadenojn.
     view_recent: Ĉu vidi ĉiujn lastatempajn fadenojn?
+    load_more: Ŝarĝi pli da fadenoj
     mark_as_read: Marki kiel legita
     filtering:
       all: Lastatempaj fadenoj
       all_aria_label: Nun montras lastatempajn fadenojn
       all_description: Montri lastatempajn fadenojn
+      proposals: Propozicioj
+      muted: Silentigita
     threads_from:
       today: 'Hodiaŭ'
       yesterday: 'Hieraŭ'
+      thisweek: 'Ĉi-semajne'
+      thismonth: 'Ĉi-monate'
   inbox_page:
+    view_more: Vidi pli
     no_groups:
       or: aŭ
+  activity_card:
+    unread: Nelegitaj
   thread_group:
     aria_label: 'Grupnomo'
+  thread_context:
+    edit: 'Redakti'
+    edit_thread: 'Redakti'
+    close_thread: 'Fermi'
+    mute_thread: 'Silentigi'
+    move_thread: 'Movi'
+    print_thread: 'Presi'
+    add_comment: 'Komenti'
+  move_thread_form:
+    aria_label: Movi fadenon
+    title: Movi fadenon
+    confirm: Movi fadenon
   delete_comment_dialog:
     title: 'Forigi komenton'
     question: 'Ĉu vi certas, ke vi volas forigi tiun ĉi komenton?'
@@ -151,83 +270,107 @@ eo:
     context_menu:
       edit_comment: 'Redakti komenton'
       delete_comment: 'Forigi komenton'
+    edited: 'Redaktita'
+  new_vote_item:
+    agree: 'konsentita'
+    disagree: 'malkonsentita'
+  discussion_edited_item:
+    public_to_private: 'nepublika'
+    private_to_public: 'publika'
   contact_message_form:
+    contact_us: 'Kontakti nin'
     name_label: 'Via nomo'
     email_label: 'Via retpoŝtadreso'
     message_label: 'Via mesaĝo'
-  help_page:
-    coordinating: 'Kunordigante vian Loomio-grupon'
-    coordinating_details: |
-      Kiel kunordiganto vi respondecas pri konfigurado de via Loomio-grupo kaj invito
-      de ĉiuj al ĝi. Kune kun la lernado de nova programo, via grupo ankaŭ lernos novajn
-      procesojn por kunlabori pli efike kaj fari bonajn decidojn kune. Jen kelkaj konsiloj
-      por helpi vian grupon sukcesi:
-    different_ways: 'Malsamaj manieroj por uzi Loomion'
-    example1_html: |
-      <h3>Vi bezonas ke la grupo diskutu larĝan temon kaj kune pripensu solvon</h3>
-      <p>Strategio: diskutu temon dum iom da tempo antaŭ ol krei proponon.</p>
-      <p>Diskutoj ofte atingas la plej bonan konkludon se vi konstruas komunan komprenon
-      pri la problemo antaŭ ol salti al specifa solvo. Kiam homoj partoprenas en la proceso, ili multe pli verŝajne konsentos kun la konkludo.</p>
-    get_in_touch: "Ekkontakti"
-    get_in_touch_description_html: "Se vi havas ajnajn demandojn aŭ retrokuplon, <a href='%{link}'>kontaktu nin</a>"
-    getting_started: "Ekkomenci"
-    getting_started_description: "Maldekstre, la grupo diskutas pri temo, interŝanĝas ideojn kaj informojn. Kiam la grupo devos decidi pri io, aperos dekstre."
-    getting_the_most: 'Fari kiel eble plej per Loomio'
-    have_your_say: "Donu vian opinion"
-    have_your_say_details_html: |
-      <p>Se vi pretas por montri vian opinion, alklaku unu el la kvar decidbutonojn.</p>
-      <p>Se vi faris vian decidon, mallonge klarigu. Sub la grafiko, vi povas vidi kion ĉiuj aliaj pensas.
-      Tio ebligas rapide kaj facile vidi kio okazis en la diskuto. Dum novaj informoj aperas, vi ajnamomente povas ŝanĝi vian opinion.</p>
-    have_a_discussion: "Havi diskuton"
-    have_a_discussion_description: "La temo kaj ĉiaj rilataj foninformoj estas je la supro de la paĝo. Uzu la komentkeston por aldoni vian voĉon al la diskuto."
-    help: "Helpo"
-    how_it_works: "Kiel funkcias"
-    invitation_html: |
-      <h2>Verki bonegan inviton</h2>
-      <p>La unua demando kiun ĉiu nova membro al si faros estas 'por kio uziĝas ĉi tiu grupo?'</p>
-      <p>Pensu pri la plej simpla maniero priskribi la grupon: Kion vi volas kune atingi? Kiajn decidojn vi faros? Kiuj envolviĝos?</p>
-      <p>Povas esti bona ideo unue paroli al via grupo antaŭ ol inviti ilin aliĝi al Loomio.</p>
-      <p>Oni volas scii kial ili estis invititaj, kion oni atendas de ili, kaj kial indas ilia tempo por lerni
-      kiel uzi la novan ilon.</p>
-    join_the_community: "Aliĝi al la komunumo"
-    images_and_text_formatting: "Bildoj kaj teksta formatado"
-    images_and_text_formatting_html: |
-      <p>Loomio uzas 'Markdown' por bildenmetado kaj tekstformatado.
-      Vi povas enŝalti Markdown per la malgranda griza emblemo sub la komentkesto.</p>
-      <p><a href='https://www.loomio.org/discussions/1124'>Klaku ĉi tie</a>
-      por informiĝi kiel uzi Markdown.</p>
-    keep_up_to_date: "Resti ĝisdata"
-    keep_up_to_date_html: |
-      <p>Per klako sur la nomo de via grupo supre de la ekrano, vi iros al la gruppaĝo,
-      kaj tie vi povas vidi liston da ĉiuj diskutoj kaj decidoj de tiu grupo. Se vi estas en
-      pli ol unu grupo, vi povas vidi ĉiujn aktivecojn de ĉiuj viaj grupoj kune en la hejmpaĝo.</p>
-      <p>Vi ricevos retpoŝtajn sciigojn kiam gravaj aferoj okazas en via grupo.
-      Vi povas ŝanĝi viajn retpoŝtajn preferojn <a href="%{link}"">ĉi tie</a>.</p>
-    make_a_decision: "Fari decidon"
-    make_a_decision_description: "Kiam la grupo pretas por fari decidon, ĉiuj povas fari proponon. Desegnu klaran agoplanon kaj donu iom da fono por ke ĉiuj sciu ekzakte kion volas diri konsento aŭ malkonsento."
-    prompt_people_details: "Se vi volas voki la atenton de specifa persono en via grupo, tajpu '@' sekve de ties nomo. Tiu persono ricevos retpoŝtaĵon sciigante ilin ke vi menciis ilin en komento."
-    prompt_people_html: "Demandu partoprenantojn kun  <span class='blue'>@mentions</span>"
-    positions_agree_description: "<span>Konsento</span> volas diri ke vi feliĉas pri la propono."
-    positions_abstain_description: "<span>Abstino</span> volas diri ke vi ne certas, aŭ ke vi senprobleme lasos ke la grupo decidu sen vi."
-    positions_disagree_description: "<span>Malkonsento</span> volas diri ke vi pensas ke eble estas pli bona alternativo, sed vi pretas iri kun la grupa decido."
-    positions_block_description: "<span>Blokado</span> volas diri ke vi serioze obĵetas kaj ke vi tre malfeliĉos se ĉi tiu propono estos efektigata."
-    start_discussion: "Komence de egaĝiĝa diskuto"
-    start_proposal: "Verkante klaran proponon"
-    start_proposal_html: |
-      <p> Farante la titolon klara kaj mallonga, homoj tuj scios kion signifas konsenti aŭ malkonsenti.</p>
-      <p>Ne estas teruraĵo se propono ne tuj trovas klaran konsenton.
-      Se la grupo ne amas la unuan proponon, kiu ajn povas komenci novan proponon
-      responde al la duboj, kaj antaŭenigadi la proceson.</p>
-      <p>Tra ĉi tiu dinamika proceso, la kuna saĝeco de via grupo povas krei pli bonajn ideojn
-      ol iu ajn memstare povintus fari.</p>
-      <p>La limdato pri propono kiam ajn povas esti longigata, se vi bezonas iom pli da spaco
-      por la decido. Ĉiuj ricevos retpoŝtan sciigon 24 horojn antaŭ la fino de la propono.</p>
-    video_id: "52025402"
-    video_tutorial: "Video-klarigo"
-    video_tutorial_description: "Vidu la filmeton por rapida elmontro kiel uzi Loomion."
+    message_placeholder: 'Via mesaĝo…'
+    send_message: 'Sendi mesaĝon'
   hint:
     context: 'Konsiloj por uzo de la kunteksto-panelo'
     discussion: 'Konsiloj por komenci engaĝigan diskuton'
     invitation: 'Konsiloj por verki bonegan inviton'
     proposal: 'Konsiloj por verki klaran proponon'
     vote: 'Vi povas ŝanĝi vian sintenon iam ajn'
+  global:
+    messages:
+      reload: 'Reŝarĝi'
+  registered_apps_page:
+    name: Nomo
+  registered_app_form:
+    name_label: Nomo
+  decision_tools_card:
+    proposal_title: Propozicio
+    count_title: Kontroli
+    poll_title: Enketo
+  poll_common:
+    your_response: Via respondo
+    change_your_response: Ŝanĝi vian respondon
+    reason: Kialo
+    message: Mesaĝo
+    results: Rezultoj
+    vote: Voĉdono
+    votes: Voĉdonoj
+    change_your_stance: Ŝanĝi vian voĉdonon
+    load_more: Ŝargi pli
+    details: Detaloj
+    participant_name: Via nomo
+    participant_email: Retadreso
+  poll_common_select_group:
+    loomio_group: Grupo
+  poll_common_calendar_invite:
+    event_duration: Daŭro
+    event_summary: Resumo
+  poll_common_form:
+    title: Titolo
+    details: Detaloj
+    closed: Fermita
+  poll_poll_form:
+    edit_header: Redakti enketon
+  poll_proposal_vote_form:
+    vote: Voĉdono
+  poll_proposal_options:
+    agree: Konsenti
+    agree_verb: "Konsentita"
+    disagree: Malkonsenti
+    disagree_verb: "malkonsentita"
+  poll_count_vote_form:
+    reason_label: Mesaĝo
+  poll_meeting_chart_panel:
+    total: Entute
+  poll_dot_vote_vote_form:
+    too_many_dots: Vi uzis tro da punktoj.
+  poll_common_share_form:
+    get_link: Kopii ligilon
+    send_email: Sendi retmesaĝoj
+    new_guests: Novaj retmesaĝoj por inviti
+    share_group: Grupo
+    view_poll: Vidi enketon
+  poll_common_publish_facebook_preview:
+    link: ligilo
+    just_now: Ĝuste nun
+  poll_common_publish_slack_preview:
+    timestamp: Hodiaŭ je {{timestamp}}
+  poll_common_participant_form:
+    participant_name_placeholder: Kio estas via nomo?
+  polls_page:
+    heading: Decidoj
+  auth_form:
+    sign_in: Registriĝi
+    sign_in_as: Registriĝi kiel {{name}}
+    more_providers: Pli
+    hello: "Saluton, {{name}}!"
+    create_account: Krei konton
+    link_accounts: Ligi kontojn
+    name: Nomo
+    email: Retadreso
+    password: Pasvorto
+  install_slack:
+    login_to_slack: Ensaluti al Slack
+    progress:
+      invite: Inviti
+      decide: Decidi
+    install:
+      group_name_placeholder: Nomi vian novan grupon…
+    common:
+      do_it_later: Mi faros ĉi tio poste
+  slack_added_modal:
+    title: Sukceso!

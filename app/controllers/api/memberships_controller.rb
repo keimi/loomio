@@ -4,9 +4,9 @@ class API::MembershipsController < API::RestfulController
   def add_to_subgroup
     group = load_and_authorize(:group)
     users = group.parent.members.where('users.id': params[:user_ids])
-    @memberships = MembershipService.add_users_to_group(users: users,
-                                                        group: group,
-                                                        inviter: current_user)
+    @memberships = service.add_users_to_group(users: users,
+                                              group: group,
+                                              inviter: current_user)
     respond_with_collection
   end
 
@@ -18,13 +18,12 @@ class API::MembershipsController < API::RestfulController
 
   def for_user
     load_and_authorize :user
-    instantiate_collection { |collection| collection.where(user_id: @user.id).order('groups.full_name') }
-    respond_with_collection
+    instantiate_collection { |collection| collection.active.formal.where(user_id: @user.id).order('groups.full_name') }
+    respond_with_collection serializer: Simple::MembershipSerializer
   end
 
   def join_group
-    @group = Group.find(params[:group_id])
-    event = MembershipService.join_group group: @group, actor: current_user
+    event = service.join_group group: load_and_authorize(:group), actor: current_user
     @membership = event.eventable
     respond_with_resource
   end
@@ -40,25 +39,20 @@ class API::MembershipsController < API::RestfulController
   end
 
   def autocomplete
-    load_and_authorize :group
-    authorize! :members_autocomplete, @group
-
     @memberships = Queries::VisibleAutocompletes.new(query: params[:q],
-                                                     group: @group,
+                                                     group: load_and_authorize(:group, :members_autocomplete),
                                                      current_user: current_user,
                                                      limit: 10)
     respond_with_collection
   end
 
   def make_admin
-    load_resource
-    MembershipService.make_admin(membership: @membership, actor: current_user)
+    service.make_admin(membership: load_resource, actor: current_user)
     respond_with_resource
   end
 
   def remove_admin
-    load_resource
-    MembershipService.remove_admin(membership: @membership, actor: current_user)
+    service.remove_admin(membership: load_resource, actor: current_user)
     respond_with_resource
   end
 

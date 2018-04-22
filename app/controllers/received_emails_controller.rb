@@ -1,9 +1,19 @@
-class ReceivedEmailsController < ApplicationController
+class ReceivedEmailsController < Griddler::EmailsController
+  force_ssl except: [:reply, :create]
+
+  # reply to discussion by email action
+  def reply
+    normalized_params.each do |p|
+      process_email Griddler::Email.new(p)
+    end
+
+    head :ok
+  end
+
   def create
     if ReceivedEmail.new(received_email_params).save
       head :ok
     else
-      # airbrake here?
       head :bad_request
     end
   end

@@ -1,7 +1,5 @@
 class Events::StanceSerializer < Events::BaseSerializer
-  # don't look at eventable because stances use the polymorphic
-  # 'participant' association, which will be serialized with the stance
-  def actor
-    object.user
+  def include_actor?
+    object.eventable.participant_for_client(user: scope[:current_user]).presence
   end
 end

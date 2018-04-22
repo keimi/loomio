@@ -1,9 +1,14 @@
 fa_IR:
+  poll:
+    export:
+      total: مقدار کلی
   footer:
     blog: بلاگ
     contact: تماس
+    help: کمک
     privacy: محرمانگی
     public_groups: گروه‌های عمومی
     terms: شرایط
-  start_group_form:
-    group_description: شرح گروه
+  poll_mailer:
+    common:
+      unsubscribe: لغو دنبال کردن

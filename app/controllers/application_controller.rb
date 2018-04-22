@@ -1,66 +1,48 @@
 class ApplicationController < ActionController::Base
   include LocalesHelper
-  include ApplicationHelper
   include AngularHelper
   include ProtectedFromForgery
-  include LoadAndAuthorize
-  include PendingActionsHelper
+  include ErrorRescueHelper
   include CurrentUserHelper
+  include ForceSslHelper
+  include SentryRavenHelper
 
-  helper :analytics_data
-  helper :locales
+  around_action :process_time_zone
+  around_action :use_preferred_locale   # LocalesHelper
+  before_action :set_invitation_token   # CurrentUserHelper
+  before_action :set_last_seen_at       # CurrentUserHelper
+  before_action :set_raven_context
+
   helper_method :current_user
-  helper_method :dashboard_or_root_path
+  helper_method :client_asset_path
+  helper_method :bundle_asset_path
+  helper_method :supported_locales
 
-  before_filter :set_application_locale
-  around_filter :user_time_zone, if: :user_signed_in?
-
-  # intercom
-  skip_after_filter :intercom_rails_auto_include
-
-  rescue_from(ActionView::MissingTemplate)  { |exception| raise exception unless %w[txt text gif png].include?(params[:format]) }
-  rescue_from(ActiveRecord::RecordNotFound) { respond_with_error :"error.not_found", status: :not_found }
-  rescue_from CanCan::AccessDenied do |exception|
-    if user_signed_in?
-      flash[:error] = t("error.access_denied")
-      redirect_to dashboard_path
-    else
-      authenticate_user!
-    end
+  # this boots the angular app
+  def index
+    initial_payload
+    render 'application/index', layout: false
   end
 
-  def gone
-    head :gone
-  end
-
-  def browser_not_supported
-    render layout: false
+  def ok
+    head :ok
   end
 
   protected
-
-  def sign_in(user_or_resource, user = nil)
-    super && handle_pending_actions(user || user_or_resource)
+  
+  def initial_payload
+    @payload ||= InitialPayload.new(current_user).payload.merge(
+      flash:           flash.to_h,
+      pendingIdentity: serialized_pending_identity
+    )
   end
 
-  def respond_with_error(message, status: :bad_request)
-    render 'application/display_error', locals: { message: t(message) }, status: status
+  def process_time_zone(&block)
+    Time.use_zone(TimeZoneToCity.convert(current_user.time_zone.to_s), &block)
   end
 
-  def permitted_params
-    @permitted_params ||= PermittedParams.new(params)
+  def hosted_by_loomio?
+    false # overridden with loomio_org_plugin
   end
-
-  def dashboard_or_root_path
-    current_user.is_logged_in? ? dashboard_path : root_path
-  end
-
-  def user_signed_in?
-    current_user.is_logged_in?
-  end
-
-  def user_time_zone(&block)
-    Time.use_zone(TimeZoneToCity.convert(current_user.time_zone), &block)
-  end
-
+  helper_method :hosted_by_loomio?
 end

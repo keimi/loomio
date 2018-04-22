@@ -3,6 +3,7 @@ class EventCollection
 
   def initialize(events)
     @events = Array(events)
+    ensure_event_parents
   end
 
   def any?
@@ -13,26 +14,34 @@ class EventCollection
     Events::ArraySerializer.new(self, scope: default_scope.merge(scope)).as_json
   end
 
+  def ensure_event_parents
+    @events.each(&:ensure_parent_present!)
+  end
+
   private
 
   def default_scope
-    { cache: { likers: likers, attachments: attachments, mentions: mentions } }
+    { cache: { reactions: reaction_cache, documents: documents, mentions: mentions } }
   end
 
-  def likers
-    @likers ||= User.joins(:comment_votes)
-                    .select('users.*').select('comment_votes.comment_id')
-                    .where('comment_votes.comment_id': event_comment_ids)
-                    .group_by(&:comment_id)
+  def reaction_cache
+    @reaction_cache ||= Caches::Reaction.new(parents: eventables)
   end
 
   def mentions
     @mentions ||= Comment.find(event_comment_ids).map { |c| [c.id, c.mentioned_usernames] }.to_h
   end
 
-  def attachments
-    @attachments ||= Attachment.where(attachable_type: "Comment", attachable_id: event_comment_ids)
-                               .group_by(&:attachable_id)
+  def documents
+    @documents ||= Document.where(
+      model_type: "Comment",
+      model_id: event_comment_ids
+    ).group_by(&:model_id)
+  end
+
+  def eventables
+    Event.where(id: @events.map(&:id)).includes(:eventable)
+    @events.map(&:eventable)
   end
 
   def event_comment_ids

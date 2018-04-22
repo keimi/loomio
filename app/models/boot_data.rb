@@ -1,13 +1,20 @@
-BootData = Struct.new(:user, :visitor) do
+BootData = Struct.new(:user) do
+
   def data
-    ActiveModel::ArraySerializer.new(Array(user),
+    @data ||= ActiveModel::ArraySerializer.new(Array(user),
       scope: serializer_scope,
       each_serializer: serializer,
-      root: :users
-    ).as_json.merge(current_user_id: user&.id)
+      root: :current_users
+    ).as_json.tap { |json| add_current_user_to(json) }
   end
 
   private
+
+  def add_current_user_to(json)
+    return unless user.is_logged_in?
+    json[:current_user_id] = user.id
+    json[:users] = Array(json[:users]).reject { |u| u[:id] == user.id } + json.delete(:current_users)
+  end
 
   def serializer
     if user.restricted
@@ -18,34 +25,30 @@ BootData = Struct.new(:user, :visitor) do
   end
 
   def serializer_scope
-    { memberships: memberships, visitors: visitors }.tap do |hash|
-      hash.merge!(
-        notifications:      notifications,
-        unread:             unread,
-        reader_cache:       readers,
-        identities:         identities
-      ) if user.is_logged_in? && !user.restricted
-    end
+    {
+      formal_memberships: formal_memberships,
+      guest_memberships:  guest_memberships
+    }.merge(authed_serializer_scope)
   end
 
-  def memberships
-    @memberships ||= user.memberships.includes(:user, :inviter, group: [{parent: :default_group_cover}, :default_group_cover]).order(created_at: :desc)
+  def authed_serializer_scope
+    return {} unless user.is_logged_in? && !user.restricted
+    {
+      notifications:      notifications,
+      identities:         identities
+    }
+  end
+
+  def guest_memberships
+    @guest_memberships ||= user.memberships.guest.includes(:user, :inviter, {group: :parent})
+  end
+
+  def formal_memberships
+    @formal_memberships ||= user.memberships.formal.includes(:user, :group)
   end
 
   def notifications
     @notifications ||= NotificationCollection.new(user).notifications
-  end
-
-  def unread
-    @unread ||= Queries::VisibleDiscussions.new(user: user).recent.unread.not_muted.sorted_by_latest_activity
-  end
-
-  def readers
-    @readers ||= Caches::DiscussionReader.new(user: user, parents: unread)
-  end
-
-  def visitors
-    @visitors ||= Array(visitor.presence)
   end
 
   def identities

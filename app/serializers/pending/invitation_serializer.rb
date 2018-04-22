@@ -1,6 +1,24 @@
 class Pending::InvitationSerializer < Pending::BaseSerializer
+  attribute :token
+
   def avatar_kind
-    'initials'
+    :initials
+  end
+
+  def identity_type
+    :invitation
+  end
+
+  def has_token
+    true
+  end
+
+  def token
+    object.token
+  end
+
+  def email_status
+    nil
   end
 
   def avatar_initials
@@ -17,10 +35,6 @@ class Pending::InvitationSerializer < Pending::BaseSerializer
 
   private
 
-  def has_email?
-    email.present?
-  end
-  alias :include_email_status? :has_email?
 
   def has_name?
     name.present?

@@ -1,11 +1,12 @@
 lt:
+  poll:
+    export:
+      title: Antraštė
+      details: Išsamesnė Informacija
+      group_name: Grupės Pavadinimas
   email:
-    daily_activity:
-      subject: Loomio - Paskutinių 24 valandų santrauka
     missed_yesterday:
       mark_as_read: Žymėti kaip skaitytą
-    proposal_closing_soon:
-      summary: Santrauka
   footer:
     about: Apie
     blog: Tinklaraštis
@@ -15,9 +16,3 @@ lt:
     pricing: Kainynas
     public_groups: Viešos grupės
     terms: Nuostatos
-  start_group_form:
-    group_name: Grupės pavadinimas
-  contact_page:
-    contact_us: Susisiekti su mumis
-    labels:
-      email: Jūsų el. pašto adresas
