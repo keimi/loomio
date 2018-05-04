@@ -9,7 +9,7 @@ class ManifestController < ApplicationController
       short_name:       AppConfig.theme[:site_name],
       display:          'standalone',
       orientation:      'portrait',
-      start_url:        '/dashboard',
+      start_url:        '/explore',
       background_color: AppConfig.theme[:primary_color],
       theme_color:      AppConfig.theme[:text_on_primary_color],
       icons:            ICON_SIZES.map { |size| icon_for(size) }

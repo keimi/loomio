@@ -203,8 +203,8 @@ Loomio::Application.routes.draw do
     get "identities/:id/:command", to: "identities#command"
   end
 
-  get '/users/sign_in', to: redirect('/dashboard')
-  get '/users/sign_up', to: redirect('/dashboard')
+  get '/users/sign_in', to: redirect('/explore')
+  get '/users/sign_up', to: redirect('/explore')
   devise_for :users
 
   namespace(:subscriptions) do
