@@ -1,4 +1,3 @@
-.lmo-pointer {display: none;}
 button.sidebar__list-item-button.sidebar__list-item-button--start-group.md-button.md-ink-ripple {display: none;}
 section.group-form__section.group-form__privacy {display: none;}
 button.md-accent.group-form__advanced-link.md-button.md-ink-ripple {display: none;}
@@ -6,6 +5,21 @@ button.group-privacy-button.md-button {display: none;}
 .md-block.poll-common-multiple-choice.poll-common-checkbox-option {display: none;}
 button.sidebar__list-item-button--subgroup.md-button.md-ink-ripple {display: none;}
 a.email-settings-page__learn-more-link {display: none;}
-
+button.sidebar__list-item-button--subgroup.md-button{display:none;}
+button.sidebar__list-item-button.sidebar__list-item-button--start-thread.md-button.{display:none;}
+.poll-common-index-card.lmo-card, .subgroups-card, .document-card.lmo-card {display:none}
+.lmo-hint-text {display:none;}
+.members-card__invite-members {display:none;}
+button.sidebar__list-item-button.sidebar__list-item-button--start-thread.md-button.md-ink-ripple {display: none;}
+button.sidebar__list-item-button--subgroup.md-button{display:none;}
+button.sidebar__list-item-button.sidebar__list-item-button--start-thread.md-button.{display:none;}
+.poll-common-index-card.lmo-card, .subgroups-card, .document-card.lmo-card {display:none}
+.lmo-hint-text {display:none;}
+.members-card__invite-members {display:none;}
+md-list-item.decision-tools-card__poll-type.decision-tools-card__poll-type--poll, md-list-item.decision-tools-card__poll-type.decision-tools-card__poll-type--dot_vote, md-list-item.decision-tools-card__poll-type.decision-tools-card__poll-type--ranked_choice{display: none;}
+md-input-container.md-block.md-input-has-placeholder.md-input-has-value {display: none;}
+md-list.discussion-form__options {display: none;}
+.poll-common-vote-form__button {border: 2px solid transparent;}
 .lmo-one-column-layout {max-width: none;}
+.md-block.poll-common-multiple-choice.poll-common-checkbox-option {display: none;}
 .explore-page__group {width:33%;min-width:300px;}
