@@ -56,9 +56,9 @@ es:
     closed_ago: 'Cerrado {{time}}'
     volume: 'Volumen '
     notification_volume: 'Volumen de notificaciones'
-    group: 'Grupo'
-    groups: 'Grupos'
-    threads: 'Temas'
+    group: 'Espacio'
+    groups: 'Espacios'
+    threads: 'Conversaciones'
     decisions: 'Decisiones '
     settings: 'Configuración '
     help: 'Ayuda'
@@ -103,7 +103,7 @@ es:
       show_more: "Mostrar más"
       view_all: "Ver todo"
       new_thread: "Nuevo tema"
-      add_subgroup: 'Añadir a la reunión'
+      add_subgroup: 'Crear una nueva reunión'
       loading: 'Cargando'
       translate: 'Traducir'
       translated: 'Traducido'
@@ -155,8 +155,8 @@ es:
     all_done: Bien hecho! verificaste todos tus votos.
   previous_polls_page:
     heading: Actividades en {{name}}
-    polls_count: Mostrando {{loaded}} de {{total}} decisiones
-    search_activities: 'Buscar decisiones '
+    polls_count: Mostrando {{loaded}} de {{total}} votaciones
+    search_activities: 'Buscar votaciones '
   volume_levels:
     loud: 'Alto'
     normal: 'Normal'
@@ -210,7 +210,7 @@ es:
     body_header: |
         <p>Cierra hilos irrelevantes o viejos para removerlos de la vista e indicar que la discusión ha finalizado</p>
     body_footer: |
-        <p>Cualquier persona podrá aún comentar o iniciar una propuesta en un tema cerrado, pero el mismo no aparecerá en el listado de hilos del grupo o el escritorio</p>
+        <p>Cualquier persona podrá aún comentar o crear una votación en un tema cerrado, pero el mismo no aparecerá en el listado de hilos del grupo o el escritorio</p>
     image_alt: Todos los hilos cerrados
   mute_explanation_modal:
     aria_label: 'Silenciar tema '
@@ -265,17 +265,17 @@ es:
     public_privacy_notice: 'Tu comentario será público en internet. '
     sign_in: "Inicia sesión para unirte a la conversación "
   sidebar:
-    recent_threads: 'Temas recientes'
+    recent_threads: 'Conversaciones recientes'
     unread_threads: 'No leído ({{count}})'
-    muted_threads: 'Temas silenciados '
+    muted_threads: 'Conversaciones silenciadas '
     start_group: 'Nuevo grupo'
-    explore: 'Grupos públicos'
+    explore: 'Espacios públicos'
     start_thread: Nuevo tema
     start_decision: 'Nueva decisión  '
     aria_labels:
       heading: 'Barra Lateral '
       threads_list: 'Acciones del tema'
-      groups_list: 'Grupos'
+      groups_list: 'Espacios'
       user_list: 'Acciones de usuario'
   navbar:
     recent_title: 'Ir al Escritorio'
@@ -289,7 +289,7 @@ es:
       close: 'Cerrar panel de búsqueda'
       placeholder: 'Buscar'
       loading: 'Cargando resultados...'
-      discussions: 'Temas'
+      discussions: 'Conversaciones'
       proposals: 'Propuestas'
       comments: 'Comentarios '
     sign_in: 'Iniciar sesión'
@@ -306,7 +306,7 @@ es:
     title: 'Acción '
     start_group: 'Crear un grupo nuevo'
     start_subgroup: 'Crear una reunión'
-    start_thread: 'Iniciar tema nuevo'
+    start_thread: 'Crear una nueva converzación'
     start_poll: 'Crear una encuesta'
     invite_people: 'Invita a gente'
   notifications:
@@ -356,7 +356,7 @@ es:
       updated: 'Tema actualizado'
     new_discussion_title: 'Inicia un nuevo tema'
     edit_discussion_title: 'Editar tema'
-    group_label: 'Grupo'
+    group_label: 'Espacio'
     group_placeholder: 'Seleccionar un grupo'
     title_label: 'Título'
     title_placeholder: '¿Cuál es el tema que quieres discutir?'
@@ -454,16 +454,16 @@ es:
     new_photo: 'Nueva foto '
     new_cover_photo: 'Carga una nueva foto de portada '
     new_group_logo: 'Cargar nuevo logo del grupo'
-    open_discussions: 'Temas abiertos'
-    closed_discussions: 'Temas cerrados'
-    discussions_placeholder: 'Un tema es donde todo el mundo puede discutir un tema y tomar decisiones juntos.'
-    members: 'Miembros '
+    open_discussions: 'Conversaciones abiertas'
+    closed_discussions: 'Conversaciones cerradas'
+    discussions_placeholder: 'Un tema es donde todo el mundo puede discutir un tema y tomar votaciones juntos.'
+    members: 'Participantes '
     members_placeholder: 'Estás solo aquí: ¡invita a algunas personas para unirse a ti! '
     member_options: Opciones de membresía
     see_all_members: 'Ve todos los ({{count}}) miembros'
     pending_invitations: '+ {{count}} pendientes'
     subgroups: 'Reuniones'
-    subgroups_placeholder: 'En este espacio podrás pasar lista, crear el acta de los temas tratados y realizar votaciones.'
+    subgroups_placeholder: 'En este espacio podrás pasar lista, crear el acta de las conversaciones tratadas y realizar votaciones.'
     invite_people: 'Invitar'
     visibility_label: 'Visibilidad'
     options_label: 'Opciones'
@@ -480,7 +480,7 @@ es:
       loud: Enviar correo electrónico siempre que haya actividad.
       loud_aria_description: El volumen de notificaciones para este grupo está establecido como Alto. Se te enviará un correo electrónico siempre que haya actividad.
       loud_message: Correo electrónico te será enviado sobre toda la actividad en "{{name}}."
-      normal: 'Sólo enviar actividad importante: Temas y propuestas nuevos, resultados... etc.'
+      normal: 'Sólo enviar actividad importante: Conversaciones y propuestas nuevos, resultados... etc.'
       normal_aria_description: El volumen de notificaciones para este grupo está establecido como Normal. Sólo se te enviarán correos electrónicos con actividad importante como cuando alguien inicia un tema nuevo, surge una propuesta o se establece un resultado.
       normal_message: 'Solo te será enviado correo electrónico sobre eventos importantes en "{{name}}".'
       quiet: No enviar correo electrónico sobre el grupo. La actividad del grupo se mostrará en el Escritorio.
@@ -495,7 +495,7 @@ es:
       public: 'Privacidad: Este grupo es visible en la red '
       aria_label: 'Privacidad del grupo: {{privacy}}'
   description_card:
-    title: 'Descripción del Grupo '
+    title: 'Descripción '
     placeholder: 'Los coordinadores del grupo pueden usar esta área para describir el propósito del grupo para que todos sepan porque están aquí.  '
     messages:
       description_updated: 'Descripción actualizada'
@@ -517,7 +517,7 @@ es:
     start_subgroup_heading: 'Comienza un nueva reunión '
     edit_group_heading: 'Editar la configuración del grupo'
     edit_subgroup_heading: 'Editar la información de la reunión'
-    group_name: 'Nombre del Grupo'
+    group_name: 'Nombre del Espacio'
     group_name_placeholder: '¿Cómo quieres nombrar a tu grupo?'
     subgroup_name: 'Dale un título a la reunión'
     description: 'Descripción de la reunión '
@@ -527,19 +527,19 @@ es:
       private_to_group: 'El nombre y la descripción solo serán visibles para miembros. '
       private_to_parent_members: 'El nombre y la descripción serán visibles para los miembros de {{parent}}'
     privacy: 'Privacidad'
-    group_privacy_is_open_description: "Cualquier persona puede encontrar el grupo y pedir membresía. Solo los miembros pueden ver quien pertenece al grupo. Todos los temas son públicos."
-    group_privacy_is_closed_description: "Cualquier persona puede encontrar este grupo y pedir membresía. Sólo los miembros pueden ver quien pertenece al mismo. Todos los temas son privados."
-    group_privacy_is_closed_public_threads_description: "Cualquier persona puede encontrar este grupo y pedir membresía. Sólo los miembros pueden ver quien pertenece al mismo. Los temas pueden ser públicos o privados."
-    group_privacy_is_secret_description: "Sólo miembros que han sido invitados pueden encontrar este grupo, ver quien pertenece al mismo y los temas.  "
-    confirm_change_to_secret: "Si procedes, todos los tema en este grupo y sus subgrupos se harán privados."
-    confirm_change_to_secret_subgroup: 'Si continuas todos los temas de la reunión se harán privados.'
-    confirm_change_to_public: 'Si continúas, todos los temas de este grupo se harán públicos en internet.  '
+    group_privacy_is_open_description: "Cualquier persona puede encontrar el grupo y pedir membresía. Solo los miembros pueden ver quien pertenece al grupo. Todas las conversaciones son públicas."
+    group_privacy_is_closed_description: "Cualquier persona puede encontrar este grupo y pedir membresía. Sólo los miembros pueden ver quien pertenece al mismo. Todas las conversaciones son privadas."
+    group_privacy_is_closed_public_threads_description: "Cualquier persona puede encontrar este grupo y pedir membresía. Sólo los miembros pueden ver quien pertenece al mismo. Las conversaciones pueden ser públicas o privadas."
+    group_privacy_is_secret_description: "Sólo miembros que han sido invitados pueden encontrar este grupo, ver quien pertenece al mismo y las conversaciones.  "
+    confirm_change_to_secret: "Si procedes, todos las tema en este grupo y sus reuniones se harán privadas."
+    confirm_change_to_secret_subgroup: 'Si continuas todas las conversaciones de la reunión se harán privadas.'
+    confirm_change_to_public: 'Si continúas, todas las conversaciones de este grupo se harán públicas en internet.  '
     confirm_change_to_private_discussions_only: 'Si continuas cualquier tema público en este grupo se hará privado. '
-    subgroup_privacy_is_open_description: "Cualquier persona puede encontrar este subgrupo y pedir membresía. Solo los miembros pueden ver quien pertenece al mismo. Todos los temas son públicos."
-    subgroup_privacy_is_closed_description: "Cualquier persona puede encontrar este subgrupo y pedir membresía. Sólo los miembros pueden ver quien pertenece al mismo. Todos los temas son privados."
-    subgroup_privacy_is_closed_public_threads_description: "Cualquier persona puede encontrar este subgrupo y pedir membresía. Sólo los miembros pueden ver quien pertenece al mismo. Los temas pueden ser públicos o privados."
-    subgroup_privacy_is_closed_secret_parent_description: "Miembros de {{parent}} puede encontrar este subgrupo y pedir membresía. Solo los miembros pueden ver quien pertenece al mismo. Todos los temas son privados."
-    subgroup_privacy_is_secret_description: 'Sólo miembros que han sido invitados pueden encontrar este subgrupo, ver quien pertenece al mismo y los temas.  '
+    subgroup_privacy_is_open_description: "Cualquier persona puede encontrar este subgrupo y pedir membresía. Solo los miembros pueden ver quien pertenece al mismo. Todos las conversaciones son públicas."
+    subgroup_privacy_is_closed_description: "Cualquier persona puede encontrar este subgrupo y pedir membresía. Sólo los miembros pueden ver quien pertenece al mismo. Todos las conversaciones son privadas."
+    subgroup_privacy_is_closed_public_threads_description: "Cualquier persona puede encontrar este subgrupo y pedir membresía. Sólo los miembros pueden ver quien pertenece al mismo. Las conversaciones pueden ser públicas o privadas."
+    subgroup_privacy_is_closed_secret_parent_description: "Participantes de {{parent}} puede encontrar este subgrupo y pedir membresía. Solo los miembros pueden ver quien pertenece al mismo. Todas las conversaciones son privadas."
+    subgroup_privacy_is_secret_description: 'Sólo miembros que han sido invitados pueden encontrar este subgrupo, ver quien pertenece al mismo y las conversaciones.  '
     advanced_settings: "Configuración avanzada "
     how_do_people_join: "¿Cómo se unen las personas a este grupo?"
     membership_granted_upon_request: 'Cualquiera puede unirse al grupo.'
@@ -547,26 +547,26 @@ es:
     membership_granted_upon_approval_secret_parent: 'Cualquiera en {{parent}} puede pedir apuntarse al grupo <strong>por petición</strong>.'
     features: 'Herramientas especificas de este grupo'
     thread_privacy: 'Privacidad del tema'
-    public_threads: 'Sólo temas públicos'
+    public_threads: 'Sólo conversaciones públicas'
     public_discussions_subgroup: 'Cualquiera que pertenezca a {{parentGroupName}} puede ver las discusiones'
-    public_or_private_threads: 'Permitir temas públicos y privados'
+    public_or_private_threads: 'Permitir conversaciones públicas y privadas'
     private_threads: 'Solamente los miembros pueden ver las discusiones'
     permissions: 'Permisos'
-    allow_public_threads: 'Permitir temas públicos en este grupo.'
-    parent_members_can_see_discussions: 'Los miembros de {{parent}} pueden ver los temas privados.'
-    members_can_add_members: 'Miembros pueden invitar gente y aprobar membresías.'
+    allow_public_threads: 'Permitir conversaciones públicas en este grupo.'
+    parent_members_can_see_discussions: 'Los miembros de {{parent}} pueden ver las conversaciones privadas.'
+    members_can_add_members: 'Participantes pueden invitar gente y aprobar membresías.'
     members_can_create_subgroups: 'Los miembros pueden crear reuniones.'
     members_can_edit_discussions: 'Los miembros pueden editar el título y contexto de cualquier tema.'
     members_can_edit_comments: 'Los miembros pueden editar sus propios comentarios en cualquier momento.'
-    members_can_start_discussions: 'Los miembros pueden iniciar temas nuevos.'
+    members_can_start_discussions: 'Los miembros pueden crear conversaciones.'
     members_can_vote: 'Los miembros pueden votar en las propuestas.'
     members_can_raise_motions: 'Los miembros pueden iniciar propuestas.'
     submit_start_group: 'Crear grupo'
     submit_start_subgroup: 'Iniciar una reunión'
     submit_update: 'Actualizar preferencias'
     messages:
-      group_created: 'Grupo ha sido creado'
-      group_updated: 'Grupo actualizado'
+      group_created: 'El espacio ha sido creado'
+      group_updated: 'Espacio actualizado'
   group_features:
     useAnonymous: 'Activar votos anónimos '
     nested_comments: Activar comentarios agrupados
@@ -576,8 +576,8 @@ es:
     manage_requests_with_count: Gestionar peticiones ({{count}})
   documents_page:
     title: Adjuntos
-    fragment_placeholder: Buscar archivos adjuntos ...
-    add_document: Añadir archivo adjunto
+    fragment_placeholder: Buscar adjuntos ...
+    add_document: Añadir adjunto
     no_documents: No se encontraron archivos adjuntos para este grupo. Haga click en 'Agregar archivo adjunto' arriba para agregar uno.
     no_documents_from_fragment: No se encontraron archivos adjuntos con nombre '{{fragment}}'
     confirm_remove_title: Quitar archivo adjunto
@@ -626,18 +626,18 @@ es:
     heading: Propuestas previas
     see_more: Ver más
   group_decisions_card:
-    see_more: "Ve todas: las ({{count}}) decisiones "
+    see_more: "Ve todas: las ({{count}}) votaciones "
   invitation_form:
     aria_label: 'Formulario de invitación'
     invite_people: 'Invita gente'
     invite_people_to_group: 'Invitar a {{name}}'
-    group: 'Grupo'
+    group: 'Espacio'
     group_placeholder: 'Selecciona un grupo'
     shareable_link: 'Enlace para compartir'
     copy_link: 'Copiar'
     email_addresses: 'Correo electrónico'
     email_addresses_placeholder: 'ej. correo@mail.com, otro_correo@mail.com'
-    shareable_link_explanation: 'Copia el enlace y envíalo a cualquier persona que quieras que se una a tu grupo. Esto les dará acceso a todos los temas de tu grupo. '
+    shareable_link_explanation: 'Copia el enlace y envíalo a cualquier persona que quieras que se una a tu grupo. Esto les dará acceso a todas las conversaciones de tu grupo. '
     email_explanation: 'Alternativamente, ingresa las direcciones de email debajo para enviar invitaciones por email.'
     add_custom_message: 'Personaliza tu invitación,'
     add_custom_message_link: 'agrega un mensaje personalizado '
@@ -655,14 +655,14 @@ es:
       no_invitations: '¡Uh oh! Comprueba que la dirección de correo electrónico es correcta e inténtalo de nuevo.'
       max_invitations: 'Si quieres enviar mas de 100 invitaciones, utiliza un enlace.'
   add_members_modal:
-    aria_label: 'Añadir miembros que participan en este espacio principal'
+    aria_label: 'Añadir miembros que participan en este Espacio Basal'
     heading: 'Adherir miembros de {{name}}'
     add_members: 'Incluye miembros '
     user_added_to_subgroup: '{{name}} ha asistido a la reunión '
     users_added_to_subgroup: '{{count}} personas han asistido a está reunión '
     no_members_to_add: 'Todos los miembros de {{parent}} pertenecen a este reunión'
   memberships_page:
-    members: 'Miembros'
+    members: 'Participantes'
     name_label: 'Nombre'
     coordinator_label: 'Coordinador'
     remove_member_label: 'Eliminar'
@@ -724,10 +724,10 @@ es:
     email_label: 'Correo electrónico'
     short_bio_label: 'Introducción'
     locale_label: 'Idioma'
-    short_bio_placeholder: 'Por favor ingresa una introducción personal, incluye áreas de especialización, tópicos de interés, y afiliación con organizaciones.'
+    short_bio_placeholder: 'Por favor presentate al resto de los militantes, incluye áreas de especialización y tópicos de interés.'
     locale_placeholder: 'Selecciona tu lenguaje preferido '
     location_label: 'Ubicación '
-    location_placeholder: '¿Dónde estas basado?'
+    location_placeholder: '¿Dónde vives?'
     update_profile: 'Actualizar perfil'
     deactivate_account: 'Desactiva cuenta'
     help_translate: " "
@@ -751,7 +751,7 @@ es:
     aria_label: 'Desactiva cuenta '
     introduction: 'Cuando desactivas tu cuenta:'
     no_longer_group_member: 'Ya no serás listado como miembro en ningún grupo'
-    name_removed: 'Comentarios, propuestas e temas que has realizado permanecerán, pero tu nombre será removido de los mismos'
+    name_removed: 'Comentarios, propuestas e conversaciones que has realizado permanecerán, pero tu nombre será removido de los mismos'
     no_emails: 'Ya no recibirás notificaciones por email'
     contact_for_reactivation: 'Deberás contactarnos para reactivar su cuenta'
     submit: 'Si, quiero desactivar mi cuenta'
@@ -777,7 +777,7 @@ es:
     specific_groups: 'Configuración para grupos específicos  '
     default_settings:
       loud_description: "Cuando te unas a un nuevo grupo, te enviaremos correo electrónico <strong>siempre que haya actividad</strong>.  "
-      normal_description: "Cuando te unas a un nuevo grupo, te enviaremos correo electrónico sobre <strong>nuevos temas y propuestas</strong>.  "
+      normal_description: "Cuando te unas a un nuevo grupo, te enviaremos correo electrónico sobre <strong>nuevas conversaciones y propuestas</strong>.  "
       quiet_description: "Cuando te unas a un nuevo grupo, no <strong>te enviaremos ningún correo electrónico</strong>.  "
     edit: Editar
     messages:
@@ -790,13 +790,13 @@ es:
       show_muted: No tienes ningún tema silenciado porque no eres miembro de ningún grupo.
       start: 'Empezar '
       or: 'o '
-      join_group: '<a href="/explore">únete</a> a un grupo para ver temas.  '
+      join_group: '<a href="/explore">únete</a> a un grupo para ver conversaciones.  '
     no_threads:
       show_all: No tienes ningún tema reciente.
       show_proposals: No hay propuestas activas en este momento.
       show_muted: No tienes ningún tema silenciado.
-    view_recent: ¿Ver todos los temas recientes?
-    load_more: Cargar más temas
+    view_recent: ¿Ver todos las conversaciones?
+    load_more: Cargar más conversaciones
     mark_as_read: Marcar como leído
     dismiss: Ignorar
     thread_dismissed: 'Tema ignorado '
@@ -804,24 +804,24 @@ es:
     explain_mute:
       title: No tienes ningún tema silenciado.
       explanation_html: |
-          Silenciar es una forma de esconder temas en los que no estas interesada.
+          Silenciar es una forma de esconder conversaciones en las que no estas interesado.
           Silenciar significa que no veras el tema en <strong>Recientes</strong> o <strong>No leído</strong>, y no serás notificado sobre ninguna actividad en ese tema.
           Solo serás alertada cuando alguien te <strong>@mencione</strong>.
       instructions: 'Para silenciar un tema, pasa el cursor por encima y selecciona el icono para silenciar.'
-      see_muted_html: 'Para ver tus temas silenciados, selecciona <strong>Silenciado</strong> en la barra lateral. Puedes des-silenciar pasando el cursor por encima y seleccionando el mismo icono.'
+      see_muted_html: 'Para ver tus conversaciones silenciadas, selecciona <strong>Silenciado</strong> en la barra lateral. Puedes des-silenciar pasando el cursor por encima y seleccionando el mismo icono.'
     filtering:
-      filter_threads: Filtrar temas
-      filter_threads_aria_label: 'Filtrar temas '
+      filter_threads: Filtrar conversaciones
+      filter_threads_aria_label: 'Filtrar conversaciones '
       dropdown_heading: Filtrar Escritorio
-      all: Temas Recientes
-      all_aria_label: Mostrando temas recientes
-      all_description: Ver temas recientes
+      all: Conversaciones Recientes
+      all_aria_label: Mostrando conversaciones recientes
+      all_description: Ver conversaciones recientes
       proposals: Propuestas
-      proposals_aria_label: Mostrando temas con propuestas activas
-      proposals_description: Ver únicamente temas con propuestas activas
+      proposals_aria_label: Mostrando conversaciones con votaciones activas
+      proposals_description: Ver únicamente conversaciones con votaciones activas
       muted: Silenciado
-      muted_aria_label: Mostrando temas silenciados
-      muted_description: Ver únicamente temas que han sido silenciados
+      muted_aria_label: Mostrando conversaciones silenciadas
+      muted_description: Ver únicamente conversaciones que han sido silenciados
     aria_thread:
       unread: '{{count}} elementos no leídos.'
       current_proposal: 'Propuesta actual: {{name}}.'
@@ -830,24 +830,24 @@ es:
       you_voted: 'Votaste {{position}}'
       undecided: 'Estas indeciso '
     threads_from:
-      group: 'Temas tratados por'
-      pinned: 'Temas priorizados'
-      proposals: 'Temas con decisiones activas '
-      starred: 'Temas destacados'
+      group: 'Conversaciones tratadas en'
+      pinned: 'Conversaciones priorizadas'
+      proposals: 'Conversaciones con votaciones activas '
+      starred: 'Conversaciones destacadas'
       today: 'Hoy'
       yesterday: 'Ayer'
       thisweek: 'Esta semana'
       thismonth: 'Este mes'
       older: 'De hace más de un mes'
   inbox_page:
-    no_threads: ¡Sí, has leído todos los temas de tu bandeja de entrada!
-    unread_threads: Temas sin leer
+    no_threads: ¡Wow, has leído todas las conversaciones de tu bandeja de entrada!
+    unread_threads: Conversaciones sin leer
     view_more: Ver más
     no_groups:
       explanation: 'No tienes ningún tema no leído porque no eres miembro de ningún grupo. '
       start: 'Empezar  '
       or: 'o '
-      join_group: '<a href="/explore">únete</a> a un grupo para ver temas.   '
+      join_group: '<a href="/explore">únete</a> a un grupo para ver las conversaciones.   '
   discussion:
     activity: 'Actividad'
     activity_placeholder: 'No hay actividad todavía'
@@ -893,8 +893,8 @@ es:
     seen_by_count: 'Visto por {{count}} '
   pin_thread_modal:
     title: Fijar tema
-    helptext: "Los temas fijados siempre aparecen en la parte superior del listado de temas del grupo. Se pueden usar para informar a los miembros sobre anuncios importantes, o promover material grupal como el código de conducta u otras guías comunitarias. "
-    helptext_two: "En cualquier momento puedes liberar nuevamente los temas fijados, seleccionando 'Liberar' desde el menú desplegable del tema."
+    helptext: "Las conversaciones fijadas siempre aparecen en la parte superior del listado de conversaciones del espacio. Se pueden usar para informar a los miembros sobre anuncios importantes, o promover material grupal como el código de conducta u otras guías comunitarias. "
+    helptext_two: "En cualquier momento puedes liberar nuevamente las conversaciones fijadas, seleccionando 'Liberar' desde el menú desplegable del tema."
     pin_thread: 'Fijar tema '
   delete_thread_form:
     aria_label: 'Borrar tema '
@@ -906,7 +906,7 @@ es:
   move_thread_form:
     aria_label: Mover tema a otro espacio
     title: Mover tema a otro espacio
-    body: 'Grupo de destino:'
+    body: 'Espacio de destino:'
     confirm: 'Mover tema '
     confirm_change_to_private_thread: '{{groupName}} es un grupo público. Si continuas, este tema se hará público.'
     messages:
@@ -927,13 +927,13 @@ es:
     in_reply_to: 'en respuesta a <strong>{{recipient}}</strong>'
     edited: 'Editado'
   new_vote_item:
-    agree: 'de acuerdo'
+    agree: 'a favor'
     abstain: 'abstiene'
-    disagree: 'en desacuerdo'
+    disagree: 'en contra'
     block: 'bloqueado'
-    agree_with_statement: 'de acuerdo: <span>{{statement}}</span>'
+    agree_with_statement: 'A favor: <span>{{statement}}</span>'
     abstain_with_statement: 'abstiene: <span>{{statement}}</span>'
-    disagree_with_statement: 'en desacuerdo: <span>{{statement}}</span>'
+    disagree_with_statement: 'En contra: <span>{{statement}}</span>'
     block_with_statement: 'bloqueo: <span>{{statement}}</span>'
   new_proposal_item:
     author_created_proposal: 'comenzó una propuesta: <span>{{title}}</span>'
@@ -987,7 +987,7 @@ es:
     search_placeholder: Buscar grupos públicos
     single_search_result: "1 grupo público coincide con <strong>{{searchTerm}}:</strong> "
     multiple_search_results: "{{resultCount}} grupos públicos coinciden con <strong>{{searchTerm}}:</strong>"
-    no_results_found: "<strong>¿No puedes encontrar el grupo que buscas?</strong> Si la privacidad de ese grupo es 'Secreto', no aparecerá aquí. Si conoces a un coordinador del grupo, puedes pedirles una invitación.  "
+    no_results_found: "¿Tienes dudas? Escribenos a contacto@revoluciondemocratica.cl "
   global:
     messages:
       app_update: 'Una nueva versión de la app está disponible '
@@ -1036,7 +1036,7 @@ es:
     messages:
       success: "'{{name}}' ya no puede usar tu cuenta."
   decision_tools_card:
-    title: Herramientas para decisiones
+    title: Herramientas de votación
     help_text: <a href="" target="_blank">Ayuda</a>
     proposal_title: Propuesta
     count_title: Comprobación
@@ -1079,19 +1079,19 @@ es:
   poll_common_card:
     show_results: Mostrar resultados
   poll_common_index_card:
-    title: Decisiones anteriores
-    no_polls: No se han encontrado decisiones anteriores
-    count: "Ve todas: las ({{count}}) decisiones"
+    title: Votaciones anteriores
+    no_polls: No se han encontrado votaciones anteriores
+    count: "Ve todas: las ({{count}}) votaciones"
   poll_common_action_panel:
     unable_to_vote: No tienes permiso para votar en esta desición
   current_polls_card:
-    title: 'Decisiones actuales '
-    start_poll: 'Nueva decisión  '
-    no_polls: No hay decisiones activas en este momento.
+    title: 'Votaciones abiertas '
+    start_poll: 'Crear nueva votación  '
+    no_polls: No hay votaciones activas en este momento.
   poll_common_collapsed:
     by_who: "por {{name}}"
   poll_common_select_group:
-    loomio_group: Grupo
+    loomio_group: Espacio
     loomio_group_placeholder: (ningún grupo seleccionado)
   poll_common_voter_add_options:
     add_options: Los votantes pueden añadir opciones
@@ -1145,7 +1145,7 @@ es:
   poll_common_votes_panel:
     newest_first: El más reciente primero
     oldest_first: Los más viejos primero
-    priority_first: De acuerdo primero
+    priority_first: A favor primero
     priority_last: Bloqueados primero
     no_votes_yet: Todavía no se han realizado votos.
     change_results_order: Cambiar orden de resultados
@@ -1196,14 +1196,14 @@ es:
     no_options: No has añadido ninguna opción aún
     closing: Cerrando
     closed: 'Cerrado '
-    start: Iniciar
+    start: Crear
     update: Actualizar
     loomio_school_link: |
         <p>Encuentra más información en <a href="https://www.rd.school/beginner/decision_tools.html" target="_blank">Manual de la Asamblea</a>.</p>
   poll_proposal_form:
     tool_tip_expanded: |
         <p>Una propuesta es una herramienta para buscar el acuerdo colectivo sobre una declaración o curso de acción</p>
-        <p>Los participantes pueden estar de acuerdo, abstenerse, estar en desacuerdo o bloquear, y dar una explicación, o fundamento de su posición</p>
+        <p>Los participantes pueden estar a favor, abstenerse, estar en desacuerdo o bloquear, y dar una explicación, o fundamento de su posición</p>
         <p>Un gráfico circular, permite tener una visión general de las posiciones del grupo, mientras que las explicaciones o fundamentos, permiten que todas las voces sean escuchadas. </p>
         <p>No te desanimes si al comienzo no ves que haya acuerdo, las propuestas están diseñadas para hacer visibles los problemas que necesitan resolución..</p>
         <p>Si hay buena participación, una propuesta es un poderoso mandato para pasar a la acción.</p>
@@ -1221,7 +1221,7 @@ es:
         <p>Proporciona algunas opciones de dónde elegir. Decide si los participantes eligen opciones individuales o múltiples en su respuesta.</p>
         <p>Todos votan y pueden incluir una fundamentación si lo desean. Los resultados se visualizan en un gráfico de barras.</p>
     tool_tip_collapsed: 'Mida la popularidad u ofrezca una opción '
-    start_header: Iniciar encuesta
+    start_header: Crear encuesta
     edit_header: Editar encuesta
     tip: Mida la popularidad de diferentes opciones
     title_placeholder: 'Ej. ¿A dónde quieres ir de vacaciones? '
@@ -1240,7 +1240,7 @@ es:
         <p>Una comprobación tiene un <em>objetivo</em>, que es el número de participantes que quisieras. La meta indica al grupo que algo requiere más atención o cuenta con amplio acuerdo.</p>
         <p>Un día antes de que se cierre la comprobación, se le recordará a quienes no han participado todavía.</p>
     tool_tip_collapsed: Comprobar la participación y encontrar voluntarios
-    start_header: 'Iniciar Comprobación '
+    start_header: 'Crear Comprobación '
     edit_header: 'Editar Comprobación '
     tip: Motiva a las personas con una oferta o un pedido
     title_placeholder: P.ej. ¿Quién quiere unirse al grupo de trabajo?
@@ -1253,7 +1253,7 @@ es:
         <p>Los participantes tienen un número limitado de ‘puntos’ que pueden distribuir del modo que quieran entre las opciones que representen sus preferencias.</p>
         <p>El proceso da como resultado un gráfico de barras acumulativas además de las asignaciones individuales, con lo que se pueden considerar los distintos puntos de vista.</p>
     tool_tip_collapsed: Priorizar opciones
-    start_header: Iniciar voto de puntos
+    start_header: Crear voto de puntos
     edit_header: Editar voto de puntos
     tip: 'Asignar recursos colectivamente '
     title_placeholder: Ej. ¿Cómo debemos asignar el presupuesto?
@@ -1399,12 +1399,12 @@ es:
     enter_email: "ej. invitado@ejemplo.com "
     reminded: 'Recordatorio enviado '
     send_emails: Invitaciones enviadas ({{count}})
-    share_group: 'Grupo '
+    share_group: 'Espacio '
     share_group_helptext: Selecciona un grupo con el que compartir esta decisión. Los miembros del grupo podrán participar.
     cannot_move_poll_helptext: Esta encuesta es parte de la discusión <strong>{{discussion}}</strong> en <strong>{{group}}</strong>, y por eso no puede moverse.
     move_group_helptext: 'Ten cuidado! Mover una decisión fuera de un grupo puede causar que algunas personas pierdan acceso a la misma. Los votos existentes aún serán contados. '
     set_group: Establecer grupo
-    group_set: Grupo actualizado
+    group_set: Espacio actualizado
     view_poll: Ver la encuesta
     email_invited: 'Invitación enviada a {{email}}'
     email_exists: '{{email}} ya ha sido invitado'
@@ -1436,17 +1436,17 @@ es:
     title: Compartir encuesta - {{title}}
   polls_page:
     heading: Decisiones
-    heading_with_group: Decisiones en {{name}}
+    heading_with_group: votaciones en {{name}}
     search_placeholder: Buscar encuestas...
     polls_count: Mostrando {{count}} de {{total}} encuestas
     start_new_poll: Nueva decisión
     filter_placeholder: (todas las encuestas)
     groups_placeholder: (todos los grupos)
   auth_form:
-    sign_in_to_loomio: Entrar a la {{site_name}}
+    sign_in_to_loomio: Entrar a la Asamblea
     sign_in: Entrar
     sign_in_as: Ingresa como {{name}}
-    choose_an_account: "Entra a través de un tercero, o ingresa una dirección de correo electrónico para continuar."
+    choose_an_account: "Entra a través de Google o usando una dirección de correo electrónico."
     invitation_required: Cuenta de usuario no encontrada. Nuevas cuentas de usuario son solo por invitación
     more_providers: Más
     email_not_present: Se necesita una dirección de correo
