@@ -15,13 +15,13 @@ button.sidebar__list-item-button--subgroup.md-button,
 button.sidebar__list-item-button.sidebar__list-item-button--start-thread.md-button,
 label[for="discussion-group-field"],
 a.email-settings-page__learn-more-link
-{display: none;}
-.group-theme__name a {color: white;text-transform: uppercase;letter-spacing: .04em;font-weight: 800;}
-.explore-page__group {width:33%;min-width:200px;}
-.poll-common-vote-form__button {border: 2px solid transparent;}
-.group-theme__logo {margin-top: -100px;filter: invert(100%);background-color: transparent;border: none;}
+{display: none!important;}
+.group-theme__name a {color: white!important;text-transform: uppercase!important;letter-spacing: .04em;font-weight: 800!important;}
+.explore-page__group {width:33%!important;min-width:200px!important;}
+.poll-common-vote-form__button {border: 2px solid transparent!important;}
+.group-theme__logo {margin-top: -100px;filter: invert(100%)!important;background-color: transparent!important;border: none!important;}
 button.group-privacy-button.md-button,
-.group-page-actions {color:white}
-.group-theme__name a {color: white;text-transform: uppercase;font-weight: 800; line-height:1.25em;font-size: calc(1vw + 30px)}
-.group-theme__logo {position: relative;}
-.group-theme__name-and-actions {position: relative;bottom: 30px;}
+.group-page-actions {color:white!important;}
+.group-theme__name a {color: white;text-transform: uppercase;font-weight: 800; line-height:1.25em;font-size: calc(1vw + 30px)!important;}
+.group-theme__logo {position: relative!important;}
+.group-theme__name-and-actions {position: relative;bottom: 30px!important;}
