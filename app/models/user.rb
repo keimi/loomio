@@ -10,8 +10,8 @@ class User < ApplicationRecord
 
   MAX_AVATAR_IMAGE_SIZE_CONST = 100.megabytes
   BOT_EMAILS = {
-    helper_bot: ENV['HELPER_BOT_EMAIL'] || 'contact@loomio.org',
-    demo_bot:   ENV['DEMO_BOT_EMAIL'] || 'contact+demo@loomio.org'
+    helper_bot: ENV['HELPER_BOT_EMAIL'] || 'asamblea@revoluciondemocratica.cl',
+    demo_bot:   ENV['DEMO_BOT_EMAIL'] || 'asamblea+demo@revoluciondemocratica.cl'
   }.freeze
 
   devise :database_authenticatable, :recoverable, :registerable, :rememberable, :trackable
@@ -207,7 +207,7 @@ class User < ApplicationRecord
   def self.helper_bot
     verified.find_by(email: BOT_EMAILS[:helper_bot]) ||
     create!(email: BOT_EMAILS[:helper_bot],
-            name: 'Loomio Helper Bot',
+            name: 'Revolución Democrática',
             password: SecureRandom.hex(20),
             email_verified: true,
             avatar_kind: :gravatar)
@@ -216,7 +216,7 @@ class User < ApplicationRecord
   def self.demo_bot
     verified.find_by(email: BOT_EMAILS[:helper_bot]) ||
     create!(email: BOT_EMAILS[:demo_bot],
-            name: 'Loomio Demo bot',
+            name: 'Revolución Democrática',
             email_verified: true,
             avatar_kind: :gravatar)
   end

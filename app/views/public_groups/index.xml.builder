@@ -1,5 +1,5 @@
 atom_feed do |feed|
-  feed.title 'Discover Groups on Loomio'
+  feed.title 'Visita las diferentes Asambleas'
   feed.updated(@groups.min_by(&:created_at).created_at) if @groups.any?
 	
   @groups.each do |group|
