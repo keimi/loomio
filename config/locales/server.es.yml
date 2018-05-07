@@ -52,35 +52,35 @@ es:
   subscriptions:
     gift_plan_selected_for_group_html: |
       <h1>Listo!</h1>
-      <p>Seleccionaste el plan Gratis para tu grupo <a href="/g/%{group_key}">%{group}</a></p>
+      <p></p>
   user_mailer:
     accounts_merged:
-      subject: "Tus %{site_name} cuentas de usuario han sido unificadas. "
+      subject: "Tus cuentas de usuario han sido unificadas. "
       body_html: |
         Hola %{name},
-        Tus dos cuentas de Loomio han sido integradas en una sola.
-        Para acceder a Loomio desde ahora por favor usa <strong>%{email}</strong> cuando ingreses.
+        Tus dos cuentas han sido integradas en una sola.
+        Desde ahora, para acceder, por favor usa <strong>%{email}</strong> cuando ingreses.
   email:
     login:
-      subject: Ingresa a %{site_name}
-      intro: Hola %{name}, aquí esta el enlace para ingresar en tu cuenta en %{site_name}
+      subject: Ingresa a la Asamblea Digital
+      intro: Hola %{name}, aquí esta el enlace para ingresar en tu cuenta en la Asamblea Digital de Revolución Democrática
       login: Ingresa como %{name}
       resend: 'Este enlace perderá validez en 24hrs y solo puede ser usado una vez. '
     contact_request:
-      subject: "%{name}quiere conectarse contigo en %{site_name}"
+      subject: "%{name}quiere conectarse contigo en la Asamblea Digital de Revolución Democrática"
       intro: "%{name} (%{email}) Te ha enviado una solicitud de conexión."
       footer: "Puedes responder a %{name} directamente respondiendo a este email. "
     reset_password:
       greeting: |
         Hola %{name}
-        Aquí esta el enlace que puedes usar para restablecer tu contraseña en tu cuenta de Loomio:
+        Aquí esta el enlace que puedes usar para restablecer tu contraseña:
       link_text: Restablece tu contraseña
       signoff: |
-        Recibes este email porque tu dirección de correo electrónico fue ingresada en el formulario "Olvidaste tu contraseña" en %{hostname}.
+        Recibes este email porque tu dirección de correo electrónico fue ingresada en el formulario "Olvidaste tu contraseña" en la Asamblea RD.
         Tu contraseña no será cambiada hasta que sigas el enlace y completes el formulario.
         Si continúas teniendo problemas para acceder a tu cuenta, responde a este email para contactar nuestro equipo de soporte técnico.
     start_decision:
-      subject: Iniciar una decisión en Loomio
+      subject: Iniciar una decisión
       intro: Hola <strong>%{name}</strong>
       action: ¿Qué te gustaría hacer?
       proposal: Iniciar una propuesta
@@ -94,30 +94,30 @@ es:
       intro: "%{who} hizo un anuncio en %{group}:"
     by_who: por %{person}
     reply_to_this_discussion: Contestar a esta discusión
-    value_proposition: "%{site_name} es un espacio para que grupos tomen decisiones juntos. "
+    value_proposition: "La Asamblea Digital es un espacio para tomar decisiones juntos. "
     view_group: Ver grupo
     to_join_group:
-      subject: "%{member} te ha invitado a unirte a %{group_name} en %{site_name}"
+      subject: "%{member} te ha invitado a unirte a %{group_name} a la Asamblea Digital de Revolución Democrática"
       invitation_text: "%{member} te ha invitado a unirte a su grupo %{group_name} "
       invitation_text_html: "te ha invitado a unirte a su grupo"
       link_help: "Haz clic en el enlace para unirte al grupo:"
       accept_invitation: "Aceptar invitación\n "
     resend_to_join_group:
-      subject: "%{member} está esperando que te sumes a %{group_name} en %{site_name}"
+      subject: "%{member} está esperando que te sumes a %{group_name} a la Asamblea Digital de Revolución Democrática"
     user_added_to_group:
-      subject: "%{who} te ha adherido a %{which_group} en %{site_name}"
+      subject: "%{who} te ha adherido a %{which_group} a la Asamblea Digital de Revolución Democrática"
       content: "%{who} te ha adherido a %{which_group}"
       content_html: "<strong>%{who}</strong> te ha añadido a <strong>%{which_group}</strong>."
       link_help: "Haz clic en el enlace para ir al grupo:"
     unsubscribe: 'Da de baja o cambia las preferencias de tu correo electrónico:   '
     unsubscribe_html: "<a href='%{link_path}'>%{link_text}</a> para dar de baja o cambiar las preferencias de correo electrónico."
     missed_yesterday:
-      subject: Ayer en %{site_name}
+      subject: Ayer en la Asamblea Digital de Revolución Democrática
       do_not_reply: Por favor no respondas a este email
       headlines: 'Titulo '
       mark_as_read: Marcar como leído
       thanks_for_reading: Gracias por leer, ¡que tengas un buen día!
-      heres_what_happened: "Esto es lo que paso en %{site_name} ayer. "
+      heres_what_happened: "Esto es lo que pasó en la Asamblea Digital de Revolución Democrática ayer. "
       marked_as_read_success: Todo el contenido del correo ha sido marcado como leído
       click_here: Haz clic aquí
     group_membership_approved:
@@ -150,7 +150,7 @@ es:
     turn_off_notifications_html: "<a href='%{url}'>Desactivar emails </a> para esta discusión."
     change_email_preferences_html: "Cambia tus <a href='%{email_preferences_url}'>preferencias de email </a>"
   footer:
-    about: Sobre Loomio
+    about: Sobre la Asamblea
     blog: Blog
     contact: Contacto
     help: Ayuda
@@ -182,7 +182,7 @@ es:
 
       ¿Cuál es tu rol o porque te unes al grupo? ¿Qué es lo que la gente debería saber sobre ti para entender de donde vienes?
   how_it_works_thread:
-    title: Cómo usar Loomio
+    title: Cómo usar la Asamblea
     description: |+
       Bienvenida/o a Loomio, un lugar online donde tomar decisiones juntos.
 
@@ -265,7 +265,7 @@ es:
 
         Corchetes para los nombres luego paréntesis para las URL. Sin espacio entre ellos.
 
-        [Loomio Homepage](https://www.loomio.org/)
+        [Web de Revolución Democrática](https://revoluciondemocratica.cl/)
 
         Las imágenes son iguales, pero precedidas por un signo de exclamación.
 
@@ -274,7 +274,7 @@ es:
     common:
       or: o
       why_send_this: Recibes este correo porque %{reason}
-      view_on_loomio: Ver en %{site_name}
+      view_on_loomio: Ver en la web
       unsubscribe: Cancelar la suscripción al correo
       results: Resultados
       responses: Respuestas
