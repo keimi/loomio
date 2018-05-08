@@ -35,7 +35,7 @@ class AppConfig
 
   def self.theme
     {
-      site_name:                         ENV.fetch('SITE_NAME',                     'Loomio'),
+      site_name:                         ENV.fetch('SITE_NAME',                     'Asamblea'),
       icon_src:                          ENV.fetch('THEME_ICON_SRC',                '/theme/icon.png'),
       icon32_src:                        ENV.fetch('THEME_ICON32_SRC',              '/theme/icon32.png'),
       icon48_src:                        ENV.fetch('THEME_ICON48_SRC',              '/theme/icon48.png'),
@@ -49,7 +49,7 @@ class AppConfig
       # used in emails
       email_header_logo_src:             ENV.fetch('THEME_EMAIL_HEADER_LOGO_SRC',   '/theme/logo_128h.png'),
       email_footer_logo_src:             ENV.fetch('THEME_EMAIL_FOOTER_LOGO_SRC',   '/theme/logo_64h.png'),
-      primary_color:                     ENV.fetch('THEME_PRIMARY_COLOR',           '#ffa726'),
+      primary_color:                     ENV.fetch('THEME_PRIMARY_COLOR',           '#66bb6a'),
       accent_color:                      ENV.fetch('THEME_ACCENT_COLOR',            '#00bcd4'),
       text_on_primary_color:             ENV.fetch('THEME_TEXT_ON_PRIMARY_COLOR',   '#ffffff'),
       text_on_accent_color:              ENV.fetch('THEME_TEXT_ON_ACCENT_COLOR',    '#ffffff'),
