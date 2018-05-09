@@ -65,11 +65,11 @@ es:
     anonymous: Anónimo
     privacy:
       privacy: 'Privacidad'
-      public: 'Público'
-      open: 'Abierto'
-      closed: 'Cerrado '
+      public: 'Públic'
+      open: 'Espacio Institucional'
+      closed: 'Espacio Orgánico '
       private: 'Privado'
-      secret: 'Secreto '
+      secret: 'Acta '
     selected: 'Seleccionado'
     date_range:
       today: 'Hoy'
@@ -174,7 +174,7 @@ es:
       loud_description: "Recibirás correo electrónico siempre que haya actividad en este tema."
       normal_description: "Recibirás correo electrónico siempre que se inicie una propuesta, cuando esté a punto de cerrarse o cuando se publique un resultado. "
       quiet_description: "No recibirás correo electrónico sobre este tema. "
-      apply_to_all: "Aplicar esta configuración para todos los hilos de este grupo."
+      apply_to_all: "Aplicar esta configuración para todas las conversaciones de este espacio."
       messages:
         loud: "Recibirás la actividad de este tema por correo electrónico. "
         normal: "Recibirás correo electrónico sobre propuestas en este tema. "
@@ -208,18 +208,18 @@ es:
     aria_label: Cerrar tema
     close_thread: 'Cerrar tema '
     body_header: |
-        <p>Cierra hilos irrelevantes o viejos para removerlos de la vista e indicar que la discusión ha finalizado</p>
+        <p>Cierra conversaciones irrelevantes o viejas para removerlas de la vista e indicar que la discusión ha finalizado</p>
     body_footer: |
-        <p>Cualquier persona podrá aún comentar o crear una votación en un tema cerrado, pero el mismo no aparecerá en el listado de hilos del grupo o el escritorio</p>
-    image_alt: Todos los hilos cerrados
+        <p>Cualquier persona podrá aún comentar o crear una votación en un tema cerrado, pero el mismo no aparecerá en el listado de conversaciones del grupo o el escritorio</p>
+    image_alt: Todas las conversaciones cerradas
   mute_explanation_modal:
     aria_label: 'Silenciar tema '
     mute_thread: Silenciar tema
     body_html: |+
         <p>Silenciar significa<strong>que no recibirás notificaciones sobre propuestas</strong>, o ninguna otra actividad en este tema, a no ser que alguien te <strong>@mencione.</strong></p>
-        <p>Los hilos silenciados tampoco serán visibles en tus páginas <strong>Recientes</strong> y <strong>No leído</strong>. Para encontrar tus hilos silenciados, selecciona <strong>Silenciado</strong> en la barra lateral de navegación:</p>
+        <p>Las conversaciones silenciadas tampoco serán visibles en tus páginas <strong>Recientes</strong> y <strong>No leído</strong>. Para encontrar tus conversaciones silenciadas, selecciona <strong>Silenciada</strong> en la barra lateral de navegación:</p>
 
-    image_alt: 'Opción de hilos silenciados en la barra lateral '
+    image_alt: 'Opción de conversaciones silenciadas en la barra lateral '
   dismiss_explanation_modal:
     aria_label: Ignorar tema
     dismiss_thread: Ignorar tema
@@ -283,7 +283,7 @@ es:
     start_thread: 'Nuevo tema '
     notifications: 'Panel de notificaciones'
     search:
-      label: 'Búsqueda, por grupos o hilos  '
+      label: 'Búsqueda, por grupos o conversaciones  '
       results_aria_label: 'Resultados de la búsqueda '
       no_results: 'Ningún tema encontrado'
       close: 'Cerrar panel de búsqueda'
@@ -347,7 +347,7 @@ es:
     success: 'Fecha de cierre de la propuesta actualizada'
     submit: 'Actualizar fecha de cierre'
   discussion_record:
-    created: 'El tema {{title}} ha sido creado con éxito en {{groupName}}'
+    created: 'La conversación {{title}} ha sido creado con éxito en {{groupName}}'
     updated: 'Guardar cambios en {{title}}'
   discussion_form:
     aria_label: 'Formulario del tema'
@@ -364,14 +364,14 @@ es:
     context_placeholder: 'Da suficiente información de contexto para que el grupo pueda llevar a cabo una discusión productiva. Esta información puede actualizarse según progresa la discusión.'
     privacy_label: 'Privacidad'
     privacy_public: 'Cualquier persona puede ver los hilos. Solo miembros pueden participar. '
-    privacy_private: 'Los hilos solo serán visibles para miembros de {{group}}.'
-    privacy_organisation: 'Los hilos serán visibles para miembros de {{parent}} y miembros de {{group}}.'
-    make_announcement: Anuncio
+    privacy_private: 'Las conversaciones solo serán visibles para miembros de {{group}}.'
+    privacy_organisation: 'Las conversaciones serán visibles para miembros de {{parent}} y miembros de {{group}}.'
+    make_announcement: Notificar
     notified_count: '{{count}} personas recibirán un correo electrónico'
   action_dock:
     react: 'Añadir reacción '
-    add_resource: Agregar archivo adjunto
-    edit_group: Editar contexto de grupo
+    add_resource: Añadir documento
+    edit_group: Editar información del espacio
     add_comment: Comentario
     copy_url_comment: Copiar URL
     edit_thread: Editar contexto
@@ -434,15 +434,15 @@ es:
     name_and_count_more: "{{name}} y {{count}} más"
   context_panel:
     thread_status:
-      pinned: "Este tema ha sido fijado. Permanecerá en la parte superior de la lista de hilos de tu grupo para todos los miembros del mismo."
+      pinned: "Este tema ha sido fijado. Permanecerá en la parte superior de la lista de conversaciones de tu grupo para todos los miembros del mismo."
       closed: "Este tema ha sido cerrado. Ya no aparecerá en el escritorio, y será listado bajo 'Cerrado' en la página principal del grupo"
   group_page:
     show_opened: '{{count}} Abierto'
     show_closed: '{{count}} Cerrado '
     no_threads_here: Ningún tema para ver aquí!
-    search_threads: Buscar hilos ...
-    private_threads: Debes ser un miembro para ver hilos privados en este grupo
-    no_more_threads: Esos son todos los hilos en este grupo!
+    search_threads: Buscar ...
+    private_threads: Debes ser un miembro para ver las conversaciones privados en este espacio
+    no_more_threads: Esos son todas las conversaciones de este espacio!
     messages:
       privacy:
         members: 'Ahora este grupo es visible sólo para miembros.'
@@ -527,10 +527,10 @@ es:
       private_to_group: 'El nombre y la descripción solo serán visibles para miembros. '
       private_to_parent_members: 'El nombre y la descripción serán visibles para los miembros de {{parent}}'
     privacy: 'Privacidad'
-    group_privacy_is_open_description: "Cualquier persona puede encontrar el grupo y pedir membresía. Solo los miembros pueden ver quien pertenece al grupo. Todas las conversaciones son públicas."
+    group_privacy_is_open_description: "Este es un espacio institucional de Revolución Democrática. Todos pueden seguir las conversaciones, pero solo los miembros electos pueden votar."
     group_privacy_is_closed_description: "Cualquier persona puede encontrar este grupo y pedir membresía. Sólo los miembros pueden ver quien pertenece al mismo. Todas las conversaciones son privadas."
-    group_privacy_is_closed_public_threads_description: "Cualquier persona puede encontrar este grupo y pedir membresía. Sólo los miembros pueden ver quien pertenece al mismo. Las conversaciones pueden ser públicas o privadas."
-    group_privacy_is_secret_description: "Sólo miembros que han sido invitados pueden encontrar este grupo, ver quien pertenece al mismo y las conversaciones.  "
+    group_privacy_is_closed_public_threads_description: "Este es un espacio orgánico de Revolución Democrática, para ser miembro debes empezar a participar de las reuniones."
+    group_privacy_is_secret_description: "Esta es el Acta de una reunión de {{group}} sólo quienes han asistido pueden participar de este grupo y sus conversaciones. "
     confirm_change_to_secret: "Si procedes, todos las tema en este grupo y sus reuniones se harán privadas."
     confirm_change_to_secret_subgroup: 'Si continuas todas las conversaciones de la reunión se harán privadas.'
     confirm_change_to_public: 'Si continúas, todas las conversaciones de este grupo se harán públicas en internet.  '
@@ -1446,7 +1446,7 @@ es:
     sign_in_to_loomio: Entrar a la Asamblea
     sign_in: Entrar
     sign_in_as: Ingresa como {{name}}
-    choose_an_account: "Entra a través de Google o usando una dirección de correo electrónico."
+    choose_an_account: "Ingresa con tu correo a la Asamblea Digital de Revolución Democrática"
     invitation_required: Cuenta de usuario no encontrada. Nuevas cuentas de usuario son solo por invitación
     more_providers: Más
     email_not_present: Se necesita una dirección de correo
@@ -1454,7 +1454,7 @@ es:
     invalid_password: "Lo lamentamos, esa contraseña no coincide con la que tenemos archivada"
     invalid_token: "Perdón pero no pudimos usar ese enlace para que ingreses. Haz clic debajo para que te enviemos uno nuevo"
     email_not_found: "Lo lamentamos, no pudimos encontrar una cuenta con esa dirección de correo electrónico"
-    email_placeholder: tu@ejemplo.com
+    email_placeholder: tu@correo.com
     login_with_token: Estas listo! haz clic en el enlace debajo para ingresar.
     login_link_helptext: |
         Haz clic en el botón debajo y te enviaremos un enlace para ingresar instantáneamente.
