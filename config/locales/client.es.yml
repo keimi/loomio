@@ -1328,6 +1328,8 @@ es:
     block_verb: "Bloqueado "
     block_meaning: La atención urgente del grupo es necesaria para abordar una profunda preocupación
   poll_count_options:
+   'yes': 'Sí'
+    'no': 'No'
     yes_meaning: He voluntariado, dado mi consentimiento, o completado la tarea
     no_meaning: Estoy habilitado para contribuir o participar en esta decisión
   poll_count_vote_form:
@@ -1344,7 +1346,7 @@ es:
   poll_poll_vote_form:
     stance_created: Voto creado
     stance_updated: Voto actualizado
-  poll_meeting_vote_form:
+  poll_meeting_vote_form: 
     your_response: ¿Cuándo puedes?
     stance_created: Disponibilidad salvada
     stance_updated: Disponibilidad actualizada

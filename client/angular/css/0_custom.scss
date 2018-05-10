@@ -1,5 +1,4 @@
-.poll-common-index-card.lmo-card,
-.subgroups-card, 
+.poll-common-index-card.lmo-card, 
 .document-card.lmo-card,
 md-list-item.decision-tools-card__poll-type.decision-tools-card__poll-type--poll, 
 md-list-item.decision-tools-card__poll-type.decision-tools-card__poll-type--dot_vote, 
@@ -17,8 +16,9 @@ md-input-container[ng-show="showGroupSelect"],
 a.email-settings-page__learn-more-link,
 .discussion-form .lmo-hint-text,
 .md-block.poll-common-multiple-choice.poll-common-checkbox-option, 
-span.poll-common-vote-form__chosen-option--name
- {display: none;}
+span.poll-common-vote-form__chosen-option--name,
+h3.lmo-h3.poll-meeting-vote-form--box
+ {display: none!important;}
 
 .auth-provider-form__provider, button.md-button.md-raised.google {width: 100%!important;padding: 10px!important;}
 .group-theme__name a {color: white !important;text-transform: uppercase;letter-spacing: .04em;font-weight: 800;}
