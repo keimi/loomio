@@ -454,7 +454,7 @@ es:
     new_photo: 'Nueva foto '
     new_cover_photo: 'Carga una nueva foto de portada '
     new_group_logo: 'Cargar nuevo logo del grupo'
-    open_discussions: 'Conversaciones abiertas'
+    open_discussions: 'Conversaciones'
     closed_discussions: 'Conversaciones cerradas'
     discussions_placeholder: 'Un tema es donde todo el mundo puede discutir un tema y tomar votaciones juntos.'
     members: 'Participantes '
@@ -1330,8 +1330,8 @@ es:
   poll_count_options:
    'yes': 'Sí'
     'no': 'No'
-    yes_meaning: He voluntariado, dado mi consentimiento, o completado la tarea
-    no_meaning: Estoy habilitado para contribuir o participar en esta decisión
+    yes_meaning: Presente!
+    no_meaning: No, por esta vez
   poll_count_vote_form:
     reason_label: Mensaje
     reason_placeholder: 'Deja un mensaje si quieres '
@@ -1346,9 +1346,12 @@ es:
   poll_poll_vote_form:
     stance_created: Voto creado
     stance_updated: Voto actualizado
-  poll_meeting_vote_form: 
+  poll_meeting_vote_form:
+    can_attend: "Puedo"
+    unable: "No puedo"
+    if_need_be: Si es muy necesario
     your_response: ¿Cuándo puedes?
-    stance_created: Disponibilidad salvada
+    stance_created: Disponibilidad guardada
     stance_updated: Disponibilidad actualizada
     reason_placeholder: Explica cuando estarás libre (u ocupado), para el caso de que el autor quiera agregar opciones.
   poll_dot_vote_vote_form:
