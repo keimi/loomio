@@ -1328,7 +1328,7 @@ es:
     block_verb: "Bloqueado "
     block_meaning: La atención urgente del grupo es necesaria para abordar una profunda preocupación
   poll_count_options:
-   'yes': 'Sí'
+    'yes': 'Sí'
     'no': 'No'
     yes_meaning: Presente!
     no_meaning: No, por esta vez
