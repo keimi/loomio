@@ -715,6 +715,7 @@ es:
     change_picture_link: 'Cambiar imagen'
     change_password_link: 'Restablece contraseña'
     deactivate_user_link: 'Desactivar cuenta...'
+    activate_militancy_link: 'Activar Militancia...'
     profile: 'Perfil'
     edit_profile: 'Editar perfil'
     picture_label: 'Imagen'
@@ -729,7 +730,9 @@ es:
     location_label: 'Ubicación '
     location_placeholder: '¿Dónde vives?'
     update_profile: 'Actualizar perfil'
+    update_profile: 'Actualizar perfil'
     deactivate_account: 'Desactiva cuenta'
+    activate_militancy: 'Activa tu militancia'
     help_translate: " "
   change_picture_form:
     aria_label: 'Formulario de cambio de imagen'

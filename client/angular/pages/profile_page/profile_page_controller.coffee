@@ -37,6 +37,9 @@ $controller = ($scope, $rootScope) ->
   @deactivateUser = ->
     ModalService.open 'DeactivationModal'
 
+  @activateMilitancy = ->
+    ModalService.open 'ActivateMilitancyModal'
+
   return
 
 $controller.$inject = ['$scope', '$rootScope']
