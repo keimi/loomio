@@ -1328,17 +1328,10 @@ es:
     block_verb: "Bloqueado "
     block_meaning: La atención urgente del grupo es necesaria para abordar una profunda preocupación
   poll_count_options:
-<<<<<<< HEAD
    'yes': 'Sí'
     'no': 'No'
     yes_meaning: Presente!
     no_meaning: No, por esta vez
-=======
-    'yes': 'Si'
-    'no': 'No'
-    yes_meaning: He voluntariado, dado mi consentimiento, o completado la tarea
-    no_meaning: Estoy habilitado para contribuir o participar en esta decisión
->>>>>>> origin/master
   poll_count_vote_form:
     reason_label: Mensaje
     reason_placeholder: 'Deja un mensaje si quieres '
