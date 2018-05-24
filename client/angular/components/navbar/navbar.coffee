@@ -16,6 +16,9 @@ angular.module('loomioApp').directive 'navbar', ['$rootScope', ($rootScope) ->
       AbilityService.isLoggedIn()
     $scope.toggleSidebar = -> EventBus.broadcast $rootScope, 'toggleSidebar'
 
+    $scope.isRD = ->
+      AbilityService.isRD()
+
     $scope.signIn = ->
       ModalService.open 'AuthModal'
   ]

@@ -715,6 +715,7 @@ es:
     change_picture_link: 'Cambiar imagen'
     change_password_link: 'Restablece contraseña'
     deactivate_user_link: 'Desactivar cuenta...'
+    activate_militancy_link: 'Activar Militancia...'
     profile: 'Perfil'
     edit_profile: 'Editar perfil'
     picture_label: 'Imagen'
@@ -729,7 +730,9 @@ es:
     location_label: 'Ubicación '
     location_placeholder: '¿Dónde vives?'
     update_profile: 'Actualizar perfil'
+    update_profile: 'Actualizar perfil'
     deactivate_account: 'Desactiva cuenta'
+    activate_militancy: 'Activa tu militancia'
     help_translate: " "
   change_picture_form:
     aria_label: 'Formulario de cambio de imagen'
@@ -761,6 +764,13 @@ es:
     question: '¿Nos contarías por qué estás desactivando tu cuenta?'
     placeholder: 'Contestar a esta pregunta es opcional. Cualquier información que compartas nos ayudará a mejorar :)'
     submit: 'Desactiva cuenta '
+  activate_militancy_form:
+    title: 'Activa tu militancia'
+    rut_label: 'rut'
+    code_label: 'codigo'
+    submit_label: 'Activa la Militancia'
+    militancy_changed: 'Militancia Activada'
+
   only_coordinator_modal:
     aria_label: 'No hemos podido desactivar la cuenta'
     explanation: 'Un grupo debe tener al menos un coordinador. Tú eres el único coordinador de los siguientes grupos:'

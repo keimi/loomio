@@ -7,6 +7,9 @@ module.exports = new class AbilityService
   isLoggedIn: ->
     @isUser() and !Session.user().restricted?
 
+  isRD: ->
+    @isLoggedIn()  and Session.user().isRd
+
   isSiteAdmin: ->
     @isLoggedIn() and Session.user().isAdmin
 
