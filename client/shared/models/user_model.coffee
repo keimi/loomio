@@ -7,6 +7,9 @@ module.exports = class UserModel extends BaseModel
   @apiEndPoint: 'profile'
   @serializableAttributes: AppConfig.permittedParams.user
 
+  rut =''
+  number = ''
+
   relationships: ->
     # note we should move these to a User extends UserModel so that all our authors don't get views created
     @hasMany 'memberships'

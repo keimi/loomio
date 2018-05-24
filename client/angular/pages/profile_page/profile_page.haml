@@ -51,7 +51,7 @@
         %md-button.md-accent.profile-page__change-password{ng-click: "profilePage.changePassword()", translate: "profile_page.change_password_link"}
         %md-button.md-primary.md-raised.profile-page__update-button{ng-click: "profilePage.submit()", ng-disabled: "isDisabled", translate: "profile_page.update_profile"}
 
-    .profile-page-card
+    .profile-page-card{ng-if: "!profilePage.user.isRd"}
       %h3.lmo-h3{translate: "profile_page.activate_militancy"}
       %md-button.md-warn.md-button--no-h-margin.profile-page__deactivate{ng-click: "profilePage.activateMilitancy()", translate: "profile_page.activate_militancy_link"}
 

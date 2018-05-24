@@ -1,13 +1,26 @@
-%md-dialog.activate-militancy-form
-  .lmo-disabled-form{ng-show: "isDisabled"}
+%md-dialog.activate_militancy_form.lmo-modal__narrow
   %md-toolbar
     .md-toolbar-tools.lmo-flex__space-between
-      %h1.lmo-h1{translate: "deactivate_user_form.title"}
-      %material_modal_header_cancel_button{ng-if: "!preventClose"}
+      %h1.lmo-h1{translate: "activate_militancy_form.title"}
+      %material_modal_header_cancel_button
   .md-dialog-content
-    %md-input-container.md-block
-      %label{translate: "deactivate_user_form.question"}
-      %textarea.lmo-textarea{ng-model: "user.deactivationResponse", placeholder: "{{ 'deactivate_user_form.placeholder' | translate }}"}
+    -#%p{translate: "deactivation_modal.introduction"}
+    -#%ul
+    -#  %li{translate: "deactivation_modal.no_longer_group_member"}
+
+    %md-input-container.md-block.activate-militancy-form__rut-container
+    %label{translate: "activate_militancy_form.rut_label"}
+    %input.activate-militancy-form__rut{required: "true", type: "text", ng-model: "user.rut"}
+    -#%input.change-password-form__password{required: "true", type: "password", ng-model: "user.password"}
+    -#%validation_errors{subject: "user", field: "password"}
+
+    %md-input-container.md-block.activate-militancy-form__code-container
+    %label{translate: "activate_militancy_form.code_label"}
+    %input.activate-militancy-form__code{required: "true", type: "text", ng-model: "user.number"}
+    -#%input.change-password-form__password-confirmation{required: "true", type: "password", ng-model: "user.passwordConfirmation"}
+    -#%validation_errors{subject: "user", field: "passwordConfirmation"}
+
     .lmo-md-actions
       %md-button{ng-click: "$close()", type: "button", translate: "common.action.cancel"}
-      %md-button.md-raised.md-warn.deactivate-user-form__submit{ng-click: "submit()", translate: "deactivate_user_form.submit"}
+      %md-button.md-primary.md-raised.actiave-militancy-form__submit{ng-click: "submit()", translate: "activate_militancy_form.submit_label" }
+    -#  %md-button.md-primary.md-raised.deactivation-modal__confirm{ng-click: "submit()", translate: "deactivation_modal.submit"}
