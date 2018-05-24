@@ -30,6 +30,7 @@ module.exports = class UserRecordsInterface extends BaseRecordsInterface
     if user.rut != '' && user.number != ''
       request.get {uri:'http://tribunalsupremo.revoluciondemocratica.cl:3000/verify?rut=' + user.rut + '&number=' + user.number, json : true},
       (err, r, body) ->
+        console.log(body)
         if body.status == 'fail'
           user.isRd = false
           rem.post 'update_profile', user.serialize()
