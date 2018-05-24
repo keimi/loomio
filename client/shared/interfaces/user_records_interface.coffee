@@ -27,21 +27,16 @@ module.exports = class UserRecordsInterface extends BaseRecordsInterface
     console.log(user.number)
     rem = @remote
 
-#   request.get {uri:'http://tribunalsupremo.revoluciondemocratica.cl:3000/users?rut=16653056-3&number=109571213', json : true}, (err, r, body) ->
     if user.rut != '' && user.number != ''
       request.get {uri:'http://tribunalsupremo.revoluciondemocratica.cl:3000/verify?rut=' + user.rut + '&number=' + user.number, json : true},
       (err, r, body) ->
-#        console.log(body.status)
         if body.status == 'fail'
-#          console.log 'request failed'
           user.isRd = false
           rem.post 'update_profile', user.serialize()
         else
-#          console.log 'request success'
           user.isRd = true
           rem.post 'update_profile', user.serialize()
     else
-#      console.log('no changes')
     @remote.post 'update_profile', user.serialize()
 
 
