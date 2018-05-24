@@ -1,15 +1,19 @@
+AbilityService = require 'shared/services/ability_service.coffee'
+ModalService   = require 'shared/services/modal_service.coffee'
+
 Session = require 'shared/services/session.coffee'
 Records = require 'shared/services/records.coffee'
 
 { submitForm } = require 'shared/helpers/form.coffee'
-{ hardReload } = require 'shared/helpers/window.coffee'
 
 angular.module('loomioApp').factory 'ActivateMilitancyForm', ->
-  templateUrl: 'generated/components/deactivate_user_form/activate_militancy_form.html'
+  templateUrl: 'generated/components/activate_militancy_form/activate_militancy_form.html'
   controller: ['$scope', ($scope) ->
     $scope.user = Session.user().clone()
 
+    actionName = 'militancy_changed'
+
     $scope.submit = submitForm $scope, $scope.user,
-      submitFn: Records.users.deactivate
-      successCallback: -> hardReload()
+      submitFn: Records.users.updateMilitancy
+      flashSuccess: "activate_militancy_form.#{actionName}"
   ]

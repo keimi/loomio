@@ -38,7 +38,7 @@ $controller = ($scope, $rootScope) ->
     ModalService.open 'DeactivationModal'
 
   @activateMilitancy = ->
-    ModalService.open 'ActivateMilitancyModal'
+    ModalService.open 'ActivateMilitancyForm'
 
   return
 
