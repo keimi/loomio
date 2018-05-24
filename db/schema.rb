@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180419223418) do
+ActiveRecord::Schema.define(version: 20180521210217) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -745,6 +745,7 @@ ActiveRecord::Schema.define(version: 20180419223418) do
     t.string "location", default: "", null: false
     t.datetime "last_seen_at", default: "2017-10-18 21:05:12", null: false
     t.boolean "email_announcements", default: true, null: false
+    t.boolean "is_rd", default: false, null: false
     t.index ["deactivated_at"], name: "index_users_on_deactivated_at"
     t.index ["email"], name: "email_verified_and_unique", unique: true, where: "(email_verified IS TRUE)"
     t.index ["email"], name: "index_users_on_email"

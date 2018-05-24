@@ -1,7 +1,7 @@
 class LoggedOutUser
   include Null::User
   include AvatarInitials
-  attr_accessor :name, :email, :token, :avatar_initials, :locale
+  attr_accessor :name, :email, :token, :avatar_initials, :locale, :is_rd
 
   alias :read_attribute_for_serialization :send
 
@@ -10,6 +10,7 @@ class LoggedOutUser
     @email = email
     @token = token
     @locale = locale
+    @is_rd = false
     apply_null_methods!
     set_avatar_initials if (@name || @email)
   end
