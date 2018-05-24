@@ -37,6 +37,7 @@ module.exports = class UserRecordsInterface extends BaseRecordsInterface
           user.isRd = true
           rem.post 'update_profile', user.serialize()
     else
+      console.log('hola')
     @remote.post 'update_profile', user.serialize()
 
 
