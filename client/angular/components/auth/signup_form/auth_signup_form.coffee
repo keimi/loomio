@@ -2,6 +2,7 @@ AppConfig   = require 'shared/services/app_config.coffee'
 EventBus    = require 'shared/services/event_bus.coffee'
 AuthService = require 'shared/services/auth_service.coffee'
 I18n        = require 'shared/services/i18n.coffee'
+request     = require 'request'
 
 { submitOnEnter } = require 'shared/helpers/keyboard.coffee'
 
@@ -16,11 +17,19 @@ angular.module('loomioApp').directive 'authSignupForm', ->
       AppConfig.features.app.create_user or AppConfig.pendingIdentity
 
     $scope.submit = ->
-      if $scope.vars.name
+      if $scope.vars.name and $scope.vars.rut and $scope.vars.code
         $scope.user.errors = {}
         EventBus.emit $scope, 'processing'
         $scope.user.name  = $scope.vars.name
-        AuthService.signUp($scope.user).finally -> EventBus.emit $scope, 'doneProcessing'
+        request.get {uri:'https://api.revoluciondemocratica.cl/verify?rut=' + $scope.vars.rut + '&number=' + $scope.vars.code, json : true},
+          (err, r, body) ->
+            if body.status == 'fail'
+              $scope.user.isRd = false
+              $scope.user.errors = name: [I18n.t('auth_form.name_required')]
+              EventBus.emit $scope, 'doneProcessing'
+            else
+              $scope.user.isRd = true
+              AuthService.signUp($scope.user).finally -> EventBus.emit $scope, 'doneProcessing'
       else
         $scope.user.errors =
           name: [I18n.t('auth_form.name_required')]

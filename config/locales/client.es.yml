@@ -1498,6 +1498,8 @@ es:
     name: Nombre
     email: Correo Electrónico
     password: Contraseña
+    rut: Rut
+    code: Código
   install_slack:
     modal_title: Installar Slack
     modal_helptext: 'Primero, deberás ingresar en Slack. Te enviaremos ahí automáticamente en un segundo, o puedes hacer clic en el siguiente botón para continuar. '
