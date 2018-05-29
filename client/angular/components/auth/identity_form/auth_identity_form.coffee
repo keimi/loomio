@@ -3,6 +3,7 @@ EventBus    = require 'shared/services/event_bus.coffee'
 AuthService = require 'shared/services/auth_service.coffee'
 I18n        = require 'shared/services/i18n.coffee'
 request     = require 'request'
+Records     = require 'shared/services/records.coffee'
 
 { hardReload }    = require 'shared/helpers/window.coffee'
 { submitOnEnter } = require 'shared/helpers/keyboard.coffee'
@@ -28,8 +29,9 @@ angular.module('loomioApp').directive 'authIdentityForm', ->
               $scope.user.isRd = false
               hardReload()
             else
-              $scope.user.isRd = true
               AuthService.confirmOauth().then ->
+                $scope.user.isRd = true
+                Records.users.updateProfile($scope.user)
                 hardReload()
               , ->
                 EventBus.emit $scope, 'doneProcessing'
