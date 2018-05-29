@@ -3,6 +3,7 @@ EventBus    = require 'shared/services/event_bus.coffee'
 AuthService = require 'shared/services/auth_service.coffee'
 I18n        = require 'shared/services/i18n.coffee'
 request     = require 'request'
+{ hardReload } = require 'shared/helpers/window.coffee'
 
 { submitOnEnter } = require 'shared/helpers/keyboard.coffee'
 
@@ -25,8 +26,8 @@ angular.module('loomioApp').directive 'authSignupForm', ->
           (err, r, body) ->
             if body.status == 'fail'
               $scope.user.isRd = false
-              $scope.user.errors = name: [I18n.t('auth_form.name_required')]
-              EventBus.emit $scope, 'doneProcessing'
+              $scope.user.errors = name: ['verificación fallida']
+              hardReload()
             else
               $scope.user.isRd = true
               AuthService.signUp($scope.user).finally -> EventBus.emit $scope, 'doneProcessing'

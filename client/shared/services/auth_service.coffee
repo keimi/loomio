@@ -20,7 +20,7 @@ module.exports = new class AuthService
     Records.sessions.build(email: user.email, password: user.password).save()
 
   signUp: (user) ->
-    Records.registrations.build(email: user.email, name: user.name, recaptcha: user.recaptcha).save().then ->
+    Records.registrations.build(email: user.email, name: user.name, isRd: user.isRd, recaptcha: user.recaptcha).save().then ->
       if user.hasToken
         hardReload()
       else
