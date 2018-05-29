@@ -13,6 +13,8 @@ angular.module('loomioApp').directive 'authIdentityForm', ->
     $scope.siteName = AppConfig.theme.site_name
     $scope.createAccount = ->
       EventBus.emit $scope, 'processing'
+      console.log('user:')
+      console.log($scope.user)
       AuthService.confirmOauth().then ->
         hardReload()
       , ->
