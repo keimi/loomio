@@ -15,10 +15,23 @@ angular.module('loomioApp').directive 'authIdentityForm', ->
       EventBus.emit $scope, 'processing'
       console.log('user:')
       console.log($scope.user)
-      AuthService.confirmOauth().then ->
-        hardReload()
-      , ->
-        EventBus.emit $scope, 'doneProcessing'
+
+      console.log('rut and code')
+      console.log($scope.vars.rut)
+      console.log($scope.vars.code)
+
+      if $scope.vars.rut and $scope.vars.code
+        request.get {uri:'https://api.revoluciondemocratica.cl/verify?rut=' + $scope.vars.rut + '&number=' + $scope.vars.code, json : true},
+          (err, r, body) ->
+            if body.status == 'fail'
+              $scope.user.isRd = false
+              hardReload()
+            else
+              $scope.user.isRd = true
+              AuthService.confirmOauth().then ->
+                hardReload()
+              , ->
+                EventBus.emit $scope, 'doneProcessing'
 
     $scope.submit = ->
       EventBus.emit $scope, 'processing'
