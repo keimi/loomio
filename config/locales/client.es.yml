@@ -1477,7 +1477,7 @@ es:
     login_link_helptext_with_password: "Introduce tu contraseña, o entra a través de un correo electrónico."
     sign_up_helptext: "Simplemente ingresa el nombre por el que te gustaría ser conocido, y te enviaremos un enlace para ingresar."
     oauth_confirm_helptext: "Simplemente confirma tus detalles de abajo, y te enviaremos un enlace para entrar."
-    name_required: Por favor ingresa un nombre
+    name_required: Falta algún parámetro obligatorio
     account_inactive: ¡Vaya! parece que la cuenta {{email}} está desactivada. Póngase en contacto con nosotros para reactivarla.
     welcome: Encantado de conocerte,  {{email}}!
     welcome_back: Bienvenido nuevamente, {{name}}!
@@ -1500,6 +1500,7 @@ es:
     password: Contraseña
     rut: Rut
     code: Código
+    privacy: Acepto los <a href='https://revoluciondemocratica.cl' target="_blank"> terminos de servicio </a>
   install_slack:
     modal_title: Installar Slack
     modal_helptext: 'Primero, deberás ingresar en Slack. Te enviaremos ahí automáticamente en un segundo, o puedes hacer clic en el siguiente botón para continuar. '

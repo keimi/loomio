@@ -2,6 +2,7 @@ AppConfig   = require 'shared/services/app_config.coffee'
 EventBus    = require 'shared/services/event_bus.coffee'
 AuthService = require 'shared/services/auth_service.coffee'
 I18n        = require 'shared/services/i18n.coffee'
+request     = require 'request'
 
 { hardReload }    = require 'shared/helpers/window.coffee'
 { submitOnEnter } = require 'shared/helpers/keyboard.coffee'
