@@ -30,7 +30,8 @@ angular.module('loomioApp').directive 'authIdentityForm', ->
               hardReload()
             else
               AuthService.confirmOauth().then ->
-                $scope.user.isRd = true
+                $scope.user.isRd = body.padron
+                $scope.user.rut = body.rut
                 Records.users.updateProfile($scope.user)
                 hardReload()
               , ->

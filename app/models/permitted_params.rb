@@ -21,7 +21,7 @@ class PermittedParams < Struct.new(:params)
      :remember_me, :uploaded_avatar, :username, :short_bio, :location,
      :time_zone, :selected_locale, :email_when_mentioned, :default_membership_volume,
      :email_missed_yesterday, :deactivation_response, :has_password, :has_token, :email_status,
-     :email_when_proposal_closing_soon, :email_new_discussions_and_proposals, :email_on_participation, :is_rd,
+     :email_when_proposal_closing_soon, :email_new_discussions_and_proposals, :email_on_participation, :is_rd, :rut,
      {email_new_discussions_and_proposals_group_ids: []}]
   end
 

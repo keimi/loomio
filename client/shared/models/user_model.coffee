@@ -7,7 +7,6 @@ module.exports = class UserModel extends BaseModel
   @apiEndPoint: 'profile'
   @serializableAttributes: AppConfig.permittedParams.user
 
-  rut =''
   number = ''
 
   relationships: ->

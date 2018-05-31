@@ -23,8 +23,6 @@ module.exports = class UserRecordsInterface extends BaseRecordsInterface
     @remote.post 'save_experience', experience: experience
 
   updateMilitancy: (user) =>
-    console.log(user.rut)
-    console.log(user.number)
     rem = @remote
 
     if user.rut != '' && user.number != ''
@@ -32,13 +30,16 @@ module.exports = class UserRecordsInterface extends BaseRecordsInterface
       (err, r, body) ->
         console.log(body)
         if body.status == 'fail'
+          user.rut = ''
           user.isRd = false
           rem.post 'update_profile', user.serialize()
         else
-          user.isRd = true
+          user.isRd = body.padron
+          user.rut = body.rut
           rem.post 'update_profile', user.serialize()
     else
       console.log('hola')
+    user.rut = ''
     @remote.post 'update_profile', user.serialize()
 
 

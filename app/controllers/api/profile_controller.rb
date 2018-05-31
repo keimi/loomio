@@ -17,7 +17,6 @@ class API::ProfileController < API::RestfulController
   end
 
   def update_profile
-    puts current_user_params
     service.update(current_user_params)
     respond_with_resource
   end
