@@ -16,7 +16,8 @@ a.email-settings-page__learn-more-link,
 .discussion-form .lmo-hint-text,
 .md-block.poll-common-multiple-choice.poll-common-checkbox-option, 
 span.poll-common-vote-form__chosen-option--name,
-h3.lmo-h3.poll-meeting-vote-form--box
+h3.lmo-h3.poll-meeting-vote-form--box,
+button.md-button.md-raised.google
  {display: none!important;}
 
 .auth-provider-form__provider, button.md-button.md-raised.google {width: 100%!important;padding: 10px!important;}
@@ -28,3 +29,5 @@ button.group-privacy-button.md-button, .group-page-actions {color:white!importan
 .group-theme__name a {color: white;text-transform: uppercase;font-weight: 800; line-height:1.25em;font-size: calc(1vw + 30px)}
 .group-theme__logo {position: relative;}
 .group-theme__name-and-actions {position: relative;bottom: 30px;}
+.auth-email-form__email {margin-top: 20px;}
+input#email {font-size: 18px;}
