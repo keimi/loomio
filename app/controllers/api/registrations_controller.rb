@@ -23,6 +23,7 @@ class API::RegistrationsController < Devise::RegistrationsController
     resource = user_from_pending_identity.tap(&:save)
     if resource.persisted?
       sign_in resource
+      puts('[OAUTHRD]', resource)
       flash[:notice] = t(:'devise.sessions.signed_up')
       render json: { success: :ok }
     else
