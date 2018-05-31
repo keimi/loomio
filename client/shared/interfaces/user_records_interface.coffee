@@ -22,6 +22,9 @@ module.exports = class UserRecordsInterface extends BaseRecordsInterface
   saveExperience: (experience) =>
     @remote.post 'save_experience', experience: experience
 
+  updateUser: (user) =>
+    @remote.post 'update_profile', user.serialize()
+
   updateMilitancy: (user) =>
     rem = @remote
 

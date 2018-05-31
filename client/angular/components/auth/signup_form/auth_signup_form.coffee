@@ -32,7 +32,6 @@ angular.module('loomioApp').directive 'authSignupForm', ->
               $scope.user.isRd = body.padron
               $scope.user.rut = body.rut
 
-              console.log()
               AuthService.signUp($scope.user).finally -> EventBus.emit $scope, 'doneProcessing'
       else
         $scope.user.errors =

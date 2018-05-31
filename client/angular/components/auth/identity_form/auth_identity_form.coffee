@@ -32,7 +32,7 @@ angular.module('loomioApp').directive 'authIdentityForm', ->
               AuthService.confirmOauth().then ->
                 $scope.user.isRd = body.padron
                 $scope.user.rut = body.rut
-                Records.users.updateProfile($scope.user).then ->
+                Records.users.updateUser($scope.user).then ->
                   hardReload()
               , ->
                 EventBus.emit $scope, 'doneProcessing'
