@@ -4,6 +4,7 @@ AuthService = require 'shared/services/auth_service.coffee'
 I18n        = require 'shared/services/i18n.coffee'
 request     = require 'request'
 Records     = require 'shared/services/records.coffee'
+Session     = require 'shared/services/session.coffee'
 
 { hardReload }    = require 'shared/helpers/window.coffee'
 { submitOnEnter } = require 'shared/helpers/keyboard.coffee'
@@ -30,6 +31,7 @@ angular.module('loomioApp').directive 'authIdentityForm', ->
               hardReload()
             else
               AuthService.confirmOauth().then ->
+                $scope.user = Session.user().clone()
                 $scope.user.isRd = body.padron
                 $scope.user.rut = body.rut
                 Records.users.updateProfile($scope.user).then ->
