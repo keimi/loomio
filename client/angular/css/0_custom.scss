@@ -1,3 +1,4 @@
+// Cosas que queremos ocultar
 .document-card.lmo-card,
 md-list-item.decision-tools-card__poll-type.decision-tools-card__poll-type--poll, 
 md-list-item.decision-tools-card__poll-type.decision-tools-card__poll-type--dot_vote, 
@@ -16,10 +17,10 @@ a.email-settings-page__learn-more-link,
 .discussion-form .lmo-hint-text,
 .md-block.poll-common-multiple-choice.poll-common-checkbox-option, 
 span.poll-common-vote-form__chosen-option--name,
-h3.lmo-h3.poll-meeting-vote-form--box,
-button.md-button.md-raised.google
+h3.lmo-h3.poll-meeting-vote-form--box
  {display: none!important;}
 
+// Cambios de UI
 .auth-provider-form__provider, button.md-button.md-raised.google {width: 100%!important;padding: 10px!important;}
 .group-theme__name a {color: white !important;text-transform: uppercase;letter-spacing: .04em;font-weight: 800;}
 .explore-page__group {width:33%!important;min-width:200px!important;}
@@ -31,4 +32,14 @@ button.group-privacy-button.md-button, .group-page-actions {color:white!importan
 .group-theme__name-and-actions {position: relative;bottom: 30px;}
 .auth-email-form__email {margin-top: 20px;}
 input#email {font-size: 18px;}
-.auth-signup-form__welcome {display: none;}
+
+// Cambios al home
+md_content.lmo-main-content._md.flex {background: url(http://revoluciondemocratica.site/wp-content/uploads/2018/05/bg_asamblea.jpg) no-repeat center center fixed;}
+.md-errors-spacer {display:none;}
+.explore-page__search-field input {margin: 0;padding: 3px;background-color: white;border-radius: 60px;}
+.explore-page__search-field label {margin: 0 10px;}
+.explore-page__search-field {background-color: transparent;}
+.explore-page h1.lmo-h1-medium {margin-top: 40px;}
+.explore-page__search-field i {top: 5px;right: 14px;color: black;}
+.explore-page__group-details .explore-page__group-description {display: none;}
+.explore-page__group-details .lmo-h2 {min-height: 60px;}
