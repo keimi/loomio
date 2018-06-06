@@ -20,22 +20,25 @@ span.poll-common-vote-form__chosen-option--name,
 h3.lmo-h3.poll-meeting-vote-form--box
  {display: none!important;}
 
-// Cambios de UI
-.auth-provider-form__provider, button.md-button.md-raised.google {width: 100%!important;padding: 10px!important;}
+
+// Header
+.lmo-navbar .md-toolbar-tools {background-color: #12813D;color: white;}
+.navbar__sidenav-toggle {color: white!important}
+
+// Grupos
 .group-theme__name a {color: white !important;text-transform: uppercase;letter-spacing: .04em;font-weight: 800;}
-.explore-page__group {width:33%!important;min-width:200px!important;}
 .poll-common-vote-form__button {border: none!important;}
-.group-theme__logo {margin-top: -100px!important;filter: invert(100%)!important;background-color: transparent!important;border: none!important;}
-button.group-privacy-button.md-button, .group-page-actions {color:white!important;}
+.group-theme__logo {margin-top: -100px!important;filter: invert(100%) grayscale(1) brightness(2)!important;background-color: transparent!important;border: none!important;}
 .group-theme__name a {color: white;text-transform: uppercase;font-weight: 800; line-height:1.25em;font-size: calc(1vw + 30px)}
-.group-theme__logo {position: relative;}
 .group-theme__name-and-actions {position: relative;bottom: 30px;}
+button.group-privacy-button.md-button, .group-page-actions {color:white!important;}
+
+// Auth
 .auth-email-form__email {margin-top: 20px;}
+.auth-provider-form__provider, button.md-button.md-raised.google {width: 100%!important;padding: 10px!important;}
 input#email {font-size: 18px;}
 
-// Cambios al home
-md_content.lmo-main-content._md.flex {background: url(http://revoluciondemocratica.site/wp-content/uploads/2018/05/bg_asamblea.jpg) no-repeat center center fixed;}
-.md-errors-spacer {display:none;}
+// Explore
 .explore-page__search-field input {margin: 0;padding: 3px;background-color: white;border-radius: 60px;}
 .explore-page__search-field label {margin: 0 10px;}
 .explore-page__search-field {background-color: transparent;}
@@ -43,3 +46,6 @@ md_content.lmo-main-content._md.flex {background: url(http://revoluciondemocrati
 .explore-page__search-field i {top: 5px;right: 14px;color: black;}
 .explore-page__group-details .explore-page__group-description {display: none;}
 .explore-page__group-details .lmo-h2 {min-height: 60px;}
+.explore-page__group {width: 32.5%;min-width: 200px;}
+.explore-page__group:first-child {width: 100%!important;}
+
