@@ -5,6 +5,7 @@ AbilityService = require 'shared/services/ability_service.coffee'
 LmoUrlService  = require 'shared/services/lmo_url_service.coffee'
 I18n           = require 'shared/services/i18n.coffee'
 
+
 { submitForm } = require 'shared/helpers/form.coffee'
 { eventHeadline, eventTitle, eventPollType } = require 'shared/helpers/helptext.coffee'
 
@@ -42,6 +43,14 @@ angular.module('loomioApp').directive 'threadItem', ['$compile', ($compile) ->
 
     $scope.isUnread = ->
       (Session.user().id != $scope.event.actorId) && $scope.eventWindow.isUnread($scope.event)
+
+    $scope.isRD = ->
+      AbilityService.isRD()
+
+    $scope.isNotRD = ->
+      ! AbilityService.isRD()
+
+
 
     $scope.headline = ->
       I18n.t eventHeadline($scope.event, $scope.eventWindow.useNesting),

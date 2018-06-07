@@ -15,7 +15,15 @@ $controller = ($rootScope, $timeout) ->
   $timeout -> document.querySelector('#search-field').focus()
 
   @groups = =>
-    Records.groups.find(@groupIds)
+    grs = Records.groups.find(@groupIds)
+    for index, g of grs
+      if g and  g.fullName == 'Asamblea General'
+        asam = g
+        grs.splice(index,1)
+    if asam
+      grs.unshift asam
+    grs
+
 
   @handleSearchResults = (response) =>
     Records.groups.getExploreResultsCount(@query).then (data) =>

@@ -16,6 +16,8 @@
             unread: {{isUnread()}}
             cc: {{event.childCount}}
           %span{ng-bind-html: "::headline()"}
+          %i.mdi.mdi-star{ng-if: "isRD()"}
+          %i.mdi.mdi-alert{ng-if: "isNotRD()"}
           %span{aria-hidden: "true"}>·
           %a.thread-item__link.lmo-pointer{href: "{{::link()}}"}
             %timeago.timeago--inline{timestamp: "event.createdAt"}
