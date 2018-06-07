@@ -1,6 +1,7 @@
 .lmo-one-column-layout
   %main.explore-page
     %h1.lmo-h1-medium{translate: "explore_page.header"}
+    %p{translate: "explore_page.paragraph"}
     %md-input-container.explore-page__search-field
       %input#search-field{ng-model: "explorePage.query", ng-model-options: "{debounce: 600}", ng-change: "explorePage.search()", placeholder: "{{ 'explore_page.search_placeholder' | translate }}"}
       %i.mdi.mdi-magnify{aria-hidden: "true"}

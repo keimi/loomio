@@ -5,7 +5,7 @@
     %ul.subgroups-card__list
       %li.subgroups-card__list-item{ng-repeat: "subgroup in group.subgroups() | orderBy: 'name' track by subgroup.id"}
         .subgroups-card__list-item-logo
-          %group_avatar{group: "subgroup", size: "medium"}
+          %group_avatar{group: "subgroup", size: "small"}
         .subgroups-card__list-item-name
           %a{lmo-href-for: "subgroup"} {{ subgroup.name }}
         .subgroups-card__list-item-description {{ subgroup.description | truncate }}

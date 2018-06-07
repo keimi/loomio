@@ -993,7 +993,8 @@ es:
     proposal: 'Consejos para redactar una propuesta clara'
     vote: 'Puedes cambiar tu decisión en cualquier momento'
   explore_page:
-    header: Explorar grupos
+    header: ¡Sé parte de la Revolución!
+    paragraph: "Te invitamos a unirte a los grupos de los diferentes espacios, frentes y territorios, para participar activamente de ellos, ya sea instalando temas de conversación o votando en las consultas que generen las y los coordinadores."
     search_placeholder: Buscar grupos públicos
     single_search_result: "1 grupo público coincide con <strong>{{searchTerm}}:</strong> "
     multiple_search_results: "{{resultCount}} grupos públicos coinciden con <strong>{{searchTerm}}:</strong>"
@@ -1481,7 +1482,7 @@ es:
     account_inactive: ¡Vaya! parece que la cuenta {{email}} está desactivada. Póngase en contacto con nosotros para reactivarla.
     welcome: Encantado de conocerte,  {{email}}!
     welcome_back: Bienvenido nuevamente, {{name}}!
-    login_link: Entra a través de un correo electrónico
+    login_link: Recupera tu contraseña
     set_password: Configura la contraseña
     set_password_helptext: '¿Cansado de entrar con tu email? '
     set_password_link: Configura una contraseña
