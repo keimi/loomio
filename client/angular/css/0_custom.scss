@@ -62,4 +62,6 @@ md_content.lmo-main-content._md.flex {background: url('/theme/bg_asamblea.jpg') 
 i[ng-if="isRD()"] {color: green;margin-left: .4em;}
 i[ng-if="!isRD()"] {color: orange;margin-left: .4em;}
 
+// Votaciones pasadas
+.poll-common-index-card.lmo-card {display: none;}
 
