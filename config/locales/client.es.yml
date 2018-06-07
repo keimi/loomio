@@ -65,11 +65,11 @@ es:
     anonymous: Anónimo
     privacy:
       privacy: 'Privacidad'
-      public: 'Públic'
+      public: 'Público'
       open: 'Espacio Institucional'
-      closed: 'Espacio Orgánico '
+      closed: 'Acta Ordinaria '
       private: 'Privado'
-      secret: 'Acta '
+      secret: 'Acta Secreta '
     selected: 'Seleccionado'
     date_range:
       today: 'Hoy'
@@ -528,18 +528,18 @@ es:
       private_to_parent_members: 'El nombre y la descripción serán visibles para los miembros de {{parent}}'
     privacy: 'Privacidad'
     group_privacy_is_open_description: "Este es un espacio institucional de Revolución Democrática. Todos pueden seguir las conversaciones, pero solo los miembros electos pueden votar."
-    group_privacy_is_closed_description: "Cualquier persona puede encontrar este grupo y pedir membresía. Sólo los miembros pueden ver quien pertenece al mismo. Todas las conversaciones son privadas."
+    group_privacy_is_closed_description: "Cualquier persona puede encontrar esta acta y ver sus conversaciones públicas. Sólo los miembros pueden ver las conversaciones privadas."
     group_privacy_is_closed_public_threads_description: "Este es un espacio orgánico de Revolución Democrática, para ser miembro debes empezar a participar de las reuniones."
     group_privacy_is_secret_description: "Esta es el Acta de una reunión de {{group}} sólo quienes han asistido pueden participar de este grupo y sus conversaciones. "
     confirm_change_to_secret: "Si procedes, todos las tema en este grupo y sus reuniones se harán privadas."
     confirm_change_to_secret_subgroup: 'Si continuas todas las conversaciones de la reunión se harán privadas.'
     confirm_change_to_public: 'Si continúas, todas las conversaciones de este grupo se harán públicas en internet.  '
     confirm_change_to_private_discussions_only: 'Si continuas cualquier tema público en este grupo se hará privado. '
-    subgroup_privacy_is_open_description: "Cualquier persona puede encontrar este subgrupo y pedir membresía. Solo los miembros pueden ver quien pertenece al mismo. Todos las conversaciones son públicas."
-    subgroup_privacy_is_closed_description: "Cualquier persona puede encontrar este subgrupo y pedir membresía. Sólo los miembros pueden ver quien pertenece al mismo. Todos las conversaciones son privadas."
-    subgroup_privacy_is_closed_public_threads_description: "Cualquier persona puede encontrar este subgrupo y pedir membresía. Sólo los miembros pueden ver quien pertenece al mismo. Las conversaciones pueden ser públicas o privadas."
-    subgroup_privacy_is_closed_secret_parent_description: "Participantes de {{parent}} puede encontrar este subgrupo y pedir membresía. Solo los miembros pueden ver quien pertenece al mismo. Todas las conversaciones son privadas."
-    subgroup_privacy_is_secret_description: 'Sólo miembros que han sido invitados pueden encontrar este subgrupo, ver quien pertenece al mismo y las conversaciones.  '
+    subgroup_privacy_is_open_description: "Cualquier persona puede encontrar esta acta. Todas las conversaciones son públicas."
+    subgroup_privacy_is_closed_description: "Cualquier persona puede encontrar esta acta y ver sus conversaciones públicas. Sólo los miembros pueden ver las conversaciones privadas."
+    subgroup_privacy_is_closed_public_threads_description: "Cualquier persona puede encontrar esta acta y ver sus conversaciones públicas. Sólo los miembros pueden ver las conversaciones privadas."
+    subgroup_privacy_is_closed_secret_parent_description: "Participantes de {{parent}} puede encontrar esta acta. Solo los miembros pueden ver quien pertenece al mismo. Todas las conversaciones son privadas."
+    subgroup_privacy_is_secret_description: 'Sólo las personas que han sido invitadas pueden acceder a esta acta, ver los participantes y ser parte de las conversaciones.  '
     advanced_settings: "Configuración avanzada "
     how_do_people_join: "¿Cómo se unen las personas a este grupo?"
     membership_granted_upon_request: 'Cualquiera puede unirse al grupo.'
