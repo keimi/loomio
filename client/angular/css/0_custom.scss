@@ -1,3 +1,8 @@
+// Font
+button, html, input, md-bottom-sheet .md-subheader, select, textarea {
+    font-family: Open Sans,"Helvetica Neue",sans-serif!important;
+}
+
 // Cosas que queremos ocultar
 .document-card.lmo-card,
 md-list-item.decision-tools-card__poll-type.decision-tools-card__poll-type--poll, 
@@ -22,16 +27,18 @@ h3.lmo-h3.poll-meeting-vote-form--box
 
 
 // Header
-.lmo-navbar .md-toolbar-tools {background-color: #12813D;color: white;}
+.lmo-navbar .md-toolbar-tools {background-color: #12813D!important;color: white!important;}
 .navbar__sidenav-toggle {color: white!important}
 
 // Grupos
-.group-theme__name a {color: white !important;text-transform: uppercase;letter-spacing: .04em;font-weight: 800;}
+.group-theme__name a {color: white!important;text-transform: uppercase;letter-spacing: .04em;font-weight: 800;text-shadow: 1px 1px 20px #212121;}
+.group-theme__name a:hover {text-decoration: none!important;}
 .poll-common-vote-form__button {border: none!important;}
 .group-theme__logo {margin-top: -100px!important;filter: invert(100%) grayscale(1) brightness(2)!important;background-color: transparent!important;border: none!important;}
-.group-theme__name a {color: white;text-transform: uppercase;font-weight: 800; line-height:1.25em;font-size: calc(1vw + 30px)}
+.group-theme__name a, .explore-page h1.lmo-h1-medium{font-weight: 800; line-height:1.25em;font-size: calc(1vw + 30px)}
 .group-theme__name-and-actions {position: relative;bottom: 30px;}
-button.group-privacy-button.md-button, .group-page-actions {color:white!important;}
+button.group-privacy-button.md-button, .group-theme__name a, .group-page-actions {color:white!important;text-transform: uppercase;}
+.parent-group{font-size: 80%!important;display:block;}
 
 // Auth
 .auth-email-form__email {margin-top: 20px;}
@@ -40,13 +47,19 @@ input#email {font-size: 18px;}
 
 // Explore
 md_content.lmo-main-content._md.flex {background: url('/theme/bg_asamblea.jpg') no-repeat center center fixed;}
-.explore-page__search-field input {margin: 0;padding: 3px;background-color: white;border-radius: 60px;}
-.explore-page__search-field label {margin: 0 10px;}
-.explore-page__search-field {background-color: transparent;}
-.explore-page h1.lmo-h1-medium {margin-top: 40px;}
-.explore-page__search-field i {top: 5px;right: 14px;color: black;}
+.explore-page__search-field input {margin: 0!important;padding: 3px!important;background-color: white!important;border-radius: 60px!important;}
+.explore-page__search-field label {margin: 0 10px!important;}
+.explore-page__search-field {background-color: transparent!important;}
+.explore-page h1.lmo-h1-medium {margin-top: 40px!important;}
+.explore-page__search-field i {top: 5px!important;right: 14px!important;color: black!important;}
 .explore-page__group-details .explore-page__group-description {display: none;}
-.explore-page__group-details .lmo-h2 {min-height: 60px;line-height: 1.3;}
-.explore-page__group {width: 32.5%;min-width: 200px;}
+.explore-page__group-details .lmo-h2 {min-height: 60px;line-height: 1.3!important;}
+.explore-page__group {width: 32.5%!important;min-width: 200px!important;}
 .explore-page__group:first-child {width: 100%!important;}
-.explore-page__group-cover {background-position: center;}
+.explore-page__group-cover {background-position: center!important;}
+
+// isRD
+i[ng-if="isRD()"] {color: green;margin-left: .4em;}
+i[ng-if="!isRD()"] {color: orange;margin-left: .4em;}
+
+
