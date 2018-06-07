@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180531003859) do
+ActiveRecord::Schema.define(version: 20180607152216) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -732,7 +732,7 @@ ActiveRecord::Schema.define(version: 20180531003859) do
     t.string "email_api_key", limit: 255
     t.boolean "email_when_mentioned", default: true, null: false
     t.boolean "email_on_participation", default: true, null: false
-    t.integer "default_membership_volume", default: 2, null: false
+    t.integer "default_membership_volume", default: 0, null: false
     t.string "country"
     t.string "region"
     t.string "city"
