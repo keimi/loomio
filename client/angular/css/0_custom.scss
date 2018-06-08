@@ -5,11 +5,10 @@ button, html, input, md-bottom-sheet .md-subheader, select, textarea {
 
 // Cosas que queremos ocultar
 .document-card.lmo-card,
-md-list-item.decision-tools-card__poll-type.decision-tools-card__poll-type--poll, 
-md-list-item.decision-tools-card__poll-type.decision-tools-card__poll-type--dot_vote, 
-md-list-item.decision-tools-card__poll-type.decision-tools-card__poll-type--ranked_choice,
-section.group-form__section.group-form__privacy,
-.md-block.poll-common-multiple-choice.poll-common-checkbox-option, 
+.decision-tools-card__poll-type--poll, 
+.decision-tools-card__poll-type--dot_vote, 
+.decision-tools-card__poll-type--ranked_choice,
+.poll-common-checkbox-option, 
 button.sidebar__list-item-button.sidebar__list-item-button--start-group.md-button.md-ink-ripple,
 button.md-accent.group-form__advanced-link.md-button.md-ink-ripple, 
 button.sidebar__list-item-button--subgroup.md-button.md-ink-ripple,
@@ -66,6 +65,7 @@ i[ng-if="isNotRD()"] {color: orange;margin-left: .4em;}
 // Votaciones pasadas
 .poll-common-index-card.lmo-card {display: none;}
 
-// Votaciones pasadas
+// Privacidad de las actas
 h3[translate="group_form.privacy"] {font-size: 0;margin-bottom: 10px;}
+.md-checkbox--with-summary.group-form__privacy-open {display: none!important;}
 
