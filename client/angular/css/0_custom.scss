@@ -66,6 +66,7 @@ i[ng-if="isNotRD()"] {color: orange;margin-left: .4em;}
 .poll-common-index-card.lmo-card {display: none;}
 
 // Privacidad de las actas
-h3[translate="group_form.privacy"] {font-size: 0;margin-bottom: 10px;}
+.group-form__privacy h3 {font-size: 0;margin-bottom: 10px;}
 .md-checkbox--with-summary.group-form__privacy-open {display: none!important;}
+.group-form__submit-button{padding: 5px 20px;margin-bottom: 15px;}
 
