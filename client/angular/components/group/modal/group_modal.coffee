@@ -1,5 +1,6 @@
 Records       = require 'shared/services/records.coffee'
 LmoUrlService = require 'shared/services/lmo_url_service.coffee'
+ModalService = require 'shared/services/modal_service.coffee'
 
 { applySequence } = require 'shared/helpers/apply.coffee'
 
@@ -16,5 +17,6 @@ angular.module('loomioApp').factory 'GroupModal', ->
           ['create']
       createComplete: (_, g) ->
         $scope.invitationForm = Records.invitationForms.build(groupId: g.id)
+        ModalService.open 'AddMembersModal', group: -> g
         LmoUrlService.goTo LmoUrlService.group(g)
   ]
