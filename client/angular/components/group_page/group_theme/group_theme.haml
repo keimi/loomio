@@ -29,7 +29,6 @@
       %h1.lmo-h1.group-theme__name{aria-label: "breadcrumb", role: "navigation"}
         %a.parent-group{ng-if: "group.isSubgroup()", lmo-href-for: "group.parent()", aria-level: "1"}
           {{group.parentName()}}
-        %span{ng-if: "group.isSubgroup()"}> \<br>
         %a{lmo-href-for: "group", aria-level: "2"}
           {{group.name}}
       .group-theme__actions{ng-if: "homePage"}
