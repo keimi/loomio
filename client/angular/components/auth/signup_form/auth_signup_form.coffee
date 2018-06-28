@@ -24,7 +24,7 @@ angular.module('loomioApp').directive 'authSignupForm', ->
         $scope.user.name  = $scope.vars.name
         request.get {uri:'https://api.revoluciondemocratica.cl/verify?rut=' + $scope.vars.rut + '&number=' + $scope.vars.code, json : true},
           (err, r, body) ->
-            if body.status == 'fail'
+            if body.status == 'fail' || body.padron == false
               $scope.user.isRd = false
               $scope.user.errors = name: ['verificación fallida']
               hardReload()
