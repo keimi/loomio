@@ -132,11 +132,11 @@ es:
       view_group: Puedes aceptar o denegar la solicitud aquí
       button_text: Ver solicitudes
   email_actions:
-    unfollowed_discussion: 'Has desactivado los emails para este hilo '
+    unfollowed_discussion: 'Has desactivado los emails para este conversación '
   thread_mailer:
     new_discussion:
       subject: "[%{group}] %{discussion}"
-      subject_html: "<strong>%{actor}</strong> inició un hilo: %{discussion}"
+      subject_html: "<strong>%{actor}</strong> inició una conversación: %{discussion}"
     new_comment:
       subject: "[%{group}] %{discussion} "
       subject_html: "<strong>%{actor}</strong> comentó en: %{discussion}"
@@ -514,7 +514,7 @@ es:
     visit_poll: Ver encuesta
     go_to_dashboad: Ir al panel de control
   slack:
-    new_discussion: "Nuevo hilo en *%{group}*: *%{discussion}* "
+    new_discussion: "Nueva conversación en *%{group}*: *%{discussion}* "
     outcome_created: "Resultado publicado en *%{group}*: *%{poll}*"
     poll_created: "Nuevo *%{poll_type}* en *%{group}*: *%{poll}*"
     poll_closing_soon: "Recordatorio: *%{poll}* cierra en 24hr"

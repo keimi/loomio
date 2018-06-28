@@ -67,9 +67,9 @@ es:
       privacy: 'Privacidad'
       public: 'Público'
       open: 'Espacio Institucional'
-      closed: 'Acta Ordinaria '
+      closed: 'Reunión Ordinaria '
       private: 'Privado'
-      secret: 'Acta Secreta '
+      secret: 'Reunión Secreta '
     selected: 'Seleccionado'
     date_range:
       today: 'Hoy'
@@ -100,7 +100,7 @@ es:
       unlike: 'Ya no me gusta'
       update: 'Actualizar '
       cancel: 'Cancelar'
-      show_more: "Mostrar más"
+      show_more: "Más opciones"
       view_all: "Ver todo"
       new_thread: "Nuevo tema"
       add_subgroup: 'Crear una nueva reunión'
@@ -361,9 +361,9 @@ es:
     title_label: 'Título'
     title_placeholder: '¿Cuál es el tema que quieres discutir?'
     context_label: 'Contexto'
-    context_placeholder: 'Da suficiente información de contexto para que el grupo pueda llevar a cabo una discusión productiva. Esta información puede actualizarse según progresa la discusión.'
+    context_placeholder: 'Añade una descripción del contexto. Esta información puede actualizarse según progresa la discusión.'
     privacy_label: 'Privacidad'
-    privacy_public: 'Cualquier persona puede ver los hilos. Solo miembros pueden participar. '
+    privacy_public: 'Cualquier persona puede ver los conversaciónes. Solo miembros pueden participar. '
     privacy_private: 'Las conversaciones solo serán visibles para miembros de {{group}}.'
     privacy_organisation: 'Las conversaciones serán visibles para miembros de {{parent}} y miembros de {{group}}.'
     make_announcement: Notificar
@@ -514,21 +514,21 @@ es:
   group_form:
     aria_label: 'Formulario de grupo'
     start_group_heading: 'Empieza un grupo'
-    start_subgroup_heading: 'Comienza un nueva reunión '
+    start_subgroup_heading: 'Crea una nueva acta '
     edit_group_heading: 'Editar la configuración del grupo'
     edit_subgroup_heading: 'Editar la información de la reunión'
     group_name: 'Nombre del Espacio'
-    group_name_placeholder: '¿Cómo quieres nombrar a tu grupo?'
-    subgroup_name: 'Dale un título a la reunión'
-    description: 'Descripción de la reunión '
-    description_placeholder: 'Describe el propósito de tu grupo para que los miembros sepan porque están aquí. '
+    group_name_placeholder: 'Ej. Jueves 28 de Junio?'
+    subgroup_name: 'Fecha de la reunión'
+    description: 'Tabla de la reunión '
+    description_placeholder: 'Enumera los temas que serán discutidos para que los miembros sepan porque están aquí. '
     privacy_statement:
       public_on_web: 'Nombre, descripción y archivos adjuntos al contexto del grupo, serán visibles al públicos '
       private_to_group: 'El nombre y la descripción solo serán visibles para miembros. '
       private_to_parent_members: 'El nombre y la descripción serán visibles para los miembros de {{parent}}'
     privacy: 'Privacidad'
     group_privacy_is_open_description: "Este es un espacio institucional de Revolución Democrática. Todos pueden seguir las conversaciones, pero solo los miembros electos pueden votar."
-    group_privacy_is_closed_description: "Cualquier persona puede encontrar esta acta y ver sus conversaciones públicas. Sólo los miembros pueden ver las conversaciones privadas."
+    group_privacy_is_closed_description: "Cualquier persona puede ver esta acta. Sólo los miembros pueden ver las conversaciones privadas."
     group_privacy_is_closed_public_threads_description: "Este es un espacio orgánico de Revolución Democrática, para ser miembro debes empezar a participar de las reuniones."
     group_privacy_is_secret_description: "Esta es el Acta de una reunión de {{group}} sólo quienes han asistido pueden participar de este grupo y sus conversaciones. "
     confirm_change_to_secret: "Si procedes, todos las tema en este grupo y sus reuniones se harán privadas."
@@ -539,8 +539,8 @@ es:
     subgroup_privacy_is_closed_description: "Cualquier persona puede encontrar esta acta y ver sus conversaciones públicas. Sólo los miembros pueden ver las conversaciones privadas."
     subgroup_privacy_is_closed_public_threads_description: "Cualquier persona puede encontrar esta acta y ver sus conversaciones públicas. Sólo los miembros pueden ver las conversaciones privadas."
     subgroup_privacy_is_closed_secret_parent_description: "Participantes de {{parent}} puede encontrar esta acta. Solo los miembros pueden ver quien pertenece al mismo. Todas las conversaciones son privadas."
-    subgroup_privacy_is_secret_description: 'Sólo las personas que han sido invitadas pueden acceder a esta acta, ver los participantes y ser parte de las conversaciones.  '
-    advanced_settings: "Configuración avanzada "
+    subgroup_privacy_is_secret_description: 'Sólo las personas que han sido invitadas pueden acceder a esta acta.'
+    advanced_settings: "Opciones de Privacidad "
     how_do_people_join: "¿Cómo se unen las personas a este grupo?"
     membership_granted_upon_request: 'Cualquiera puede unirse al grupo.'
     membership_granted_upon_approval: 'Cualquiera puede pedir la membresía, pero debe ser aprobada.'
@@ -656,7 +656,7 @@ es:
       max_invitations: 'Si quieres enviar mas de 100 invitaciones, utiliza un enlace.'
   add_members_modal:
     aria_label: 'Añadir miembros que participan en este Espacio Basal'
-    heading: 'Adherir miembros de {{name}}'
+    heading: '¿Quienes participan de la reunión?'
     add_members: 'Incluye miembros '
     user_added_to_subgroup: '{{name}} ha asistido a la reunión '
     users_added_to_subgroup: '{{count}} personas han asistido a está reunión '
@@ -1075,7 +1075,7 @@ es:
     share_poll: Compartir encuesta
     share_proposal: Compartir propuesta
     share_count: 'Compartir Comprobación '
-    start_poll: 'Iniciar una decisión '
+    start_poll: 'Iniciar una votación '
     publish_poll: Compartir encuesta
   poll_common_attachment_form:
     label: Adjuntos
@@ -1500,7 +1500,7 @@ es:
     email: Correo Electrónico
     password: Contraseña
     rut: Rut
-    code: Número de documento
+    code: Ingresa tu <a href='https://www.srcei.cl/PortalOI/html/faq/Cod_Area_2/Cod_Tema_6/pregunta_477.html' target="_blank">Número de documento </a>
     privacy: Acepto los <a href='https://revoluciondemocratica.cl' target="_blank"> terminos de servicio </a>
   install_slack:
     modal_title: Installar Slack

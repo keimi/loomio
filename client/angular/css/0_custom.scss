@@ -6,8 +6,8 @@ button, html, input, md-bottom-sheet .md-subheader, select, textarea {
 // Cosas que queremos ocultar
 .document-card.lmo-card,
 .decision-tools-card__poll-type--poll, 
-.decision-tools-card__poll-type--dot_vote, 
-.decision-tools-card__poll-type--ranked_choice,
+.decision-tools-card__poll-type--dot_vote,
+.decision-tools-card__poll-type--count, 
 .poll-common-checkbox-option, 
 button.sidebar__list-item-button.sidebar__list-item-button--start-group.md-button.md-ink-ripple,
 button.md-accent.group-form__advanced-link.md-button.md-ink-ripple, 
@@ -21,7 +21,12 @@ a.email-settings-page__learn-more-link,
 .discussion-form .lmo-hint-text,
 .md-block.poll-common-multiple-choice.poll-common-checkbox-option, 
 span.poll-common-vote-form__chosen-option--name,
-h3.lmo-h3.poll-meeting-vote-form--box
+h3.lmo-h3.poll-meeting-vote-form--box,
+.subgroups-card__list-item-description,
+.poll-tags-card__tags .lmo-hint-text,
+.auth-signin-form__no-token .lmo-hint-text,
+.auth-avatar__avatar,
+.group-form__privacy-statement.lmo-hint-text
  {display: none!important;}
 
 
@@ -38,6 +43,7 @@ h3.lmo-h3.poll-meeting-vote-form--box
 .group-theme__name-and-actions {position: relative;bottom: 30px;}
 button.group-privacy-button.md-button, .group-theme__name a, .group-page-actions {color:white!important;text-transform: uppercase;}
 .parent-group{font-size: 80%!important;display:block;}
+.subgroups-card__list-item {margin-bottom: 0;}
 
 // Auth
 .auth-email-form__email {margin-top: 20px;}
