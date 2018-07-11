@@ -767,7 +767,7 @@ es:
   activate_militancy_form:
     title: 'Activa tu militancia'
     rut_label: 'rut'
-    code_label: 'codigo'
+    code_label: 'Número de documento '
     submit_label: 'Activa la Militancia'
     militancy_changed: 'Militancia Activada'
 
