@@ -2,7 +2,7 @@ class LoginTokensController < ApplicationController
 
   def show
     session[:pending_token] = login_token.token
-    redirect_to login_token.redirect || explore_path
+    redirect_to login_token.redirect || dashboard_path
   end
 
   private

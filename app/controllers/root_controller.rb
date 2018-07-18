@@ -1,5 +1,5 @@
 class RootController < ApplicationController
   def index
-    redirect_to explore_path
+    redirect_to dashboard_path
   end
 end
