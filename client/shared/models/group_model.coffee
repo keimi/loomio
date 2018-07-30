@@ -20,9 +20,11 @@ module.exports = class GroupModel extends BaseModel
     name: ''
     description: ''
     groupPrivacy: 'closed'
-    discussionPrivacyOptions: 'private_only'
+#    discussionPrivacyOptions: 'private_only'
+    discussionPrivacyOptions: 'public_or_private'
     membershipGrantedUpon: 'approval'
-    membersCanAddMembers: true
+#    membersCanAddMembers: true
+    membersCanAddMembers: false
     membersCanEditDiscussions: true
     membersCanEditComments: true
     membersCanRaiseMotions: true
@@ -30,6 +32,7 @@ module.exports = class GroupModel extends BaseModel
     membersCanStartDiscussions: true
     membersCanCreateSubgroups: false
     motionsCanBeEdited: false
+    parentMembersCanSeeDiscussions: true
 
   afterConstruction: ->
     if @privacyIsClosed()
