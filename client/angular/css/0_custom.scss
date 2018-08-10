@@ -1,6 +1,10 @@
 // Font
 button, html, input, md-bottom-sheet .md-subheader, select, textarea {
-    font-family: Open Sans,"Helvetica Neue",sans-serif!important;
+    font-family: 'Rubik',"Helvetica Neue",sans-serif!important;
+}
+
+* {
+    font-family: 'Rubik' !important;
 }
 
 // Cosas que queremos ocultar
@@ -54,7 +58,7 @@ input#email {font-size: 18px;}
 
 // Explore
 md_content.lmo-main-content._md.flex {background: url('/theme/bg_asamblea.jpg') no-repeat center center fixed;}
-.explore-page__search-field input {margin: 0!important;padding: 3px!important;background-color: white!important;border-radius: 60px!important;}
+.explore-page__search-field input {margin: 0!important;padding: 3px 3px 3px 13px!important;background-color: white!important;border-radius: 60px!important;}
 .explore-page__search-field label {margin: 0 10px!important;}
 .explore-page__search-field {background-color: transparent!important;}
 .explore-page h1.lmo-h1-medium {margin: 30px 0px!important;text-align: center!important;}
@@ -77,4 +81,19 @@ i[ng-if="isNotRD()"] {color: orange;margin-left: .4em;}
 .group-form__privacy h3 {font-size: 0;margin-bottom: 10px;}
 .md-checkbox--with-summary.group-form__privacy-open {display: none!important;}
 .group-form__submit-button{padding: 5px 20px;margin-bottom: 15px;}
+
+
+// Muestra los subgrupos como reuniones
+.subgroups-card__list-item-logo {
+    display: none;
+}
+
+.subgroups-card__list-item {
+  min-height: 0;
+  margin-bottom: 20px;
+}
+
+.subgroups-card__list-item-name {
+  margin-left: 10px;
+}
 
