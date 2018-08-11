@@ -1476,13 +1476,13 @@ es:
         Haz clic en el botón debajo y te enviaremos un enlace para ingresar instantáneamente.
         Si deseas usar una contraseña para ingresar en el futuro, puedes ingresar una en tu página de perfil.
     login_link_helptext_with_password: "Introduce tu contraseña, o entra a través de un correo electrónico."
-    sign_up_helptext: "Simplemente ingresa el nombre por el que te gustaría ser conocido, y te enviaremos un enlace para ingresar."
+    sign_up_helptext: Para ingresar valida tu identidad con el <b>Número de Documento</b> de tu carnet.</br></br>
     oauth_confirm_helptext: "Simplemente confirma tus detalles de abajo, y te enviaremos un enlace para entrar."
     name_required: Falta algún parámetro obligatorio
     account_inactive: ¡Vaya! parece que la cuenta {{email}} está desactivada. Póngase en contacto con nosotros para reactivarla.
-    welcome: Encantado de conocerte,  {{email}}!
+    welcome: !Bienvenido 
     welcome_back: Bienvenido nuevamente, {{name}}!
-    login_link: Recupera tu contraseña
+    login_link: Ingresa a la Asamblea
     set_password: Configura la contraseña
     set_password_helptext: '¿Cansado de entrar con tu email? '
     set_password_link: Configura una contraseña
@@ -1500,8 +1500,9 @@ es:
     email: Correo Electrónico
     password: Contraseña
     rut: Rut
-    code: Ingresa tu <a href='https://www.srcei.cl/PortalOI/html/faq/Cod_Area_2/Cod_Tema_6/pregunta_477.html' target="_blank">Número de documento </a>
-    privacy: Acepto los <a href='https://revoluciondemocratica.cl' target="_blank"> terminos de servicio </a>
+    code: Número de Documento
+    codehint: <a href='https://www.srcei.cl/PortalOI/html/faq/Cod_Area_2/Cod_Tema_6/pregunta_477.html' target="_blank">¿Donde encuentro mi N° Documento?</a>
+    privacy: Acepto los  terminos de servicio
   install_slack:
     modal_title: Installar Slack
     modal_helptext: 'Primero, deberás ingresar en Slack. Te enviaremos ahí automáticamente en un segundo, o puedes hacer clic en el siguiente botón para continuar. '
