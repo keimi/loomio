@@ -1501,7 +1501,7 @@ es:
     password: Contraseña
     rut: Rut
     code: Número de Documento
-    codehint: <a href='https://www.srcei.cl/PortalOI/html/faq/Cod_Area_2/Cod_Tema_6/pregunta_477.html' target="_blank">¿Donde encuentro mi N° Documento?</a>
+    codehint: <a href='https://revoluciondemocratica.cl/wp-content/uploads/2018/08/ci_ejemplo.jpg' target="_blank">¿Donde encuentro mi N° Documento?</a>
     privacy: Acepto los  terminos de servicio
   install_slack:
     modal_title: Installar Slack
