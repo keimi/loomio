@@ -23,9 +23,8 @@
     %input.lmo-primary-form-input{type: "text", placeholder: "", ng-model: "vars.code", ng-required: "true"}
     %p.lmo-hint-text{translate: "auth_form.codehint"}
 
--#Eliminar el checkbox de Terminos y condiciones.
-  %md-checkbox{ng-model: "vars.accept"}
-  %label{translate: "auth_form.privacy"}
+  -#%md-checkbox{ng-model: "vars.accept"}
+  -#%label{translate: "auth_form.privacy"}
 
   %div{vc-recaptcha: "true", key: "recaptchaKey", ng-if: "recaptchaKey && !user.hasToken", ng-model: "user.recaptcha"}
 

@@ -18,7 +18,7 @@ angular.module('loomioApp').directive 'authSignupForm', ->
       AppConfig.features.app.create_user or AppConfig.pendingIdentity
 
     $scope.submit = ->
-      if $scope.vars.name and $scope.vars.rut and $scope.vars.code and $scope.vars.accept
+      if $scope.vars.name and $scope.vars.rut and $scope.vars.code
         $scope.user.errors = {}
         EventBus.emit $scope, 'processing'
         $scope.user.name  = $scope.vars.name
