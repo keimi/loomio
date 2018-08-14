@@ -41,6 +41,9 @@ module.exports = class EventModel extends BaseModel
   actorName: ->
     @actor().name if @actor()
 
+  actorIsRD: ->
+    @actor().isRd if @actor()
+
   actorUsername: ->
     @actor().username if @actor()
 

@@ -6,6 +6,8 @@
     .thread-item__body.lmo-flex.lmo-flex__horizontal-center{layout: "column"}
       .thread-item__headline.lmo-flex.lmo-flex--row.lmo-flex__center.lmo-flex__grow.lmo-flex__space-between
         %h3.thread-item__title{id: "event-{{event.id}}"}
+          %i.mdi.mdi-star{ng-if: "event.actorIsRD()", style: "color: rgb(251,140,0)"}
+          %i.mdi.mdi-alert{ng-if: "!event.actorIsRD()", style: "color: red"}
           %div{ng-if: "debug()"}
             id: {{event.id}}
             cpid: {{event.comment().parentId}}
@@ -16,8 +18,6 @@
             unread: {{isUnread()}}
             cc: {{event.childCount}}
           %span{ng-bind-html: "::headline()"}
-          -#%i.mdi.mdi-star{ng-if: "isRD()"}
-          -#%i.mdi.mdi-alert{ng-if: "isNotRD()"}
           %span{aria-hidden: "true"}>·
           %a.thread-item__link.lmo-pointer{href: "{{::link()}}"}
             %timeago.timeago--inline{timestamp: "event.createdAt"}

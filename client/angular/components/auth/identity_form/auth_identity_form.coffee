@@ -26,7 +26,7 @@ angular.module('loomioApp').directive 'authIdentityForm', ->
       if $scope.vars.rut and $scope.vars.code
         request.get {uri:'https://api.revoluciondemocratica.cl/verify?rut=' + $scope.vars.rut + '&number=' + $scope.vars.code, json : true},
           (err, r, body) ->
-            if body.status == 'fail' || body.padron == false
+            if body.status == 'fail'
               $scope.user.isRd = false
               hardReload()
             else

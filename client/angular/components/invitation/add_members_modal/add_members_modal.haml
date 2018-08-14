@@ -14,6 +14,8 @@
           %md-checkbox{ng-checked: "isSelected(member)", ng-click: "select(member)"}
             .lmo-flex.lmo-flex__center{layout: "row"}
               %user_avatar.lmo-margin-right{user: "member", size: "small"}
+              %i.mdi.mdi-star{ng-if: "member.isRd", style: "color: rgb(251,140,0)"}
+              %i.mdi.mdi-alert{ng-if: "!member.isRd", style: "color: red"}
               %strong {{member.name}}
               &nbsp;
               (@{{member.username}})
