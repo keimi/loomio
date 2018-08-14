@@ -1459,7 +1459,7 @@ es:
     filter_placeholder: (todas las encuestas)
     groups_placeholder: (todos los grupos)
   auth_form:
-    sign_in_to_loomio: Entrar a la Asamblea
+    sign_in_to_loomio: Valida tu identidad
     sign_in: Entrar
     sign_in_as: Ingresa como {{name}}
     choose_an_account: "Ingresa con tu correo a la Asamblea Digital de Revolución Democrática"
@@ -1482,7 +1482,7 @@ es:
     account_inactive: ¡Vaya! parece que la cuenta {{email}} está desactivada. Póngase en contacto con nosotros para reactivarla.
     welcome: !Bienvenido 
     welcome_back: Bienvenido nuevamente, {{name}}!
-    login_link: Ingresa a la Asamblea
+    login_link: Recuperar Contraseña
     set_password: Configura la contraseña
     set_password_helptext: '¿Cansado de entrar con tu email? '
     set_password_link: Configura una contraseña

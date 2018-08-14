@@ -90,8 +90,9 @@ i[ng-if="isNotRD()"] {color: orange;margin-left: .4em;}
 }
 
 .subgroups-card__list-item {
-  min-height: 0;
-  margin-bottom: 20px;
+  min-height: 0!important;
+  margin-bottom: 0px!important;
+  margin-top: 20px!important;
 }
 
 .subgroups-card__list-item-name {
