@@ -122,6 +122,7 @@ es:
       resend: 'Reenviar '
       send: Enviar
       resent: Reenviar invitación
+      export: Exportar
     formatting_help:
       label: 'Formato '
       title: 'Aprende como dar formato a tu texto'
@@ -1133,6 +1134,31 @@ es:
     anonymous: 'Participante Anónimo '
     helptext_on: La información del participante no será mostrada con cada respuesta
     helptext_off: Los participantes serán mostrados con sus respuestas
+  poll_common_settings:
+    multiple_choice:
+      title: Opciones Multiples
+      helptext_on: Los participantes puede elegir multiples opciones.
+      helptext_off: Los participantes tienen que elegir multiples opciones.
+    anyone_can_participate:
+      title: Cualquiera puede participar
+      helptext_on: Cualquiera que reciba el link puede participar.
+      helptext_off: Solo la gente que es es parte del grupo o invitada directamente puede participar.
+    notify_on_participate:
+      title: Notificame cuando alguien participe
+      helptext_on: Se te avisará siempre que alguien participe.
+      helptext_off: Se te avisará cuando la encuesta cierre.
+    anonymous:
+      title: Voto secreto
+      helptext_on: No se mostrará información sobre los participantes. 
+      helptext_off: Se motrará el nombre y voto de los participantes.
+    voters_can_add_options:
+      title: Los votantes pueden añadir opciones
+      helptext_on: Los participantes podrán añadir nuevas opciones.
+      helptext_off: Los participantes solo podrán elegir entre las opciones propuestas.
+    can_respond_maybe:
+      title: Permitir votar "si es necesario"
+      helptext_on:  Se permitirá indicar un fecha como "solo es necesario"
+      helptext_off: Los partipantes deberán decir si pueden o no. 
   poll_common_close_form:
     title: Cerrar una encuesta temprano
     helptext: ¿Estás seguro de que estás listo para cerrar tan pronto?
