@@ -76,9 +76,6 @@ md_content.lmo-main-content._md.flex {background: url('/theme/bg_asamblea.jpg') 
 i[ng-if="isRD()"] {color: green;margin-left: .4em;}
 i[ng-if="isNotRD()"] {color: orange;margin-left: .4em;}
 
-// Votaciones pasadas
-.poll-common-index-card.lmo-card {display: none;}
-
 // Privacidad de las actas
 .group-form__privacy h3 {font-size: 0;margin-bottom: 10px;}
 .md-checkbox--with-summary.group-form__privacy-open {display: none!important;}
@@ -97,6 +94,6 @@ i[ng-if="isNotRD()"] {color: orange;margin-left: .4em;}
 }
 
 .subgroups-card__list-item-name {
-  margin-left: 10px;
+  margin-left: 20px!important;
 }
 
