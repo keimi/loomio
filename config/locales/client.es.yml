@@ -69,7 +69,7 @@ es:
       open: 'Espacio Institucional'
       closed: 'Reunión Ordinaria '
       private: 'Privado'
-      secret: 'Reunión Secreta '
+      secret: 'Reunión Privada '
     selected: 'Seleccionado'
     date_range:
       today: 'Hoy'
@@ -1403,8 +1403,8 @@ es:
     new_comment: "<strong><a href='u/{{username}}'>{{author}}</a></strong>"
     outcome_created: "<strong><a href='u/{{username}}'>{{author}}</a></strong> compartió un resultado para <strong>{{title}}</strong>"
     poll_closed_by_user: "<strong><a href='u/{{username}}'>{{author}}</a></strong> ha cerrado el {{polltype}}: <strong>{{title}}</strong>"
-    poll_created: "<strong><a href='u/{{username}}'>{{author}}</a></strong> inició un {{polltype}}: <strong>{{title}}</strong>"
-    poll_edited: "<strong><a href='u/{{username}}'>{{author}}</a></strong> editó el {{polltype}}: <strong>{{title}}</strong>"
+    poll_created: "<strong><a href='u/{{username}}'>{{author}}</a></strong> inició una {{polltype}}: <strong>{{title}}</strong>"
+    poll_edited: "<strong><a href='u/{{username}}'>{{author}}</a></strong> editó la {{polltype}}: <strong>{{title}}</strong>"
     poll_expired: "{{polltype}} ha cerrado: <strong>{{title}}</strong>"
     stance_created: "<strong><a href='u/{{username}}'>{{author}}</a></strong> votó en: <strong> {{title}}</strong>"
     event_removed: "Eliminado del tema"
