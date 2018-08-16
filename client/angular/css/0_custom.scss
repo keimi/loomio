@@ -1,10 +1,11 @@
 // Font
+@import url('https://fonts.googleapis.com/css?family=Rubik:400,700');
 button, html, input, md-bottom-sheet .md-subheader, select, textarea {
     font-family: 'Rubik',"Helvetica Neue",sans-serif!important;
 }
 
 * {
-    font-family: 'Rubik' !important;
+    font-family: 'Rubik',"Helvetica Neue",sans-serif!important;
 }
 
 // Cosas que queremos ocultar
@@ -22,6 +23,7 @@ button.sidebar__list-item-button.sidebar__list-item-button--start-thread.md-butt
 button.md-primary.md-raised.members-card__invite-members-btn.md-button.md-ink-ripple,
 button.join-group-button__ask-to-join-group,
 label[for="discussion-group-field"],
+label[for="user-locale-field"],
 md-input-container[ng-show="showGroupSelect"],
 a.email-settings-page__learn-more-link,
 .discussion-form .lmo-hint-text,
@@ -46,7 +48,7 @@ h3.lmo-h3.poll-meeting-vote-form--box,
 .poll-common-vote-form__button {border: none!important;}
 .group-theme__logo {margin-top: -100px!important;filter: invert(100%) grayscale(1) brightness(2)!important;background-color: transparent!important;border: none!important;}
 .group-theme__name a, .explore-page h1.lmo-h1-medium{font-weight: 800; line-height:1.25em;font-size: calc(1vw + 30px)}
-.group-theme__name-and-actions {position: relative;bottom: 30px;}
+.group-theme__name {margin: -50px 10px 2vw 123px;}
 button.group-privacy-button.md-button, .group-theme__name a, .group-page-actions {color:white!important;text-transform: uppercase;}
 .parent-group{font-size: 80%!important;display:block;}
 .subgroups-card__list-item {margin-bottom: 0;}
@@ -74,9 +76,6 @@ md_content.lmo-main-content._md.flex {background: url('/theme/bg_asamblea.jpg') 
 i[ng-if="isRD()"] {color: green;margin-left: .4em;}
 i[ng-if="isNotRD()"] {color: orange;margin-left: .4em;}
 
-// Votaciones pasadas
-.poll-common-index-card.lmo-card {display: none;}
-
 // Privacidad de las actas
 .group-form__privacy h3 {font-size: 0;margin-bottom: 10px;}
 .md-checkbox--with-summary.group-form__privacy-open {display: none!important;}
@@ -89,11 +88,12 @@ i[ng-if="isNotRD()"] {color: orange;margin-left: .4em;}
 }
 
 .subgroups-card__list-item {
-  min-height: 0;
-  margin-bottom: 20px;
+  min-height: 0!important;
+  margin-bottom: 0px!important;
+  margin-top: 20px!important;
 }
 
 .subgroups-card__list-item-name {
-  margin-left: 10px;
+  margin-left: 20px!important;
 }
 

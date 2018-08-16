@@ -32,7 +32,7 @@ es:
     wave: Saludar
   poll_types:
     proposal: Propuesta
-    count: Comprobar
+    count: Conteo
     poll: Encuesta
     dot_vote: Voto de Puntos
     meeting: Coordinar horario
@@ -69,7 +69,7 @@ es:
       open: 'Espacio Institucional'
       closed: 'Reunión Ordinaria '
       private: 'Privado'
-      secret: 'Reunión Secreta '
+      secret: 'Reunión Privada '
     selected: 'Seleccionado'
     date_range:
       today: 'Hoy'
@@ -122,6 +122,7 @@ es:
       resend: 'Reenviar '
       send: Enviar
       resent: Reenviar invitación
+      export: Export
     formatting_help:
       label: 'Formato '
       title: 'Aprende como dar formato a tu texto'
@@ -1133,6 +1134,31 @@ es:
     anonymous: 'Participante Anónimo '
     helptext_on: La información del participante no será mostrada con cada respuesta
     helptext_off: Los participantes serán mostrados con sus respuestas
+  poll_common_settings:
+    multiple_choice:
+      title: Opciones Multiples
+      helptext_on: Los participantes puede elegir multiples opciones.
+      helptext_off: Los participantes tienen que elegir multiples opciones.
+    anyone_can_participate:
+      title: Cualquiera puede participar
+      helptext_on: Cualquiera que reciba el link puede participar.
+      helptext_off: Solo la gente que es es parte del grupo o invitada directamente puede participar.
+    notify_on_participate:
+      title: Notificame cuando alguien participe
+      helptext_on: Se te avisará siempre que alguien participe.
+      helptext_off: Se te avisará cuando la encuesta cierre.
+    anonymous:
+      title: Voto secreto
+      helptext_on: No se mostrará información sobre los participantes. 
+      helptext_off: Se motrará el nombre y voto de los participantes.
+    voters_can_add_options:
+      title: Los votantes pueden añadir opciones
+      helptext_on: Los participantes podrán añadir nuevas opciones.
+      helptext_off: Los participantes solo podrán elegir entre las opciones propuestas.
+    can_respond_maybe:
+      title: Permitir votar "si es necesario"
+      helptext_on:  Se permitirá indicar un fecha como "solo es necesario"
+      helptext_off: Los partipantes deberán decir si pueden o no. 
   poll_common_close_form:
     title: Cerrar una encuesta temprano
     helptext: ¿Estás seguro de que estás listo para cerrar tan pronto?
@@ -1210,13 +1236,11 @@ es:
     start: Crear
     update: Actualizar
     loomio_school_link: |
-        <p>Encuentra más información en <a href="https://www.rd.school/beginner/decision_tools.html" target="_blank">Manual de la Asamblea</a>.</p>
+        <p></p>
   poll_proposal_form:
     tool_tip_expanded: |
-        <p>Una propuesta es una herramienta para buscar el acuerdo colectivo sobre una declaración o curso de acción</p>
         <p>Los participantes pueden estar a favor, abstenerse, estar en desacuerdo o bloquear, y dar una explicación, o fundamento de su posición</p>
         <p>Un gráfico circular, permite tener una visión general de las posiciones del grupo, mientras que las explicaciones o fundamentos, permiten que todas las voces sean escuchadas. </p>
-        <p>No te desanimes si al comienzo no ves que haya acuerdo, las propuestas están diseñadas para hacer visibles los problemas que necesitan resolución..</p>
         <p>Si hay buena participación, una propuesta es un poderoso mandato para pasar a la acción.</p>
     tool_tip_collapsed: 'Busca el acuerdo colectivo  '
     start_header: Inicia una propuesta
@@ -1231,7 +1255,7 @@ es:
         <p>Usa una encuesta para medir popularidad u ofrecer alternativas.</p>
         <p>Proporciona algunas opciones de dónde elegir. Decide si los participantes eligen opciones individuales o múltiples en su respuesta.</p>
         <p>Todos votan y pueden incluir una fundamentación si lo desean. Los resultados se visualizan en un gráfico de barras.</p>
-    tool_tip_collapsed: 'Mida la popularidad u ofrezca una opción '
+    tool_tip_collapsed: 'Mide la popularidad de diferentes opciones '
     start_header: Crear encuesta
     edit_header: Editar encuesta
     tip: Mida la popularidad de diferentes opciones
@@ -1245,25 +1269,24 @@ es:
     poll_updated: Encuesta actualizada
   poll_count_form:
     tool_tip_expanded: |
-        <p>Una <em>comprobación</em> es una herramienta que tiene muchos usos posibles pero solo 2 respuestas: visto (✔) o anulación (✘). Los participantes usarán el visto (✔) para decir sí y la anulación (✘) para decir no o inseguro. </p>
-        <p>Úsalo para comprometer a la gente, como al pedir confirmación: "asistiré al evento" o "me apuntaré al grupo de trabajo".</p>
-        <p>O úsalo para hacer seguimiento a una tarea: "confirmé que mis datos de contacto están correctos", o "leí el documento y dejé mis comentarios".</p>
-        <p>Una comprobación tiene un <em>objetivo</em>, que es el número de participantes que quisieras. La meta indica al grupo que algo requiere más atención o cuenta con amplio acuerdo.</p>
+        <p>Una <em>comprobación</em> es una herramienta que tiene muchos usos posibles pero solo 2 respuestas: Sí (✔) o No (✘).</p>
+        <p>Úsalo para comprometer a la gente, como al pedir confirmación: "asistiré al evento", "me sumaré al grupo de trabajo"</p>
+         <p>Una comprobación tiene un <em>objetivo</em>, que es el número de participantes que quisieras.
         <p>Un día antes de que se cierre la comprobación, se le recordará a quienes no han participado todavía.</p>
-    tool_tip_collapsed: Comprobar la participación y encontrar voluntarios
-    start_header: 'Crear Comprobación '
-    edit_header: 'Editar Comprobación '
+    tool_tip_collapsed: Comprobar la participación
+    start_header: 'Crear un Conteo'
+    edit_header: 'Editar Conteo '
     tip: Motiva a las personas con una oferta o un pedido
     title_placeholder: P.ej. ¿Quién quiere unirse al grupo de trabajo?
     details_placeholder: Explica lo que implica participar o brinda detalles sobre cómo participar.
-    count_created: 'Comprobación iniciada '
-    count_updated: 'Comprobación actualizada '
+    count_created: 'Conteo iniciada '
+    count_updated: 'Conteo actualizada '
   poll_dot_vote_form:
     tool_tip_expanded: |
         <p>El voto de puntos es una manera de priorizar un listado de alternativas.</p>
         <p>Los participantes tienen un número limitado de ‘puntos’ que pueden distribuir del modo que quieran entre las opciones que representen sus preferencias.</p>
         <p>El proceso da como resultado un gráfico de barras acumulativas además de las asignaciones individuales, con lo que se pueden considerar los distintos puntos de vista.</p>
-    tool_tip_collapsed: Priorizar opciones
+    tool_tip_collapsed: Priorizar entre multiples opciones
     start_header: Crear voto de puntos
     edit_header: Editar voto de puntos
     tip: 'Asignar recursos colectivamente '
@@ -1276,12 +1299,8 @@ es:
   poll_meeting_form:
     tool_tip_expanded: |
         <p>Usa una coordinación de horario para saber cuándo hay disponibilidad de la gente para reunirse.</p>
-        <p>Ingresa un listado de fechas u horas en que podrías hacer la reunión.</p>
-        <p>Los participantes marcan aquellas en que pueden asistir o pueden indicar sus circunstancias en el cuadro para que puedas actualizar las alternativas de ser necesario.</p>
-        <p>Si agregas nuevos horarios durante la coordinación de horario, se le pedirá a la gente que ya ha votado que actualice su respuesta.</p>
-        <p>Así puedes saber cuándo está disponible cada uno y decidir el momento de la reunión.</p>
-        <p>Las horas se convierten automáticamente a la zona horaria del participante.</p>
-    tool_tip_collapsed: Encuentra un tiempo para reunirse
+        <p>Ingresa un listado de fechas u horas en que podrías hacer la reunión. Los participantes marcan aquellas en que pueden asistir o pueden indicar sus circunstancias en el cuadro para que puedas actualizar las alternativas de ser necesario.</p>
+    tool_tip_collapsed: Agenda una reunión con el grupo
     start_header: Iniciar coordinación horaria
     edit_header: Editar coordinación horaria
     tip: 'Averigua cuando la gente está disponible para reunirse '
@@ -1296,9 +1315,6 @@ es:
   poll_ranked_choice_form:
     tool_tip_expanded: |
         <p>La opción priorizada es un método de votación que permite a cada persona responder con un orden de preferencia.</p>
-        <p>Es preferente cuando el 'robo de votos' es una preocupación (ej. dos opciones bastante populares son tan similares
-        que los votos terminan siendo compartidos entre ambas), y pueden ser usadas para implementar un Condorcet o  una sistema de elección de segunda vuelta instantáneas (Instant Runoff Voting).
-        </p>
     tool_tip_collapsed: 'Prioriza las opciones en orden '
     start_header: 'Inicia una opción priorizada '
     edit_header: 'Editar opción priorizada '
@@ -1387,8 +1403,8 @@ es:
     new_comment: "<strong><a href='u/{{username}}'>{{author}}</a></strong>"
     outcome_created: "<strong><a href='u/{{username}}'>{{author}}</a></strong> compartió un resultado para <strong>{{title}}</strong>"
     poll_closed_by_user: "<strong><a href='u/{{username}}'>{{author}}</a></strong> ha cerrado el {{polltype}}: <strong>{{title}}</strong>"
-    poll_created: "<strong><a href='u/{{username}}'>{{author}}</a></strong> inició un {{polltype}}: <strong>{{title}}</strong>"
-    poll_edited: "<strong><a href='u/{{username}}'>{{author}}</a></strong> editó el {{polltype}}: <strong>{{title}}</strong>"
+    poll_created: "<strong><a href='u/{{username}}'>{{author}}</a></strong> inició una {{polltype}}: <strong>{{title}}</strong>"
+    poll_edited: "<strong><a href='u/{{username}}'>{{author}}</a></strong> editó la {{polltype}}: <strong>{{title}}</strong>"
     poll_expired: "{{polltype}} ha cerrado: <strong>{{title}}</strong>"
     stance_created: "<strong><a href='u/{{username}}'>{{author}}</a></strong> votó en: <strong> {{title}}</strong>"
     event_removed: "Eliminado del tema"
@@ -1459,7 +1475,7 @@ es:
     filter_placeholder: (todas las encuestas)
     groups_placeholder: (todos los grupos)
   auth_form:
-    sign_in_to_loomio: Entrar a la Asamblea
+    sign_in_to_loomio: Valida tu identidad
     sign_in: Entrar
     sign_in_as: Ingresa como {{name}}
     choose_an_account: "Ingresa con tu correo a la Asamblea Digital de Revolución Democrática"
@@ -1482,7 +1498,7 @@ es:
     account_inactive: ¡Vaya! parece que la cuenta {{email}} está desactivada. Póngase en contacto con nosotros para reactivarla.
     welcome: !Bienvenido 
     welcome_back: Bienvenido nuevamente, {{name}}!
-    login_link: Ingresa a la Asamblea
+    login_link: Recuperar Contraseña
     set_password: Configura la contraseña
     set_password_helptext: '¿Cansado de entrar con tu email? '
     set_password_link: Configura una contraseña
