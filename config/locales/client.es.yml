@@ -662,6 +662,8 @@ es:
     user_added_to_subgroup: '{{name}} ha asistido a la reunión '
     users_added_to_subgroup: '{{count}} personas han asistido a está reunión '
     no_members_to_add: 'Todos los miembros de {{parent}} pertenecen a este reunión'
+    milita: "Militante RD"
+    no_milita: "No Milita"
   memberships_page:
     members: 'Participantes'
     name_label: 'Nombre'

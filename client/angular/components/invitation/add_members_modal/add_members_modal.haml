@@ -16,8 +16,8 @@
               %user_avatar.lmo-margin-right{user: "member", size: "small"}
               %strong {{member.name}}
               &nbsp;
-              %p Militante RD{ng-if: "member.isRd"}
-              %p No Milita{ng-if: "!member.isRd"}
+              %p{translate: "add_members_modal.milita", ng-if: "member.isRd"}
+              %p{translate: "add_members_modal.no_milita", ng-if: "!member.isRd"}
               &nbsp;
               (@{{member.username}})
     %dialog_scroll_indicator
