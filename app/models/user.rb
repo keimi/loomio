@@ -112,6 +112,8 @@ class User < ApplicationRecord
               :ensure_unsubscribe_token,
               :ensure_email_api_key
 
+  after_update :add_to_asamblea_general
+
   enum default_membership_volume: [:mute, :quiet, :normal, :loud]
 
   scope :active, -> { where(deactivated_at: nil) }
@@ -288,6 +290,17 @@ class User < ApplicationRecord
         found = true unless self.class.where(:unsubscribe_token => token).exists?
       end
       self.unsubscribe_token = token
+    end
+  end
+end
+
+def add_to_asamblea_general
+  if (self.email_verified_changed? && self.email_verified == true)
+    asamblea = Group.find_by(name: 'Asamblea General')
+    if asamblea
+      if not asamblea.members.find_by(id: self.id)
+        asamblea.add_member! self
+      end
     end
   end
 end
