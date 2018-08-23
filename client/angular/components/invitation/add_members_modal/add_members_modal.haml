@@ -16,8 +16,8 @@
               %user_avatar.lmo-margin-right{user: "member", size: "small"}
               %strong {{member.name}}
               &nbsp;
-              %p{translate: "add_members_modal.milita", ng-if: "member.isRd"}
-              %p{translate: "add_members_modal.no_milita", ng-if: "!member.isRd"}
+              %i.mdi.mdi-star{ng-if: "member.isRd", style: "color: rgb(18, 129, 61)"} %span{translate: "add_members_modal.milita"}
+              %i.mdi.mdi-alert{ng-if: "!member.isRd", style: "color: red"} %span{translate: "add_members_modal.no_milita"}
               &nbsp;
               (@{{member.username}})
     %dialog_scroll_indicator

@@ -6,7 +6,7 @@
     .thread-item__body.lmo-flex.lmo-flex__horizontal-center{layout: "column"}
       .thread-item__headline.lmo-flex.lmo-flex--row.lmo-flex__center.lmo-flex__grow.lmo-flex__space-between
         %h3.thread-item__title{id: "event-{{event.id}}"}
-          %i.mdi.mdi-star{ng-if: "event.actorIsRD()", style: "color: rgb(251,140,0)"}
+          %i.mdi.mdi-star{ng-if: "event.actorIsRD()", style: "color: rgb(18, 129, 61)"}
           %i.mdi.mdi-alert{ng-if: "!event.actorIsRD()", style: "color: red"}
           %div{ng-if: "debug()"}
             id: {{event.id}}
