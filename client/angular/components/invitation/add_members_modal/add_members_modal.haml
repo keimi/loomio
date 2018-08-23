@@ -18,8 +18,6 @@
               &nbsp;
               %i.mdi.mdi-star{ng-if: "member.isRd", style: "color: rgb(18, 129, 61)"} %span{translate: "add_members_modal.milita"}
               %i.mdi.mdi-alert{ng-if: "!member.isRd", style: "color: red"} %span{translate: "add_members_modal.no_milita"}
-              &nbsp;
-              (@{{member.username}})
     %dialog_scroll_indicator
   %md-dialog-actions.lmo-md-actions
     %md-button{type: "button", ng-click: "reopenInvitationsForm()", translate: "common.action.show_more"}

@@ -37,6 +37,11 @@ h3.lmo-h3.poll-meeting-vote-form--box,
 .group-form__privacy-statement.lmo-hint-text
  {display: none!important;}
 
+//Elimina a RD
+[data-username="revoluciondemocratica"],
+[href="/u/revoluciondemocratica"],
+[title="Revolución Democrática"]
+{display: none!important;}
 
 // Header
 .lmo-navbar .md-toolbar-tools {background-color: #12813D!important;color: white!important;}
@@ -48,7 +53,7 @@ h3.lmo-h3.poll-meeting-vote-form--box,
 .poll-common-vote-form__button {border: none!important;}
 .group-theme__logo {margin-top: -100px!important;filter: invert(100%) grayscale(1) brightness(2)!important;background-color: transparent!important;border: none!important;}
 .group-theme__name a, .explore-page h1.lmo-h1-medium{font-weight: 800; line-height:1.25em;font-size: calc(1vw + 30px)}
-.group-theme__name {margin: -50px 10px 2vw 123px;}
+.group-theme__name {margin: -70px 0 0 120px!important;}
 button.group-privacy-button.md-button, .group-theme__name a, .group-page-actions {color:white!important;text-transform: uppercase;}
 .parent-group{font-size: 80%!important;display:block;}
 .subgroups-card__list-item {margin-bottom: 0;}
@@ -95,5 +100,11 @@ i[ng-if="isNotRD()"] {color: orange;margin-left: .4em;}
 
 .subgroups-card__list-item-name {
   margin-left: 20px!important;
+}
+
+//Pasar lista
+md-list-item .md-list-item-inner>md-checkbox {
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
