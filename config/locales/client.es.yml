@@ -1494,7 +1494,7 @@ es:
         Haz clic en el botón debajo y te enviaremos un enlace para ingresar instantáneamente.
         Si deseas usar una contraseña para ingresar en el futuro, puedes ingresar una en tu página de perfil.
     login_link_helptext_with_password: "Introduce tu contraseña, o entra a través de un correo electrónico."
-    sign_up_helptext: Para ingresar valida tu identidad con el <b>Número de Documento</b> de tu carnet.</br></br>
+    sign_up_helptext: Crea un usuario validando tu identidad<br><small><a href="https://asamblea.revoluciondemocratica.cl/theme/terminos.html" target="_blank">Al ingresar estás aceptando los Términos y Condiciones.</a></small><br></p>
     oauth_confirm_helptext: "Simplemente confirma tus detalles de abajo, y te enviaremos un enlace para entrar."
     name_required: Falta algún parámetro obligatorio
     account_inactive: ¡Vaya! parece que la cuenta {{email}} está desactivada. Póngase en contacto con nosotros para reactivarla.
