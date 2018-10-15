@@ -1494,7 +1494,7 @@ es:
         Haz clic en el botón debajo y te enviaremos un enlace para ingresar instantáneamente.
         Si deseas usar una contraseña para ingresar en el futuro, puedes ingresar una en tu página de perfil.
     login_link_helptext_with_password: "Introduce tu contraseña, o entra a través de un correo electrónico."
-    sign_up_helptext: Crea un usuario validando tu identidad<br><small><a href="https://asamblea.revoluciondemocratica.cl/theme/terminos.html" target="_blank">Al ingresar estás aceptando los Términos y Condiciones.</a></small><br></p>
+    sign_up_helptext: Crea un usuario validando tu identidad.
     oauth_confirm_helptext: "Simplemente confirma tus detalles de abajo, y te enviaremos un enlace para entrar."
     name_required: Falta algún parámetro obligatorio
     account_inactive: ¡Vaya! parece que la cuenta {{email}} está desactivada. Póngase en contacto con nosotros para reactivarla.
@@ -1520,7 +1520,7 @@ es:
     rut: Rut
     code: Número de Documento
     codehint: <a href='https://revoluciondemocratica.cl/wp-content/uploads/2018/08/ci_ejemplo.jpg' target="_blank">¿Donde encuentro mi N° Documento?</a>
-    privacy: Acepto los  terminos de servicio
+    privacy: Acepto los <a href='https://asamblea.revoluciondemocratica.cl/theme/terminos.html' target="_blank"> terminos de servicio </a>
   install_slack:
     modal_title: Installar Slack
     modal_helptext: 'Primero, deberás ingresar en Slack. Te enviaremos ahí automáticamente en un segundo, o puedes hacer clic en el siguiente botón para continuar. '

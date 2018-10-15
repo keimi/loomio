@@ -1665,7 +1665,7 @@ en:
       Click the button below and we'll send you a link to sign in instantly.
       If you'd like to use a password to log in in the future, you can set one from your profile page.
     login_link_helptext_with_password: "Enter your password, or sign in via email."
-    sign_up_helptext: "Just enter the name you'd like to be known by, and we'll send you a link to log in."
+    sign_up_helptext: Crea un usuario validando tu identidad
     sign_up_helptext_with_token: "Just enter the name you'd like to be known by, and click Sign In to get started."
     oauth_confirm_helptext: "Just confirm your details below, and we'll send you a link to log in."
     name_required: Falta algún parámetro obligatorio
@@ -1698,7 +1698,7 @@ en:
     password: Password
     rut: Rut
     code: Código
-    privacy: Acepto los <a href='https://revoluciondemocratica.cl' target="_blank"> terminos de servicio </a>
+    privacy: Acepto los <a href='https://asamblea.revoluciondemocratica.cl/theme/terminos.html' target="_blank"> terminos de servicio </a>
 
   install_slack:
     modal_title: Install Slack
