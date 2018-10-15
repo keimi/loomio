@@ -21,7 +21,11 @@ class ApplicationController < ActionController::Base
   # this boots the angular app
   def index
     initial_payload
-    render 'application/index', layout: false
+    if not current_user.is_logged_in? and not request.original_fullpath.start_with? "/dashboard"
+      redirect_to dashboard_path
+    else
+      render 'application/index', layout: false
+    end
   end
 
   def ok
