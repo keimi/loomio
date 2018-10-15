@@ -28,6 +28,7 @@ angular.module('loomioApp').directive 'authIdentityForm', ->
           (err, r, body) ->
             if body.status == 'fail'
               $scope.user.isRd = false
+              $scope.user.errors = name: ['verificación fallida']
               hardReload()
             else
               AuthService.confirmOauth().then ->
@@ -38,6 +39,9 @@ angular.module('loomioApp').directive 'authIdentityForm', ->
                   hardReload()
               , ->
                 EventBus.emit $scope, 'doneProcessing'
+      else
+        $scope.user.errors =
+          name: [I18n.t('auth_form.name_required')]
 
     $scope.submit = ->
       EventBus.emit $scope, 'processing'
