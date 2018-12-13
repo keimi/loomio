@@ -663,7 +663,7 @@ es:
     users_added_to_subgroup: '{{count}} personas han asistido a está reunión '
     no_members_to_add: 'Todos los miembros de {{parent}} pertenecen a este reunión'
     milita: "Militante RD"
-    no_milita: "No Milita"
+    no_milita: "Militancia pendiente"
   memberships_page:
     members: 'Participantes'
     name_label: 'Nombre'
