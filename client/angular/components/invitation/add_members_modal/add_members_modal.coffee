@@ -4,6 +4,7 @@ FlashService   = require 'shared/services/flash_service.coffee'
 ModalService   = require 'shared/services/modal_service.coffee'
 
 { applyLoadingFunction } = require 'shared/helpers/apply.coffee'
+{ hardReload }    = require 'shared/helpers/window.coffee'
 
 angular.module('loomioApp').factory 'AddMembersModal', ->
   templateUrl: 'generated/components/invitation/add_members_modal/add_members_modal.html'
@@ -43,11 +44,16 @@ angular.module('loomioApp').factory 'AddMembersModal', ->
         groupId: $scope.group.id,
         userIds: $scope.selectedIds
       .then (data) ->
+        console.log("people added")
         if data.memberships.length == 1
           user = Records.users.find(_.first($scope.selectedIds))
+          console.log("people added1")
           FlashService.success('add_members_modal.user_added_to_subgroup', name: user.name)
         else
+          console.log("people added2")
           FlashService.success('add_members_modal.users_added_to_subgroup', count: data.memberships.length)
+        hardReload()
+        $scope.isDisabled = false
         $scope.$close()
       .finally ->
         $scope.isDisabled = false
