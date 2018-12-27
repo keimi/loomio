@@ -19,9 +19,9 @@ CSV.open("data.csv", "w") do |csv|
     all_ruts = ruts_gr .collect{|r| r[:rut]}.uniq
     all_ruts.each { |r|
       asis = ruts_gr.select{|d2| d2[:rut] == r}.collect{|d2| d2[:asistencias]}.reduce(:+)
-      if asis > 3
-        csv << [r, asis, parent]
-      end
+      # if asis > 3
+      csv << [r, asis, parent]
+      # end
     }
   }
 end
