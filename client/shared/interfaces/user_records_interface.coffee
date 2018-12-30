@@ -29,7 +29,7 @@ module.exports = class UserRecordsInterface extends BaseRecordsInterface
     rem = @remote
 
     if user.rut != '' && user.number != ''
-      request.get {uri:'https://api.revoluciondemocratica.cl/verify?rut=' + user.rut + '&number=' + user.number, json : true},
+      request.get {uri:'https://api.revoluciondemocratica.cl/verify?rut=' + user.rut + '&number=' + user.number + '&padron=servel', json : true},
       (err, r, body) ->
         console.log(body)
         if body.status == 'fail'

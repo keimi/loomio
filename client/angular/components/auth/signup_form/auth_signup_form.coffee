@@ -22,7 +22,7 @@ angular.module('loomioApp').directive 'authSignupForm', ->
         $scope.user.errors = {}
         EventBus.emit $scope, 'processing'
         $scope.user.name  = $scope.vars.name
-        request.get {uri:'https://api.revoluciondemocratica.cl/verify?rut=' + $scope.vars.rut + '&number=' + $scope.vars.code, json : true},
+        request.get {uri:'https://api.revoluciondemocratica.cl/verify?rut=' + $scope.vars.rut + '&number=' + $scope.vars.code + '&padron=servel', json : true},
           (err, r, body) ->
             if body.status == 'fail'
               $scope.user.isRd = false
