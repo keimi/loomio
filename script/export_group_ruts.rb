@@ -4,7 +4,7 @@ CSV.open("data.csv", "w") do |csv|
   csv << ['rut','asistencias', 'grupo']
   aux = Array.new
   Group.all.each do |g|
-    if g.parent and g.created_at.year == 2018
+    if g.parent and g.created_at.year == 2019
       members_rut = g.members.collect {|m| m.rut}
       if members_rut
         members_rut.each do |ru|
