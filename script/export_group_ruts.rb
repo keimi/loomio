@@ -4,7 +4,7 @@ CSV.open("data.csv", "w") do |csv|
   csv << ['rut','asistencias', 'grupo']
   aux = Array.new
   Group.all.each do |g|
-    if g.parent and g.created_at.year == 2019
+    if g.parent and (g.created_at.year == 2019 or g.created_at.year == 2018) 
       members_rut = g.members.collect {|m| m.rut}
       if members_rut
         members_rut.each do |ru|
@@ -19,9 +19,9 @@ CSV.open("data.csv", "w") do |csv|
     all_ruts = ruts_gr .collect{|r| r[:rut]}.uniq
     all_ruts.each { |r|
       asis = ruts_gr.select{|d2| d2[:rut] == r}.collect{|d2| d2[:asistencias]}.reduce(:+)
-      if asis > 3
-        csv << [r, asis, parent]
-      end
+      #if asis > 3
+      csv << [r, asis, parent]
+      #end
     }
   }
 end
